@@ -77,5 +77,7 @@
 # B. Prototypes de l'application
 
 - Prototype
-    Placer l'image ici.
+
+    ![](prototype/interface.jpg "Prototype")
+
 - Principaux objets
