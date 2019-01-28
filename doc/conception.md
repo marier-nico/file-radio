@@ -27,7 +27,7 @@
         - Lecture de fichiers
         - Conversion digital to analog et analog to digital
         - Interprétation du flux binaire reçu pour reconstruire l'informaiton
-    - Nouveau concepts
+    - Nouveaux concepts
 
         Tout ce qui a trait aux ondes est nouveau pour nous étant donné que nous sommes en train de compléter le cours d'ondes et physique moderne.
         Malgré le fait que nous avons fait des circuits dans le cours de physique précédent, ils étaient théoriques.
