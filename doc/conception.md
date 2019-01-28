@@ -78,6 +78,21 @@
 
 - Prototype
 
+    Nous aimerions que notre interface ait un thème de cockpit d'avion.
+    Donc, les couleurs choisies ainsi que la police de caractère que nous sélectionnerons reflèteront cette esthétique.
+
     ![](prototype/interface.jpg "Prototype")
 
 - Principaux objets
+    - Visualisation des ondes envoyées
+    - Valeurs pour les différents paramètres : 
+        - Courant dans le circuit
+        - Tension sur le circuit
+        - Fréquence sue laquelle on émet
+        - Amplitude des ondes
+        - Vitesse d'envoi (B/sec ou KB/sec)
+    - La liste des fichiers envoyés
+    - Des boutons pour choisir un fichier et l'envoyer
+    - Un contrôle pour modifier la fréquence
+    - Des visualisations pour la fréquence et la tension relative (pour savoir si on s'approche du maximum permis)
+    - Potentiellement à ajouter serait un indicateur de puissance utilisée par le circuit
