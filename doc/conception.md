@@ -71,7 +71,8 @@
     - IDE: Eclipse, IntelliJ, SceneBuilder, PlantUML
     - Hardware : un ordinateur et un raspberry pi, des composantes élctroniques (résistances, condensateurs, fils)
 
-- Références et documentation : TODO
+- Références et documentation
+    - [How stuff works](https://electronics.howstuffworks.com/radio.htm)
 
 # B. Prototypes de l'application
 
