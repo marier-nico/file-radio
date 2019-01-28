@@ -30,7 +30,7 @@
     - Nouveau concepts
 
         Tout ce qui a trait aux ondes est nouveau pour nous étant donné que nous sommes en train de compléter le cours d'ondes et physique moderne.
-        Malgré le fait que nou avons fait des circuits dans le cours de physique précédent, ils étaient théoriques.
+        Malgré le fait que nous avons fait des circuits dans le cours de physique précédent, ils étaient théoriques.
         Nous n'avons que très rarement assemblé des circuits, et nous ne les avons jamais élaborés nous-mêmes.
         La conversion digital to analog nécessaire à l'envoi d'ondes est quelque chose que nous n'avons jamais fait.
         Aussi, nous n'avons jamais transmis d'ondes entre deux circuits.
@@ -42,6 +42,8 @@
         Il est difficile d'évaluer correctement la complexité du projet étant donné notre inexpérience dans les nouveaux concepts.
         Cependant, nous pouvons dire avec certitude que la tâche ne sera pas si facile, car la contrainte de temps est concidérable.
         De plus, les nombreuses tâches du projet vont nécessiter une attention particulière, étant donné que le succès de chaque étape est obligatoire pour l'élaboration de l'étape suivante.
+        Nous sommes convaincus de la possibilité de réaliser le projet, car il est possible de retirer certains facteurs de complexité s'il s'avère que notre entreprise était initialement trop ambitieuse. 
+        Notre professeur de physique nous a confirmé qu'il allait pouvoir nous aider en cas de besoin, et qu'il est certain que la réalisation du projet est possible. 
 
 - Concepteurs, rôles et justifications
     - Nicolas Marier, chef et développeur
