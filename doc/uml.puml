@@ -1,29 +1,88 @@
 @startuml
-class Foo1 {
-  You can use
-  several lines
-  ..
-  as you want
-  and group
-  ==
-  things together.
-  __
-  You can have as many groups
-  as you want
-  --
-  End of class
+package "controleurs" {
+    class ControleurEnvoi {
+        - {static} void envoyer(Byte[] bytes)
+    }
+
+    class Application {
+        + void start(Stage stagePrincipal)
+        + {static} void main
+    }
+
+    note top of ControleurVueEmetteur : Le corps de cette classe reste à déterminer
+    class ControleurVueEmetteur {
+        + void ControleurVueEmetteur()
+    }
+
+    note top of ControleurVueRecepteur : Le corps de cette classe reste à déterminer
+    class ControleurVueRecepteur {
+        + void ControleurVueRecepteur()
+    }
+
+    note top of ControleurVueMenu : Le corps de cette classe reste à déterminer
+    class ControleurVueMenu {
+        + void ControleurVueMenu()
+    }
+
+    note top of ControleurReception : Le corps de cette classe reste à déterminer
+    class ControleurReception{
+        + void ControleurReception()
+    }
 }
 
-class User {
-  .. Simple Getter ..
-  + getName()
-  + getAddress()
-  .. Some setter ..
-  + setName()
-  __ private data __
-  int age
-  -- encrypted --
-  String password
+package "modeles.emetteur" {
+    class RepresentationBinaire {
+        - {field} octets : List<OctetBinaire>
+        + void RepresentationBinaire(Byte[] bytes)
+        - OctetBinaire byteEnBinaire(byte b)
+    }
+
+    class OctetBinaire {
+        - {field} bits : Byte[]
+        + void OctetBinaire(byte b)
+        + {static} OctetBinaireFactory(byte b}
+    }
+
+    class GenerateurSon {
+        {field} octets : List<OctetBinaire>
+        {field} notes : List<Note>
+        + void GenerateurSon(List<OctetBinaire> octets)
+        - Note genererNote(byte b)
+        - void genererNotes()
+    }
+
+    class Note {
+        - {field} numeroNote : int
+        - {field} velocite : int
+        + void Note(int numeroNote, int velocite)
+    }
+
+    class LecteurSon {
+        + void LecteurSon(List<Note>)
+        + void jouerSon(Note note)
+        + void jouerSons()
+    }
 }
 
+package "modeles.receveur" {
+
+}
+
+package "passerelle" {
+    class PasserelleFichier{
+        + void PasserelleFichier()
+        + {static} byte[] lireOctets(File fichier)
+        + {static} File obtenirFichier(String chemin)
+    }
+}
+
+Application --> ControleurEnvoi
+ControleurEnvoi --> PasserelleFichier
+ControleurEnvoi --> RepresentationBinaire
+ControleurEnvoi --> GenerateurSon
+ControleurEnvoi --> LecteurSon
+LecteurSon --> Note
+GenerateurSon --> Note
+GenerateurSon --> OctetBinaire
+RepresentationBinaire --> OctetBinaire
 @enduml
