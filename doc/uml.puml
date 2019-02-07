@@ -32,28 +32,31 @@ package "controleurs" {
 
 package "modeles.emetteur" {
     class RepresentationBinaire {
-        - {field} octets : List<OctetBinaire>
-        + void RepresentationBinaire(Byte[] bytes)
+        - octets : List<OctetBinaire>
+        + void RepresentationBinaire(byte[] bytes)
+        + void RepresentationBinaire(OctetBinaire[] bytes)
+        + byte representationByte()
         - OctetBinaire byteEnBinaire(byte b)
     }
 
     class OctetBinaire {
-        - {field} bits : Byte[]
+        - bits : byte[]
         + void OctetBinaire(byte b)
         + {static} OctetBinaireFactory(byte b}
+        + {static} OctetBinaireFactory(Signal[] signaux)
     }
 
     class GenerateurSon {
-        {field} octets : List<OctetBinaire>
-        {field} notes : List<Note>
+        + octets : List<OctetBinaire>
+        + notes : List<Note>
         + void GenerateurSon(List<OctetBinaire> octets)
         - Note genererNote(byte b)
         - void genererNotes()
     }
 
     class Note {
-        - {field} numeroNote : int
-        - {field} velocite : int
+        - numeroNote : int
+        - velocite : int
         + void Note(int numeroNote, int velocite)
     }
 
@@ -65,13 +68,31 @@ package "modeles.emetteur" {
 }
 
 package "modeles.receveur" {
+    class EcouteurSignaux{
+        - enEcoute : boolean
+        + void EcouteurSignaux()
+        + void ecouter()
+        + void arreterEcouter()
+    }
 
+    class Signal{
+        - valeur : ValeurSignal
+        + void Signal(ValeurSignal signal)
+        + byte obtenirValeurBit()
+    }
+
+    enum ValeurSignal{
+        HAUT
+        BAS
+    }
 }
 
 package "passerelle" {
     class PasserelleFichier{
         + void PasserelleFichier()
         + {static} byte[] lireOctets(File fichier)
+        + {static} void ecrireOctets(byte[] octets)
+        + {static} void ecrireOctets(RepresentationBinaire binaire)
         + {static} File obtenirFichier(String chemin)
     }
 }
@@ -85,4 +106,10 @@ LecteurSon --> Note
 GenerateurSon --> Note
 GenerateurSon --> OctetBinaire
 RepresentationBinaire --> OctetBinaire
+
+ControleurReception --> PasserelleFichier
+ControleurReception --> EcouteurSignaux
+EcouteurSignaux --> OctetBinaire
+EcouteurSignaux --> Signal
+Signal --> ValeurSignal
 @enduml
