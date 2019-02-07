@@ -1,0 +1,1 @@
+[How stuff works](https://electronics.howstuffworks.com/radio.htm)

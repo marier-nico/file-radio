@@ -1,0 +1,338 @@
+\begin{longtable}{|l|p{0.8\textwidth}|}
+\multicolumn{2}{r}{Suite à la page suivante} \\
+\endfoot
+
+\multicolumn{2}{r}{} \\
+\endlastfoot
+
+\hline
+    \rowcolor{Gray}
+    \multicolumn{2}{|l|}{1} \\
+\hline
+    Acteur ou rôle & Utilisateur \\
+\hline
+    Scénario ou story & En tant qu'utilisateur, 
+      je veux pouvoir sélectionner un fichier
+      afin de pouvoir l'envoyer. \\
+\hline
+    Détail et description &
+        \begin{enumerate}[label*=\arabic*.]
+            \item Permettre à l’utilisateur d’accéder à sa bibliothèque de fichiers.
+            \begin{enumerate}[label*=\arabic*.]
+                    \item Qui et temps :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item (NM)
+                        \item (30 minutes)
+                    \end{enumerate}
+                    \item Préconditions : 
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item La présence d'un bouton qui permet à l'utilisateur de procéder à l'action de sélectionner un fichier.
+                    \end{enumerate}
+                    \item Règles d’affaires :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item Doit sélectionner un fichier existant dans l'espace de donné de l'ordinateur utilisé.
+                    \end{enumerate}
+                    \item Règles d’affaires alternatives :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item S'il ne sélectionne pas un fichier existant ou que le fichier sélectionné n'existe plus une fois sélectionné, une alerte est envoyé à l'utilisateur afin qu'il en sélectionne un nouveau.
+                    \end{enumerate}
+                    \item Tests d'acceptation de cet item :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item Tester si le fichier sélectionné est existant dans la base de donnée de l'ordinateur et accessible par le logiciel.
+                        \item Vérifier que le contenu du fichier est lisible par le logiciel.
+                    \end{enumerate}
+                    \item Post-conditions :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item L'utilisateur peut sélectionner le fichier qu'il souhaite émettre.
+                    \end{enumerate}
+                \end{enumerate}
+            \item Présenter à l’utilisateur les informations du fichier qu’il s’apprête à envoyer.
+                \begin{enumerate}[label*=\arabic*.]
+                    \item Qui et temps :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item (NM)
+                        \item (30 minutes)
+                    \end{enumerate}
+                    \item Préconditions : 
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item Le fichier doit être sélectionné.
+                    \end{enumerate}
+                    \item Règles d’affaires :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item Doit pouvoir envoyer l'information à la vue du nom du fichier.
+                    \end{enumerate}
+                    \item Règles d’affaires alternatives :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item Si le nom comportes des caractères non interprétables par l'ordinateur, ce dernier ne les affichera pas.
+                    \end{enumerate}
+                    \item Tests d'acceptation de cet item :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item vérifier chacun des caractère du nom d'un fichier afin de pouvoir afficher tous ceux possibles.
+                    \end{enumerate}
+                    \item Post-conditions :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item L'utilisateur peut voir le nom de son fichier.
+                    \end{enumerate}
+                \end{enumerate}
+        \end{enumerate} \\
+\hline
+    Tests d'acceptation & Sélectionner un fichier et vérifier qu'il s'affiche correctement. \\
+\hline
+    Complexité & 1 \\
+\hline
+    Effort & 1 \\
+\hline
+    Commentaires &  \\
+
+\hline
+    \rowcolor{Gray}
+    \multicolumn{2}{|l|}{2} \\
+\hline
+    Acteur ou rôle & Utilisateur \\
+\hline
+    Scénario ou story & En tant qu’utilisateur, je
+    dois posséder une interface
+    visuelle pour l’émission des
+    fichiers. \\
+\hline
+    Détail et description &
+        \begin{enumerate}[label*=\arabic*.]
+            \item Construire une interface avec
+                la disposition souhaitée et les
+                fonctions de bases permettant
+                d’envoyer un fichier.
+                \begin{enumerate}[label*=\arabic*.]
+                                \item Qui et temps :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item (CAD)
+                                    \item (2h)
+                                \end{enumerate}
+                                \item Préconditions :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item Avoir préparer un croquis de l'interface.
+                                    \item Avoir le logiciel Scene Builder pour la conception de l'interface.
+                                \end{enumerate}
+                                \item Règles d'affaires :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item Afficher l'interface de l'émetteur.
+                                \end{enumerate}
+                                \item Règles d'affaires alternatives :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item Il n'y a pas d'alternative, car sans interface, l'utilisateur ne peut rien faire.
+                                \end{enumerate}
+                                \item Tests d'acceptation de cet item :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item Les tests seront au niveau visuel. S'il y a un problème d'affichage, on pourra le voir.
+                                \end{enumerate}
+                                \item Post-conditions :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item L'interface devra pouvoir afficher les éléments suivant : Boutons pour la sélections, envoies de fichier.
+                                \end{enumerate}
+                            \end{enumerate}
+             \item Ajouter à l’interface de la couleur et du style.
+                \begin{enumerate}[label*=\arabic*.]
+                                \item Qui et temps :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item (CAD)
+                                    \item (1h)
+                                \end{enumerate}
+                                \item Préconditions :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item Avoir terminé le fxml.
+                                \end{enumerate}
+                                \item Règles d'affaires :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item Styliser l'interface en css.
+                                \end{enumerate}
+                                \item Règles d'affaires alternatives :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item Il n'y a pas d'alternative.
+                                \end{enumerate}
+                                \item Tests d'acceptation de cet item :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item Les tests seront au niveau visuel. S'il y a un problème d'affichage, on pourra le voir.
+                                \end{enumerate}
+                                \item Post-conditions :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item L'interface devra être en noir, vert et blanc comme une vue de console.
+                                \end{enumerate}
+                            \end{enumerate}                
+        \end{enumerate} \\
+\hline
+    Tests d'acceptation & Les tests seront au niveau visuel. S'il y a un problème d'affichage, on pourra le voir. \\
+\hline
+    Complexité & 1 \\
+\hline
+    Effort & 1 \\
+\hline
+    Commentaires &  \\
+
+\hline
+    \rowcolor{Gray}
+    \multicolumn{2}{|l|}{3} \\
+\hline
+    Acteur ou rôle & Utilisateur \\
+\hline
+    Scénario ou story & En tant qu’utilisateur, je veux posséder un circuit
+    émetteur afin de pouvoir envoyer les ondes radio contenant l’information
+    du fichier sélectionné. \\
+\hline
+    Détail et description &
+        \begin{enumerate}[label*=\arabic*.]
+        \item Faire les plans du circuit à produire.
+            \begin{enumerate}[label*=\arabic*.]
+                    \item Qui et temps :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item (TG-H) et (GR)
+                        \item (1h)
+                    \end{enumerate}
+                    \item Règles d’affaires :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item Doit être un circuit permettant au courant de circuler et de se rendre à l'antenne.
+                        \item le circuit doit pouvoir être alimenté par une prise d'écouteurs d'ordinateur.
+                        \item Doit comprendre des composantes permettant d'amplifier le courant transmis par la source d'énergie.
+                    \end{enumerate}
+                    \item Tests d'acceptation de cet item :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item Valider ce dernier en consultant des sources montrant le fonctionnement d'émetteurs radio. 
+                    \end{enumerate}
+                    \item Post-conditions :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item Nous allons avoir un plan de conception et pourrons procéder à la prochaine étape.
+                    \end{enumerate}
+                \end{enumerate}
+            \item Accumuler le matériel nécessaire à la conception du circuit électrique.
+            \begin{enumerate}[label*=\arabic*.]
+                    \item Qui et temps :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item (TG-H) et (GR)
+                        \item (30 minutes)
+                    \end{enumerate}
+                    \item Préconditions :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item Avoir un schéma de construction fini et la liste du matériel.
+                    \end{enumerate}
+                    \item Règles d’affaires :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item doit respecter le matériel déterminé dans le schéma de construction.
+                        %Yeet moi ca la le dessin thomas chou <3
+                    \end{enumerate}
+                    \item Tests d'acceptation de cet item :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item Vérifier si nous possédons bien chaque pièce nécéssaire à la complétion de l'émetteur.
+                    \end{enumerate}
+                    \item Post-conditions :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item Nous allon pouvoir procéder au montage du circuit émetteur.
+                    \end{enumerate}
+                \end{enumerate}
+            \item Procéder à la conception du circuit de l’émetteur.
+                \begin{enumerate}[label*=\arabic*.]
+                    \item Qui et temps :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item (TG-H) et (GR)
+                        \item (4h)
+                    \end{enumerate}
+                    \item Préconditions : 
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item Avoir les pièces nécessaires à la conception en main.
+                        \item Avoir le plan de conception achevé et vérifié.
+                    \end{enumerate}
+                    \item Règles d’affaires :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item Suivre le schéma de conception et construire le circuit.
+                    \end{enumerate}
+                    \item Tests d'acceptation de cet item :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item Vérifier que le circuit émet bel et bien des onde radio.
+                        \item Vérifier que l'information transmise est exacte.
+                    \end{enumerate}
+                    \item Post-conditions :
+                    \begin{enumerate}[label*=\arabic*.]
+                        \item L'utilisateur peut émettre des ondes radio à partir de son ordinateur.
+                    \end{enumerate}
+                \end{enumerate}
+        \end{enumerate} \\
+\hline
+    Tests d'acceptation & Émettre des ondes et en vérifier l'exactitude et bon fonctionnement. \\
+
+\hline
+    Complexité & 3 \\
+\hline
+    Effort & 6 \\
+\hline
+    Commentaires &  \\
+
+\hline
+    \rowcolor{Gray}
+    \multicolumn{2}{|l|}{4} \\
+\hline
+    Acteur ou rôle & Utilisateur \\
+\hline
+    Scénario ou story & En tant que programmeur, je dois pouvoir convertir l’information contenue dans le fichier sélectionné en code binaire afin que ces dernières soient plus faciles à transporter par ondes radio. \\
+\hline
+    Détail et description &
+        \begin{enumerate}[label*=\arabic*.]
+            \item Construire une interface avec la disposition souhaitée et les fonctions de bases permet- tant de décider l’emplacement d’enregistrement du fichier.
+                \begin{enumerate}[label*=\arabic*.]
+                                \item Qui et temps :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item (NM)
+                                    \item (3h)
+                                \end{enumerate}
+                                \item Préconditions :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item Il faut que la sélection de fichier soit fonctionnelle.
+                                \end{enumerate}
+                                \item Règles d'affaires :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item Lire le fichier et le convertir le fichier en binaire. 
+                                \end{enumerate}
+                                \item Tests d'acceptation de cet item :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item Les tests seront de comparer la conversion en binaire avec un fragment du fichier connu.
+                                \end{enumerate}
+                                \item Post-conditions :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item La conversion devra être complètement fonctionnelle.
+                                \end{enumerate}
+                            \end{enumerate}
+             \item Présenter à l’utilisateur les informations du fichier qu’il s’apprête à envoyer.
+                \begin{enumerate}[label*=\arabic*.]
+                                \item Qui et temps :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item (NM)
+                                    \item (1h)
+                                \end{enumerate}
+                                \item Préconditions :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item Pouvoir sélectionner un fichier.
+                                \end{enumerate}
+                                \item Règles d'affaires :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item Extraction de donnés de type String.
+                                \end{enumerate}
+                                \item Règles d'affaires alternatives :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item Prendra une String avec comme valeur : Nom inconnu.
+                                \end{enumerate}
+                                \item Tests d'acceptation de cet item :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item Les tests seront au niveau visuel, car nous pourrons voir si l'affichage s'effectue.
+                                \end{enumerate}
+                                \item Post-conditions :
+                                \begin{enumerate}[label*=\arabic*.]
+                                    \item L'information du fichier sera présenté à l'écran.
+                                \end{enumerate}
+                            \end{enumerate}                
+        \end{enumerate} \\
+\hline
+    Tests d'acceptation & Les tests seront de comparer la conversion en binaire avec un fragment du fichier connu. \\
+\hline
+    Complexité & 1 \\
+\hline
+    Effort & 2 \\
+\hline
+    Commentaires &  \\
+\hline
+\end{longtable}
