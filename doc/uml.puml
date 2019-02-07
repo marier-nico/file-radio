@@ -1,4 +1,4 @@
-@startuml
+@startuml Silence Radio
 package "controleurs" {
     class ControleurEnvoi {
         - {static} void envoyer(Byte[] bytes)
