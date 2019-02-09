@@ -1,0 +1,60 @@
+%----------------------------------------------------------------------------------------
+%	PACKAGES ET CONFIGURATION DU DOCUMENT
+%----------------------------------------------------------------------------------------
+\documentclass{article}
+
+\usepackage[utf8]{inputenc} % Nécessaire pour les caractères internationaux
+\usepackage[T1]{fontenc} % Encodage de polices pour les caractères internationaux
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage[french]{babel}
+\usepackage{color, colortbl}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{longtable}
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+
+\definecolor{Gray}{gray}{0.6}
+\definecolor{Red}{HTML}{FF0000}
+\definecolor{Green}{HTML}{00FF00}
+\definecolor{Yellow}{HTML}{FFFF00}
+\geometry{bottom=20 mm, top=20 mm}
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+\input{page_titre.tex}
+\tableofcontents
+
+\newpage
+
+\section{Description du projet}
+    \input{sections/description_projet.tex}
+
+\section{Prototypes de l'application}
+    \input{sections/prototypes.tex}
+
+\newpage
+
+\newgeometry{left=15mm, right=15mm, bottom=20mm, top=20mm}
+\section{Backlogs}
+    \subsection{Backlog de produit}
+        \input{backlogs/backlog_produit.tex}
+
+\newpage
+
+    \subsection{Backlog de sprint \#1}
+        \input{backlogs/sprint/sprint_1.tex}
+    \subsection{Backlog de sprint \#2}
+        \input{backlogs/sprint/sprint_2.tex}
+
+\section{Diagramme de classes}
+    \begin{figure}[ht!]
+        \centering
+        \caption{Diagramme de classes}
+        \includegraphics[width=0.8\linewidth]{images/diagramme_classes.pdf}
+    \end{figure}
+
+\section{Échéancier}
+    \input{sections/echeancier.tex}
+
+\end{document}
