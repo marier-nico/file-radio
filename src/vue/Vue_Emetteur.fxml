@@ -14,16 +14,16 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="866.0" style="-fx-background-color: black; -fx-border-color: green; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="866.0" style="-fx-border-color: green; -fx-background-color: black; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <top>
       <StackPane prefHeight="89.0" prefWidth="850.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="200.0" prefWidth="200.0">
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: green;">
                <children>
-                  <Rectangle fill="#2197ff00" height="93.0" layoutX="-0.5" layoutY="-0.5" stroke="#51a146" strokeType="INSIDE" strokeWidth="2.0" width="851.0" />
-                  <Line endX="425.0" layoutX="423.0" layoutY="46.5" startX="-425.0" />
-                  <Line endX="-77.0" layoutX="100.0" layoutY="23.25" startX="-100.0" />
-                  <Line endX="-77.0" layoutX="100.0" layoutY="69.75" startX="-100.0" />
+                  <Rectangle fill="#2197ff00" height="93.0" layoutX="-0.5" layoutY="-0.5" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="2.0" width="851.0" />
+                  <Line endX="433.0" layoutX="423.0" layoutY="46.5" startX="-425.0" stroke="GREEN" />
+                  <Line endX="-77.0" layoutX="100.0" layoutY="23.25" startX="-100.0" stroke="GREEN" />
+                  <Line endX="-77.0" layoutX="100.0" layoutY="69.75" startX="-100.0" stroke="GREEN" />
                </children>
             </Pane>
          </children>
@@ -32,20 +32,20 @@
    <left>
       <VBox prefHeight="441.0" prefWidth="139.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="COURANT :" />
-            <Label text="TENSION :" />
-            <Label text="FRÉQUENCE :" />
-            <Label text="AMPLITUDE :" />
-            <Label text="VITESSE D'ENVOI :" />
+            <Label text="COURANT :" textFill="GREEN" />
+            <Label text="TENSION :" textFill="GREEN" />
+            <Label text="FRÉQUENCE :" textFill="GREEN" />
+            <Label text="AMPLITUDE :" textFill="GREEN" />
+            <Label text="VITESSE D'ENVOI :" textFill="GREEN" />
             <HBox prefHeight="376.0" prefWidth="133.0">
                <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="356.0" stroke="BLACK" strokeType="INSIDE" width="56.0" />
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+                        <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: green;">
                            <children>
-                              <Label prefHeight="17.0" prefWidth="36.0" text="FREQ." />
-                              <Label text="102,1" />
+                              <Label prefHeight="17.0" prefWidth="36.0" text="FREQ." textFill="GREEN" />
+                              <Label text="102,1" textFill="GREEN" />
                               <Slider majorTickUnit="0.1" max="109.9" min="88.5" minorTickCount="0" orientation="VERTICAL" prefHeight="315.0" prefWidth="14.0" snapToTicks="true">
                                  <padding>
                                     <Insets left="10.0" />
@@ -79,18 +79,18 @@
       </VBox>
    </left>
    <center>
-      <BorderPane prefHeight="439.0" prefWidth="711.0" BorderPane.alignment="CENTER">
+      <BorderPane prefHeight="439.0" prefWidth="711.0" style="-fx-border-color: green;" BorderPane.alignment="CENTER">
          <bottom>
             <HBox prefHeight="17.0" prefWidth="711.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" text="SÉLECTIONNER" />
+                  <Button mnemonicParsing="false" style="-fx-border-color: green; -fx-background-color: none;" text="SÉLECTIONNER" textFill="GREEN" />
                   <StackPane prefHeight="25.0" prefWidth="507.0" HBox.hgrow="ALWAYS">
                      <children>
                         <ProgressBar prefHeight="41.0" prefWidth="545.0" progress="0.0" />
-                        <Label prefHeight="17.0" prefWidth="508.0" text="VEUILLER SÉLECTIONNER UN FICHIER À ENVOYER..." />
+                        <Label prefHeight="17.0" prefWidth="508.0" text="VEUILLER SÉLECTIONNER UN FICHIER À ENVOYER..." textFill="GREEN" />
                      </children>
                   </StackPane>
-                  <Button mnemonicParsing="false" text="ENVOYER" />
+                  <Button mnemonicParsing="false" style="-fx-border-color: green; -fx-background-color: none;" text="ENVOYER" textFill="GREEN" />
                </children>
             </HBox>
          </bottom>
