@@ -97,6 +97,10 @@ package "passerelle" {
     }
 }
 
+package "tests" {
+
+}
+
 Application --> ControleurEnvoi
 ControleurEnvoi --> PasserelleFichier
 ControleurEnvoi --> RepresentationBinaire
