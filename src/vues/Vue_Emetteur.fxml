@@ -14,14 +14,14 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="866.0" style="-fx-border-color: green; -fx-background-color: black; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="866.0" style="-fx-border-color: green; -fx-background-color: black; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueEmetteur">
    <top>
       <StackPane prefHeight="89.0" prefWidth="850.0" BorderPane.alignment="CENTER">
          <children>
             <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: green;">
                <children>
                   <Rectangle fill="#2197ff00" height="93.0" layoutX="-0.5" layoutY="-0.5" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="2.0" width="851.0" />
-                  <Line endX="433.0" layoutX="423.0" layoutY="46.5" startX="-425.0" stroke="GREEN" />
+                  <Line endX="444.0" layoutX="423.0" layoutY="46.5" startX="-425.0" stroke="GREEN" />
                   <Line endX="-77.0" layoutX="100.0" layoutY="23.25" startX="-100.0" stroke="GREEN" />
                   <Line endX="-77.0" layoutX="100.0" layoutY="69.75" startX="-100.0" stroke="GREEN" />
                </children>
