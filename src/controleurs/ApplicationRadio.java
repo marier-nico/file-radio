@@ -22,13 +22,14 @@ public class ApplicationRadio extends Application {
 	}
 	
 	private void showVueEmetteur(Stage stage) throws Exception {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/vues/Vue_Emetteur.fxml"));
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(ControleurVueEmetteur.ADRESSE_VUE_EMETTEUR));
 		loader.load();
 		vueEmetteur = loader.getController();
 		vueEmetteur.setApplication(this);
 		
 		BorderPane root = vueEmetteur.getBorderPaneRoot();
 		scene = new Scene(root);
+		scene.getStylesheets().setAll(this.getClass().getResource("/styles/DarkNGreen.css").toString());
 		stage.setTitle("Vue Émetteur");
 		stage.setResizable(false);
 		stage.setScene(scene);

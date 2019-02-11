@@ -10,7 +10,7 @@ public class ControleurVueEmetteur {
     private BorderPane borderPaneRoot;
 	
 	private ApplicationRadio application = null;
-	public static final String ADRESSE_VUE_EMETTEUR = "/vues/Vue_Emetteur.java";
+	public static final String ADRESSE_VUE_EMETTEUR = "/vues/Vue_Emetteur.fxml";
 
 	public void setApplication(ApplicationRadio application) {
 		this.application = application;
