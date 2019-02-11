@@ -30,6 +30,7 @@ public class ApplicationRadio extends Application {
 		BorderPane root = vueEmetteur.getBorderPaneRoot();
 		scene = new Scene(root);
 		scene.getStylesheets().setAll(this.getClass().getResource("/styles/DarkNGreen.css").toString());
+		//scene.getStylesheets().setAll(this.getClass().getResource("/styles/BlueNRed.css").toString());
 		stage.setTitle("Vue Émetteur");
 		stage.setResizable(false);
 		stage.setScene(scene);
