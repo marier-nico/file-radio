@@ -1,0 +1,77 @@
+.root {
+	-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #000d21, #000c3d);
+	-fx-border-color: #7c0000;
+	-fx-border-width: 3;
+}
+
+.label {
+	-fx-text-fill: white;
+}
+
+.button {
+	-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #000d21, #000c3d);
+	-fx-background-radius: 1;
+	-fx-border-width: 2;
+	-fx-border-radius: 1;
+	-fx-border-color: #7c0000;
+	-fx-text-fill: white;
+}
+
+.button:hover {
+	-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #000c3d, #001360);
+}
+
+.pane {
+	-fx-border-color: #7c0000;
+}
+
+#3lines {
+	-fx-stroke: #7c0000;
+}
+
+#contours {
+	-fx-border-color: #7c0000;
+}
+
+.progressBar {
+	-fx-indeterminate-bar-length: 60;
+	-fx-indeterminate-bar-escape: true;
+	-fx-indeterminate-bar-flip: true;
+	-fx-indeterminate-bar-animation-time: 2;
+}
+
+.progressBar>.bar {
+	-fx-background-color: #3d0202;
+	-fx-background-insets: 3 3 4 3;
+	-fx-background-radius: 2;
+	-fx-padding: 0.75em;
+}
+
+.progressBar:indeterminate>.bar {
+	-fx-background-color: linear-gradient(to left, transparent, -fx-accent);
+}
+
+.progressBar>.track {
+	-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #000d21, #000c3d);
+	-fx-background-insets: 0, 0 0 1 0, 1 1 2 1;
+	-fx-background-radius: 4, 3, 2;
+	-fx-border-color: #7c0000;
+}
+
+.slider> .track {
+ -fx-background-color: white;
+ -fx-background-size: 1; 
+}
+
+.slider:vertical .track {
+    -fx-pref-width:2;
+}
+
+.slider .thumb {
+    -fx-pref-height: 5;
+    -fx-pref-width: 22;
+    -fx-background-color: #7c0000;
+    -fx-border-width: 1;
+	-fx-border-radius: 0;
+	-fx-border-color: white;
+}
