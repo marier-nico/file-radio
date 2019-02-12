@@ -1,14 +1,21 @@
 @startuml Silence Radio
 package "controleurs" {
-    class ControleurEnvoi {
-        - {static} void envoyer(Byte[] bytes)
-    }
-
     class Application {
         + void start(Stage stagePrincipal)
         + {static} void main
     }
+    
+    class ControleurEnvoi {
+        - {static} void envoyer(Byte[] bytes)
+    }
+    
+    note top of ControleurReception : Le corps de cette classe reste à déterminer
+    class ControleurReception{
+        + void ControleurReception()
+    }
+}
 
+package "vue" {
     note top of ControleurVueEmetteur : Le corps de cette classe reste à déterminer
     class ControleurVueEmetteur {
         + void ControleurVueEmetteur()
@@ -22,11 +29,6 @@ package "controleurs" {
     note top of ControleurVueMenu : Le corps de cette classe reste à déterminer
     class ControleurVueMenu {
         + void ControleurVueMenu()
-    }
-
-    note top of ControleurReception : Le corps de cette classe reste à déterminer
-    class ControleurReception{
-        + void ControleurReception()
     }
 }
 
@@ -95,6 +97,10 @@ package "passerelle" {
         + {static} void ecrireOctets(RepresentationBinaire binaire)
         + {static} File obtenirFichier(String chemin)
     }
+}
+
+package "tests" {
+
 }
 
 Application --> ControleurEnvoi
