@@ -84,14 +84,17 @@
          <bottom>
             <HBox prefHeight="17.0" prefWidth="711.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnSelectionner" mnemonicParsing="false" onAction="#clickedBtnSelect" prefHeight="25.0" prefWidth="102.0" text="SÉLECTIONNER" />
+                  <Button fx:id="btnSelectionner" mnemonicParsing="false" onAction="#clickedBtnSelect" prefHeight="25.0" prefWidth="114.0" text="SÉLECTIONNER" />
                   <StackPane prefHeight="25.0" prefWidth="507.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <ProgressBar prefHeight="41.0" prefWidth="528.0" progress="0.15" styleClass="progressBar" />
-                        <Label prefHeight="17.0" prefWidth="508.0" text="VEUILLER SÉLECTIONNER UN FICHIER À ENVOYER..." />
+                        <ProgressBar prefHeight="25.0" prefWidth="503.0" progress="0.15" styleClass="progressBar" />
+                        <Label prefHeight="48.0" prefWidth="502.0" text="VEUILLER SÉLECTIONNER UN FICHIER À ENVOYER...">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding></Label>
                      </children>
                   </StackPane>
-                  <Button fx:id="btnEnvoyer" mnemonicParsing="false" onAction="#clickedBtnEnvoyer" prefHeight="25.0" prefWidth="81.0" text="ENVOYER" />
+                  <Button fx:id="btnEnvoyer" mnemonicParsing="false" onAction="#clickedBtnEnvoyer" prefHeight="25.0" prefWidth="90.0" text="ENVOYER" />
                </children>
             </HBox>
          </bottom>

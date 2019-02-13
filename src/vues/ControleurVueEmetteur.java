@@ -31,10 +31,14 @@ public class ControleurVueEmetteur {
 	@FXML
 	void clickedBtnEnvoyer(ActionEvent event) {
 		//TODO
+		System.out.println("Envoyer!!");
 	}
 
 	@FXML
 	void clickedBtnSelect(ActionEvent event) {
 		//TODO
+		System.out.println("Sélectionner...");
 	}
+	
+	//TODO actualiser le label freq avec le slider
 }
