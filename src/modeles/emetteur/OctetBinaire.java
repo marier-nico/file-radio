@@ -7,19 +7,22 @@ public class OctetBinaire {
 		if(!validerByte(b)) {
 			throw new IllegalArgumentException("Le byte ne peut pas être négatif");
 		} else {
-			bits = new byte[8];
+			bits = new byte[7];
 			calculerBits(b);
 		}
-		
 	}
 	
 	private void calculerBits(byte b) {
 		String octetEnBinaire = Integer.toBinaryString(b);
-		
 		int i = 0;
 		for(char bit : octetEnBinaire.toCharArray()) {
 			bits[i] = Byte.parseByte("" + bit);
+			i++;
 		}
+	}
+	
+	public byte[] getBits() {
+		return bits;
 	}
 	
 	private static boolean validerByte(byte b) {
