@@ -1,30 +1,26 @@
 package modeles.passerelle;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 import modeles.emetteur.RepresentationBinaire;
 
 public class PasserelleFichier {
 	
-	public void PasserelleFichier() {
-		//TODO:
+	public static byte[] lireOctets(File fichier) throws IOException {
+		return Files.readAllBytes(fichier.toPath());
 	}
 	
-	public byte[] lireOctets(File fichier) {
-		return null;
-		//TODO:
+	public static void ecrireOctets(byte[] octets) {
+		//TODO: Sprint 2-3
 	}
 	
-	public void ecrireOctets(byte[] octets) {
-		//TODO:
+	public static void ecrireOctets(RepresentationBinaire binaire) {
+		//TODO: Sprint 2-3
 	}
 	
-	public void ecrireOctets(RepresentationBinaire binaire) {
-		//TODO:
-	}
-	
-	public File obtenirFichier(String chemin) {
-		return null;
-		//TODO:
+	public static File obtenirFichier(String chemin) {
+		return new File(chemin);
 	}
 }
