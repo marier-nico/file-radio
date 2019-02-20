@@ -3,13 +3,18 @@ package modeles.emetteur;
 public class OctetBinaire {
 	private byte[] bits;
 	
-	public void OctetBinaire(byte b) {
-		//TODO: constructeur
+	public OctetBinaire(byte b) {
+		bits = new byte[8];
+		calculerBits(b);
 	}
 	
-	public OctetBinaire OctetBinaireFactory(byte b) {
-		//TODO:
-		return null;
+	private void calculerBits(byte b) {
+		String octetEnBinaire = Integer.toBinaryString(b);
+		
+		int i = 0;
+		for(char bit : octetEnBinaire.toCharArray()) {
+			bits[i] = Byte.parseByte("" + bit);
+		}
 	}
 	
 	//TODO: OctetBinaireFactory(Signal[] signaux)
