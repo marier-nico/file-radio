@@ -33,11 +33,33 @@
    <left>
       <VBox prefHeight="441.0" prefWidth="139.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="COURANT :" />
-            <Label text="TENSION :" />
-            <Label text="FRÉQUENCE :" />
-            <Label text="AMPLITUDE :" />
-            <Label text="VITESSE D'ENVOI :" />
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="COURANT :" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="20.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="TENSION :" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="23.0" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+               <children>
+                  <Label text="FRÉQUENCE :" />
+                  <Label fx:id="freqLabel" text="535.0" />
+                  <Label layoutX="81.0" layoutY="10.0" text="kHz" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="24.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="AMPLITUDE :" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="24.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="VITESSE D'ENVOI :" />
+               </children>
+            </HBox>
             <HBox prefHeight="376.0" prefWidth="133.0">
                <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0">
@@ -46,8 +68,8 @@
                         <VBox id="contours" prefHeight="200.0" prefWidth="100.0">
                            <children>
                               <Label prefHeight="17.0" prefWidth="36.0" text="FREQ." />
-                              <Label text="102,1" />
-                              <Slider majorTickUnit="0.1" max="109.9" min="88.5" minorTickCount="0" orientation="VERTICAL" prefHeight="315.0" prefWidth="14.0" snapToTicks="true">
+                              <Label fx:id="sliderLabel" text="535.0" />
+                              <Slider fx:id="slider" blockIncrement="1.0" majorTickUnit="1.0" max="1605.0" min="535.0" minorTickCount="0" orientation="VERTICAL" prefHeight="315.0" prefWidth="14.0" snapToTicks="true">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
@@ -84,14 +106,17 @@
          <bottom>
             <HBox prefHeight="17.0" prefWidth="711.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnSelectionner" mnemonicParsing="false" onAction="#clickedBtnSelect" prefHeight="25.0" prefWidth="102.0" text="SÉLECTIONNER" />
+                  <Button fx:id="btnSelectionner" mnemonicParsing="false" onAction="#clickedBtnSelect" prefHeight="25.0" prefWidth="114.0" text="SÉLECTIONNER" />
                   <StackPane prefHeight="25.0" prefWidth="507.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <ProgressBar prefHeight="41.0" prefWidth="528.0" progress="0.15" styleClass="progressBar" />
-                        <Label prefHeight="17.0" prefWidth="508.0" text="VEUILLER SÉLECTIONNER UN FICHIER À ENVOYER..." />
+                        <ProgressBar prefHeight="25.0" prefWidth="503.0" progress="0.15" styleClass="progressBar" />
+                        <Label prefHeight="48.0" prefWidth="502.0" text="VEUILLER SÉLECTIONNER UN FICHIER À ENVOYER...">
+                           <padding>
+                              <Insets left="5.0" />
+                           </padding></Label>
                      </children>
                   </StackPane>
-                  <Button fx:id="btnEnvoyer" mnemonicParsing="false" onAction="#clickedBtnEnvoyer" prefHeight="25.0" prefWidth="81.0" text="ENVOYER" />
+                  <Button fx:id="btnEnvoyer" mnemonicParsing="false" onAction="#clickedBtnEnvoyer" prefHeight="25.0" prefWidth="90.0" text="ENVOYER" />
                </children>
             </HBox>
          </bottom>
@@ -101,3 +126,4 @@
       <Cursor fx:constant="DEFAULT" />
    </cursor>
 </BorderPane>
+
