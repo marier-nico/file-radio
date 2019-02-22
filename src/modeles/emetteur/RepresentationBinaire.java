@@ -1,26 +1,17 @@
 package modeles.emetteur;
 
-import java.util.List;
-
 public class RepresentationBinaire {
 	
-	private List<OctetBinaire> octets;
+	private OctetBinaire[] octets;
 	
-	public void RepresentationBinaire(byte[] bytes) {
-		//TODO:
+	public RepresentationBinaire(byte[] bytes) {
+		octets = new OctetBinaire[bytes.length];
+		
+		int i = 0;
+		for(byte b : bytes) {
+			octets[i] = new OctetBinaire(b);
+			i++;
+		}
 	}
 	
-	public void RepresentationBinaire(OctetBinaire[] bytes) {
-		//TODO:
-	}
-	
-	public byte representationByte() {
-		return 0;
-		//TODO:
-	}
-	
-	private OctetBinaire byteEnBinaire(byte b) {
-		return null;
-		//TODO:
-	}
 }
