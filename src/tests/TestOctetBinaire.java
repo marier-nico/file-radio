@@ -45,6 +45,7 @@ public class TestOctetBinaire {
 		assertArrayEquals(bits, ob.getBits());
 	}
 	
+	@SuppressWarnings("unlikely-arg-type")
 	@Test
 	public void testEquals() {
 		byte b = 0;
@@ -56,5 +57,14 @@ public class TestOctetBinaire {
 		b = 1;
 		OctetBinaire ob3 = new OctetBinaire(b);
 		assertTrue(ob3.equals(ob2));
+		
+		assertFalse(ob3.equals(new Integer(2)));
+	}
+	
+	@Test
+	public void testToString() {
+		byte b = 15;
+		OctetBinaire ob = new OctetBinaire(b);
+		assertTrue(ob.toString().equals("0001111"));
 	}
 }
