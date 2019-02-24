@@ -44,4 +44,13 @@ public class TestOctetBinaire {
 		byte[] bits = {1,0,1,0,0,0,0};
 		assertArrayEquals(bits, ob.getBits());
 	}
+	
+	@Test
+	public void testEquals() {
+		byte b = 0;
+		byte b2 = 1;
+		OctetBinaire ob1 = new OctetBinaire(b);
+		OctetBinaire ob2 = new OctetBinaire(b2);
+		assertFalse(ob1.equals(ob2));
+	}
 }
