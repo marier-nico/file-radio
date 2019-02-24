@@ -38,4 +38,16 @@ public class OctetBinaire {
 	public String toString() {
 		return Arrays.toString(bits).replaceAll("[\\[\\], ]", "");
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		boolean egaux = false;
+		
+		if(obj instanceof OctetBinaire) {
+			OctetBinaire autre = (OctetBinaire) obj;
+			egaux = Arrays.equals(bits, autre.bits);
+		}
+		
+		return egaux;
+	}
 }
