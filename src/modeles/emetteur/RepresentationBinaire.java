@@ -9,6 +9,9 @@ public class RepresentationBinaire implements Iterable<OctetBinaire>, Iterator<O
 	private int octetCourant;
 	
 	public RepresentationBinaire(byte[] bytes) {
+		if(!validerOctets(bytes)) {
+			throw new IllegalArgumentException("Il doit y avoir des octets");
+		}
 		octets = new OctetBinaire[bytes.length];
 		octetCourant = -1;
 		
@@ -40,5 +43,9 @@ public class RepresentationBinaire implements Iterable<OctetBinaire>, Iterator<O
 	@Override
 	public Iterator<OctetBinaire> iterator() {
 		return this;
+	}
+	
+	private static boolean validerOctets(byte[] octets) {
+		return octets != null && octets.length >= 1;
 	}
 }
