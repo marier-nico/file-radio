@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="vboxRoot" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="378.0" prefWidth="492.0" spacing="40.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueMenu">
+   <children>
+      <Button fx:id="btnEmettre" mnemonicParsing="false" onAction="#clickedBtnEmettre" prefHeight="59.0" prefWidth="226.0" text="Émettre un message" />
+      <Button fx:id="btnReception" mnemonicParsing="false" onAction="#clickedBtnReception" prefHeight="61.0" prefWidth="225.0" text="Réceptionner un message" />
+   </children>
+</VBox>
