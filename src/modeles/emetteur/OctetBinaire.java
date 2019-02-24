@@ -8,10 +8,10 @@ public class OctetBinaire {
 	public OctetBinaire(byte b) {
 		if(!validerByte(b)) {
 			throw new IllegalArgumentException("Le byte ne peut pas être négatif");
-		} else {
-			bits = new byte[7];
-			calculerBits(b);
 		}
+		
+		bits = new byte[7];
+		calculerBits(b);
 	}
 	
 	private void calculerBits(byte b) {
