@@ -41,7 +41,7 @@ public class TestOctetBinaire {
 	public void testCalculerBits() {
 		byte b = 10;
 		ob = new OctetBinaire(b);
-		byte[] bits = {1,0,1,0,0,0,0};
+		byte[] bits = {0,0,0,1,0,1,0};
 		assertArrayEquals(bits, ob.getBits());
 	}
 	
