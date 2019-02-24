@@ -52,5 +52,9 @@ public class TestOctetBinaire {
 		OctetBinaire ob1 = new OctetBinaire(b);
 		OctetBinaire ob2 = new OctetBinaire(b2);
 		assertFalse(ob1.equals(ob2));
+		
+		b = 1;
+		OctetBinaire ob3 = new OctetBinaire(b);
+		assertTrue(ob3.equals(ob2));
 	}
 }
