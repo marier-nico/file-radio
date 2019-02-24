@@ -60,4 +60,11 @@ public class TestOctetBinaire {
 		
 		assertFalse(ob3.equals(new Integer(2)));
 	}
+	
+	@Test
+	public void testToString() {
+		byte b = 15;
+		OctetBinaire ob = new OctetBinaire(b);
+		assertTrue(ob.toString().equals("0001111"));
+	}
 }
