@@ -1,8 +1,15 @@
 @startuml Silence Radio
 package "controleurs" {
     class ApplicationRadio {
+    	- scene : Scene
+    	- stage : Stage
+    	- vueEmetteur : ControleurVueEmetteur
+    	- vueMenu : ControleurVueMenu
         + void start(Stage stagePrincipal)
-        + {static} void main
+        + {static} void main()
+        - void showVueMenu(Stage stage)
+        + void showVueEmetteur()
+        + Stage getStage()
     }
     
     class ControleurEnvoi {
@@ -16,9 +23,20 @@ package "controleurs" {
 }
 
 package "vue" {
-    note top of ControleurVueEmetteur : Le corps de cette classe reste à déterminer
     class ControleurVueEmetteur {
-        + void ControleurVueEmetteur()
+    	- borderPaneRoot : BorderPane
+    	- btnSelectionner : Button
+    	- btnEnvoyer : Button
+    	- slider : Slider
+    	- freqLabel : Label
+    	- sliderLabel : Label
+        - application : ApplicationRadio = null
+        + {static} final ADRESSE_VUE_EMETTEUR : String = "/vues/Vue_Emetteur.fxml"
+        + void setApplication(ApplicationRadio application)
+        + BorderPane getBorderPaneRoot()
+        - void clickedBtnEnvoyer(ActionEvent event)
+        - void clickedBtnSelect(ActionEvent event)
+        + void bindSlider()
     }
 
     note top of ControleurVueRecepteur : Le corps de cette classe reste à déterminer
@@ -26,9 +44,16 @@ package "vue" {
         + void ControleurVueRecepteur()
     }
 
-    note top of ControleurVueMenu : Le corps de cette classe reste à déterminer
     class ControleurVueMenu {
-        + void ControleurVueMenu()
+        - vboxRoot : VBox
+        - btnEmettre : Button
+        - btnReception : Button
+        - application : ApplicationRadio = null
+        + {static} final ADRESSE_VUE_MENU : String = "/vues/Vue_Menu.fxml"
+        + void setApplication(ApplicationRadio application)
+        + VBox getVboxRoot()
+        - void clickedBtnEmettre(ActionEvent event)
+        - void clickedBtnReception(ActionEvent event)
     }
 }
 
