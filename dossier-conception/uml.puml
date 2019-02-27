@@ -105,14 +105,37 @@ package "passerelle" {
 }
 
 package "tests" {
+    class TestOctetBinaire {
+        ob : OctetBinaire
+        + void testOctetBinaire()
+        + void testOctetBinaireInvalide()
+        + void testCalculerBits()
+        + void testEquals()
+        + void testToString()
+    }
 
+    class TestPasserelleFichier {
+        + void testLireFichier()
+    }
+
+    class TestRepresentationBinaire {
+        rb : RepresentationBinaire
+        octets : byte[] = {0, 1, 2, 3};
+        + void testRepresentationBinaire()
+        + void testRepresentationBinaireInvalide()
+        + void testGetOctets()
+        + void testIterator()
+    }
+
+    class TestSuite {
+    }
 }
 
 interface Iterable<OctetBinaire> {
     + OctetBinaire next()
     + boolean hasNext()
 }
-interface Iterator<OctetBinaire>{
+interface Iterator<OctetBinaire> {
     + Iterator<OctetBinaire> iterator()
 }
 
@@ -138,4 +161,8 @@ EcouteurSignaux --> OctetBinaire
 EcouteurSignaux --> Signal
 
 Signal --> ValeurSignal
+
+TestOctetBinaire --> OctetBinaire
+TestPasserelleFichier --> PasserelleFichier
+TestRepresentationBinaire --> RepresentationBinaire
 @enduml
