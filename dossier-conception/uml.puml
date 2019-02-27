@@ -43,9 +43,12 @@ package "modeles.emetteur" {
 
     class OctetBinaire {
         - bits : byte[]
-        + void OctetBinaire(byte b)
-        + {static} OctetBinaireFactory(byte b}
-        + {static} OctetBinaireFactory(Signal[] signaux)
+        + OctetBinaire(byte b)
+        - void calculerBits(byte b)
+        + byte[] getBits()
+        - {static} boolean validerByte(byte b)
+        + String toString()
+        + boolean equals(Object obj)
     }
 
     class GenerateurSon {
