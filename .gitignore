@@ -24,3 +24,6 @@ hs_err_pid*
 
 # intelliJ project files
 .idea/*
+
+# generated files
+bin/*
