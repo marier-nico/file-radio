@@ -97,7 +97,6 @@ package "modeles.receveur" {
 
 package "passerelle" {
     class PasserelleFichier{
-        + void PasserelleFichier()
         + {static} byte[] lireOctets(File fichier)
         + {static} void ecrireOctets(byte[] octets)
         + {static} void ecrireOctets(RepresentationBinaire binaire)
@@ -114,14 +113,19 @@ ControleurEnvoi --> PasserelleFichier
 ControleurEnvoi --> RepresentationBinaire
 ControleurEnvoi --> GenerateurSon
 ControleurEnvoi --> LecteurSon
+
 LecteurSon --> Note
+
 GenerateurSon --> Note
 GenerateurSon --> OctetBinaire
+
 RepresentationBinaire --> OctetBinaire
 
 ControleurReception --> PasserelleFichier
 ControleurReception --> EcouteurSignaux
+
 EcouteurSignaux --> OctetBinaire
 EcouteurSignaux --> Signal
+
 Signal --> ValeurSignal
 @enduml
