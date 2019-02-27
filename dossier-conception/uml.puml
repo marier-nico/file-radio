@@ -1,6 +1,6 @@
 @startuml Silence Radio
 package "controleurs" {
-    class Application {
+    class ApplicationRadio {
         + void start(Stage stagePrincipal)
         + {static} void main
     }
@@ -103,7 +103,7 @@ package "tests" {
 
 }
 
-Application --> ControleurEnvoi
+ApplicationRadio --> ControleurEnvoi
 ControleurEnvoi --> PasserelleFichier
 ControleurEnvoi --> RepresentationBinaire
 ControleurEnvoi --> GenerateurSon
