@@ -34,11 +34,14 @@ package "vue" {
 
 package "modeles.emetteur" {
     class RepresentationBinaire {
-        - octets : List<OctetBinaire>
-        + void RepresentationBinaire(byte[] bytes)
-        + void RepresentationBinaire(OctetBinaire[] bytes)
-        + byte representationByte()
-        - OctetBinaire byteEnBinaire(byte b)
+        - octets : OctetBinaire[]
+        - octetCourant : int
+        + RepresentationBinaire(byte[] bytes)
+        + OctetBinaire[] getOctets()
+        + boolean hasNext()
+        + OctetBinaire next()
+        + Iterator<OctetBinaire> iterator()
+        - {static} boolean validerOctets(byte[] octets)
     }
 
     class OctetBinaire {
