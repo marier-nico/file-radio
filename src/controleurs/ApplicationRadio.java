@@ -37,7 +37,7 @@ public class ApplicationRadio extends Application {
 		scene.getStylesheets().setAll(this.getClass().getResource("/styles/DarkNGreen.css").toString());
 		//scene.getStylesheets().setAll(this.getClass().getResource("/styles/BlueNRed.css").toString());
 		stage.setTitle("Menu");
-		stage.setResizable(false);
+		stage.setResizable(true);
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -54,7 +54,7 @@ public class ApplicationRadio extends Application {
 		scene.getStylesheets().setAll(this.getClass().getResource("/styles/DarkNGreen.css").toString());
 		//scene.getStylesheets().setAll(this.getClass().getResource("/styles/BlueNRed.css").toString());
 		stage.setTitle("Émetteur");
-		stage.setResizable(false);
+		stage.setResizable(true);
 		stage.setScene(scene);
 		stage.show();
 	}
