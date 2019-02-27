@@ -1,8 +1,15 @@
 @startuml Silence Radio
 package "controleurs" {
-    class Application {
+    class ApplicationRadio {
+    	- scene : Scene
+    	- stage : Stage
+    	- vueEmetteur : ControleurVueEmetteur
+    	- vueMenu : ControleurVueMenu
         + void start(Stage stagePrincipal)
-        + {static} void main
+        + {static} void main()
+        - void showVueMenu(Stage stage)
+        + void showVueEmetteur()
+        + Stage getStage()
     }
     
     class ControleurEnvoi {
@@ -16,9 +23,20 @@ package "controleurs" {
 }
 
 package "vue" {
-    note top of ControleurVueEmetteur : Le corps de cette classe reste à déterminer
     class ControleurVueEmetteur {
-        + void ControleurVueEmetteur()
+    	- borderPaneRoot : BorderPane
+    	- btnSelectionner : Button
+    	- btnEnvoyer : Button
+    	- slider : Slider
+    	- freqLabel : Label
+    	- sliderLabel : Label
+        - application : ApplicationRadio = null
+        + {static} final ADRESSE_VUE_EMETTEUR : String = "/vues/Vue_Emetteur.fxml"
+        + void setApplication(ApplicationRadio application)
+        + BorderPane getBorderPaneRoot()
+        - void clickedBtnEnvoyer(ActionEvent event)
+        - void clickedBtnSelect(ActionEvent event)
+        + void bindSlider()
     }
 
     note top of ControleurVueRecepteur : Le corps de cette classe reste à déterminer
@@ -26,26 +44,39 @@ package "vue" {
         + void ControleurVueRecepteur()
     }
 
-    note top of ControleurVueMenu : Le corps de cette classe reste à déterminer
     class ControleurVueMenu {
-        + void ControleurVueMenu()
+        - vboxRoot : VBox
+        - btnEmettre : Button
+        - btnReception : Button
+        - application : ApplicationRadio = null
+        + {static} final ADRESSE_VUE_MENU : String = "/vues/Vue_Menu.fxml"
+        + void setApplication(ApplicationRadio application)
+        + VBox getVboxRoot()
+        - void clickedBtnEmettre(ActionEvent event)
+        - void clickedBtnReception(ActionEvent event)
     }
 }
 
 package "modeles.emetteur" {
     class RepresentationBinaire {
-        - octets : List<OctetBinaire>
-        + void RepresentationBinaire(byte[] bytes)
-        + void RepresentationBinaire(OctetBinaire[] bytes)
-        + byte representationByte()
-        - OctetBinaire byteEnBinaire(byte b)
+        - octets : OctetBinaire[]
+        - octetCourant : int
+        + RepresentationBinaire(byte[] bytes)
+        + OctetBinaire[] getOctets()
+        + boolean hasNext()
+        + OctetBinaire next()
+        + Iterator<OctetBinaire> iterator()
+        - {static} boolean validerOctets(byte[] octets)
     }
 
     class OctetBinaire {
         - bits : byte[]
-        + void OctetBinaire(byte b)
-        + {static} OctetBinaireFactory(byte b}
-        + {static} OctetBinaireFactory(Signal[] signaux)
+        + OctetBinaire(byte b)
+        - void calculerBits(byte b)
+        + byte[] getBits()
+        - {static} boolean validerByte(byte b)
+        + String toString()
+        + boolean equals(Object obj)
     }
 
     class GenerateurSon {
@@ -91,7 +122,6 @@ package "modeles.receveur" {
 
 package "passerelle" {
     class PasserelleFichier{
-        + void PasserelleFichier()
         + {static} byte[] lireOctets(File fichier)
         + {static} void ecrireOctets(byte[] octets)
         + {static} void ecrireOctets(RepresentationBinaire binaire)
@@ -100,22 +130,64 @@ package "passerelle" {
 }
 
 package "tests" {
+    class TestOctetBinaire {
+        ob : OctetBinaire
+        + void testOctetBinaire()
+        + void testOctetBinaireInvalide()
+        + void testCalculerBits()
+        + void testEquals()
+        + void testToString()
+    }
 
+    class TestPasserelleFichier {
+        + void testLireFichier()
+    }
+
+    class TestRepresentationBinaire {
+        rb : RepresentationBinaire
+        octets : byte[] = {0, 1, 2, 3};
+        + void testRepresentationBinaire()
+        + void testRepresentationBinaireInvalide()
+        + void testGetOctets()
+        + void testIterator()
+    }
+
+    class TestSuite {
+    }
 }
 
-Application --> ControleurEnvoi
+interface Iterable<OctetBinaire> {
+    + OctetBinaire next()
+    + boolean hasNext()
+}
+interface Iterator<OctetBinaire> {
+    + Iterator<OctetBinaire> iterator()
+}
+
+ApplicationRadio --> ControleurEnvoi
 ControleurEnvoi --> PasserelleFichier
 ControleurEnvoi --> RepresentationBinaire
 ControleurEnvoi --> GenerateurSon
 ControleurEnvoi --> LecteurSon
+
 LecteurSon --> Note
+
 GenerateurSon --> Note
 GenerateurSon --> OctetBinaire
+
 RepresentationBinaire --> OctetBinaire
+RepresentationBinaire --|> Iterable
+RepresentationBinaire --|> Iterator
 
 ControleurReception --> PasserelleFichier
 ControleurReception --> EcouteurSignaux
+
 EcouteurSignaux --> OctetBinaire
 EcouteurSignaux --> Signal
+
 Signal --> ValeurSignal
+
+TestOctetBinaire --> OctetBinaire
+TestPasserelleFichier --> PasserelleFichier
+TestRepresentationBinaire --> RepresentationBinaire
 @enduml
