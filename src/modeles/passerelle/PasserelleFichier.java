@@ -7,10 +7,10 @@ import java.nio.file.Files;
 import modeles.emetteur.RepresentationBinaire;
 
 /**
- * @author Nicolas Marier
- *
  * Cette classe permet de lire le contenu d'un fichier et d'obtenir
  * les octets en base 10 qui constituent ce fichier.
+ * 
+ * @author Nicolas Marier
  */
 public class PasserelleFichier {
 	
