@@ -3,10 +3,10 @@ package modeles.emetteur;
 import java.util.Arrays;
 
 /**
- * @author Nicolas Marier
- * 
  * Cette classe représente un octet en base 2.
  * Elle sert à convertir entre un byte en décimal et un octet.
+ *
+ * @author Nicolas Marier
  *
  */
 public class OctetBinaire {

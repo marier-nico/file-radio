@@ -4,9 +4,9 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * @author Nicolas Marier
- *
  * Cette classe permet de représenter un fichier avec ses octets en base 2.
+ * 
+ * @author Nicolas Marier
  */
 public class RepresentationBinaire implements Iterable<OctetBinaire>, Iterator<OctetBinaire> {
 	
