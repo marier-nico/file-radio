@@ -29,7 +29,7 @@ public class ControleurVueMenu {
 	}
 	
 	@FXML
-    void clickedBtnEmettre(ActionEvent event) {
+    private void clickedBtnEmettre(ActionEvent event) {
 		try {
 			application.showVueEmetteur();
 		} catch (Exception e) {
@@ -38,7 +38,7 @@ public class ControleurVueMenu {
     }
 
     @FXML
-    void clickedBtnReception(ActionEvent event) {
+    private void clickedBtnReception(ActionEvent event) {
     	//TODO
     }
 
