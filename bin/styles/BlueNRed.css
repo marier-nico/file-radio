@@ -21,16 +21,12 @@
 	-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #000c3d, #001360);
 }
 
-.pane {
+.pane, #contours {
 	-fx-border-color: #7c0000;
 }
 
 #3lines {
 	-fx-stroke: #7c0000;
-}
-
-#contours {
-	-fx-border-color: #7c0000;
 }
 
 .progressBar {
@@ -58,41 +54,51 @@
 	-fx-border-color: #7c0000;
 }
 
-.slider> .track {
- -fx-background-color: white;
- -fx-background-size: 1; 
+.slider>.track {
+	-fx-background-color: white;
+	-fx-background-size: 1;
 }
 
 .slider:vertical .track {
-    -fx-pref-width:2;
+	-fx-pref-width: 2;
 }
 
 .slider .thumb {
-    -fx-pref-height: 5;
-    -fx-pref-width: 22;
-    -fx-background-color: #7c0000;
-    -fx-border-width: 1;
+	-fx-pref-height: 5;
+	-fx-pref-width: 22;
+	-fx-background-color: #7c0000;
+	-fx-border-width: 1;
 	-fx-border-radius: 0;
 	-fx-border-color: white;
 }
 
 .split-menu-button {
-    -fx-background-color: #7c0000;
-    }
-    
-.split-menu-button .label {
-    -fx-background-color: #000d21;
-    }
-
-.split-menu-button .arrow {
-    -fx-background-color: white;
-    }
-    
-.split-menu-button .arrow-button {
-    -fx-background-color: #000d21 ;
+	-fx-background-color: #7c0000;
 }
 
-.split-menu-button .menu-item {
-    -fx-background-color: #000d21;
-    -fx-border-color: #7c0000;
-    }
+.split-menu-button .label {
+	-fx-background-color: #000d21;
+}
+
+.split-menu-button .arrow {
+	-fx-background-color: white;
+}
+
+.split-menu-button .arrow-button, .split-menu-button .arrow-button {
+	-fx-background-color: #000d21;
+	-fx-border-color: #7c0000;
+}
+
+.split-menu-button .menu-item:hover {
+	-fx-border-color: #7c0000;
+	-fx-border-width: 3;
+}
+
+.split-menu-button .menu-item:disabled, split-menu-button .menu-item:disabled>*
+	{
+	-fx-opacity: 1.0;
+}
+
+.context-menu {
+	fx-background-color: red;
+}
