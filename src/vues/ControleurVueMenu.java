@@ -39,7 +39,11 @@ public class ControleurVueMenu {
 
     @FXML
     private void clickedBtnReception(ActionEvent event) {
-    	//TODO
+    	try {
+			application.showVueRecepteur();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 
     //TODO ajout menu de sélection du theme

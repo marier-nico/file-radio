@@ -8,12 +8,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import vues.ControleurVueEmetteur;
 import vues.ControleurVueMenu;
+import vues.ControleurVueRecepteur;
 
 public class ApplicationRadio extends Application {
 	
 	private Scene scene;
 	private Stage stage;
 	private ControleurVueEmetteur vueEmetteur;
+	private ControleurVueRecepteur vueRecepteur;
 	private ControleurVueMenu vueMenu;
 
 	public static void main(String[] args) {
@@ -54,6 +56,23 @@ public class ApplicationRadio extends Application {
 		scene.getStylesheets().setAll(this.getClass().getResource("/styles/DarkNGreen.css").toString());
 		//scene.getStylesheets().setAll(this.getClass().getResource("/styles/BlueNRed.css").toString());
 		stage.setTitle("Émetteur");
+		stage.setResizable(true);
+		stage.setScene(scene);
+		stage.show();
+	}
+	
+	public void showVueRecepteur() throws Exception {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource(ControleurVueRecepteur.ADRESSE_VUE_RECEPTEUR));
+		loader.load();
+		vueRecepteur = loader.getController();
+		vueRecepteur.setApplication(this);
+		vueRecepteur.bindSlider();
+		
+		BorderPane root = vueRecepteur.getBorderPaneRoot();
+		scene = new Scene(root);
+		scene.getStylesheets().setAll(this.getClass().getResource("/styles/DarkNGreen.css").toString());
+		//scene.getStylesheets().setAll(this.getClass().getResource("/styles/BlueNRed.css").toString());
+		stage.setTitle("Récepteur");
 		stage.setResizable(true);
 		stage.setScene(scene);
 		stage.show();
