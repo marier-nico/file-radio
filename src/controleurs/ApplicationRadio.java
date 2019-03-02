@@ -36,8 +36,7 @@ public class ApplicationRadio extends Application {
 		
 		VBox root = vueMenu.getVboxRoot();
 		scene = new Scene(root);
-		scene.getStylesheets().setAll(this.getClass().getResource("/styles/DarkNGreen.css").toString());
-		//scene.getStylesheets().setAll(this.getClass().getResource("/styles/BlueNRed.css").toString());
+		scene.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
 		stage.setTitle("Menu");
 		stage.setResizable(true);
 		stage.setScene(scene);
@@ -53,8 +52,7 @@ public class ApplicationRadio extends Application {
 		
 		BorderPane root = vueEmetteur.getBorderPaneRoot();
 		scene = new Scene(root);
-		scene.getStylesheets().setAll(this.getClass().getResource("/styles/DarkNGreen.css").toString());
-		//scene.getStylesheets().setAll(this.getClass().getResource("/styles/BlueNRed.css").toString());
+		scene.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
 		stage.setTitle("Émetteur");
 		stage.setResizable(true);
 		stage.setScene(scene);
@@ -70,8 +68,7 @@ public class ApplicationRadio extends Application {
 		
 		BorderPane root = vueRecepteur.getBorderPaneRoot();
 		scene = new Scene(root);
-		scene.getStylesheets().setAll(this.getClass().getResource("/styles/DarkNGreen.css").toString());
-		//scene.getStylesheets().setAll(this.getClass().getResource("/styles/BlueNRed.css").toString());
+		scene.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
 		stage.setTitle("Récepteur");
 		stage.setResizable(true);
 		stage.setScene(scene);
@@ -82,5 +79,8 @@ public class ApplicationRadio extends Application {
 		return stage;
 	}
 	
+	public Scene getScene() {
+		return scene;
+	}
 }
 

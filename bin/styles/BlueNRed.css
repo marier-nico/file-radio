@@ -75,3 +75,24 @@
 	-fx-border-radius: 0;
 	-fx-border-color: white;
 }
+
+.split-menu-button {
+    -fx-background-color: #7c0000;
+    }
+    
+.split-menu-button .label {
+    -fx-background-color: #000d21;
+    }
+
+.split-menu-button .arrow {
+    -fx-background-color: white;
+    }
+    
+.split-menu-button .arrow-button {
+    -fx-background-color: #000d21 ;
+}
+
+.split-menu-button .menu-item {
+    -fx-background-color: #000d21;
+    -fx-border-color: #7c0000;
+    }

@@ -2,7 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
@@ -13,7 +14,12 @@
       <Region prefHeight="0.0" prefWidth="700.0" VBox.vgrow="ALWAYS" />
       <Button fx:id="btnReception" mnemonicParsing="false" onAction="#clickedBtnReception" prefHeight="65.0" prefWidth="225.0" text="Réceptionner un message" />
       <Region prefHeight="0.0" prefWidth="700.0" VBox.vgrow="ALWAYS" />
-      <ComboBox prefWidth="150.0" promptText="Thèmes" />
+      <SplitMenuButton mnemonicParsing="false" prefHeight="16.0" prefWidth="91.0" styleClass="slpitMenu" text="Thèmes">
+        <items>
+            <RadioMenuItem fx:id="darkNGreen" disable="true" mnemonicParsing="false" onAction="#selectedDarkNGreen" selected="true" text="DarkNGreen" />
+            <RadioMenuItem fx:id="blueNRed" mnemonicParsing="false" onAction="#selectedBlueNRed" text="BlueNRed" />
+        </items>
+      </SplitMenuButton>
       <Region prefHeight="0.0" prefWidth="700.0" VBox.vgrow="ALWAYS" />
    </children>
    <padding>
