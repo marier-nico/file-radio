@@ -3,6 +3,7 @@ package controleurs;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -57,6 +58,7 @@ public class ApplicationRadio extends Application {
 		stage.setResizable(true);
 		stage.setScene(scene);
 		stage.show();
+		setOptionRetour();
 	}
 	
 	public void showVueRecepteur() throws Exception {
@@ -73,6 +75,7 @@ public class ApplicationRadio extends Application {
 		stage.setResizable(true);
 		stage.setScene(scene);
 		stage.show();
+		setOptionRetour();
 	}
 
 	public Stage getStage() {
@@ -81,6 +84,21 @@ public class ApplicationRadio extends Application {
 	
 	public Scene getScene() {
 		return scene;
+	}
+	
+	/*
+	 * Permet de revenir à la vue menu en appuyant sur Escape.
+	 */
+	private void setOptionRetour() {
+		scene.setOnKeyPressed(e -> {
+		    if (e.getCode() == KeyCode.ESCAPE) {
+		    	try {
+					showVueMenu(stage);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+		    }
+		});
 	}
 }
 
