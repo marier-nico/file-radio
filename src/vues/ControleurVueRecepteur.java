@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
@@ -31,11 +32,18 @@ public class ControleurVueRecepteur {
 
     @FXML
     private Button btnEnregistrer;
+    
+    @FXML
+    private VBox vboxMessages;
+    
+    @FXML
+    private Label labelProgress;
 
 	private ApplicationRadio application = null;
 	public static final String ADRESSE_VUE_RECEPTEUR = "/vues/Vue_Recepteur.fxml";
 	final DirectoryChooser directoryChooser = new DirectoryChooser();
 	private File file;
+	private int nbrMessage = 0;
 
 	public void setApplication(ApplicationRadio application) {
 		this.application = application;
@@ -47,16 +55,20 @@ public class ControleurVueRecepteur {
 
 	@FXML
 	private void clickedBtnEnregistrer(ActionEvent event) {
-		//TODO
-		System.out.println("Enregistrer!!");
-		System.out.println(getEmplacementFichierSelct());
+		Label l = new Label("Message enregistrer dans " + getEmplacementFichierSelct() + " !");
+		if (nbrMessage == 12) {
+			vboxMessages.getChildren().remove(vboxMessages.getChildren().get(0));
+			nbrMessage--;
+		}
+		vboxMessages.getChildren().add(l);
+		nbrMessage++;
 	}
 
 	@FXML
 	private void clickedBtnSelect(ActionEvent event) {
-		System.out.println("Sélectionner...");
 		directoryChooser.setTitle("Veiller sélectionner un emplacement de destination");
 		file = directoryChooser.showDialog(application.getStage());
+		labelProgress.setText(getEmplacementFichierSelct());
 	}
 	
 	public void bindSlider() {

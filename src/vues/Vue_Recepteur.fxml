@@ -15,7 +15,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 
-<BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueRecepteur">
+<BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueRecepteur">
    <top>
       <StackPane prefHeight="89.0" prefWidth="850.0" BorderPane.alignment="CENTER">
          <children>
@@ -65,7 +65,7 @@
                </children>
             </VBox>
             <Region prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
-            <HBox prefHeight="407.0" prefWidth="139.0">
+            <HBox prefHeight="407.0" prefWidth="139.0" VBox.vgrow="ALWAYS">
                <children>
                   <StackPane prefHeight="150.0" prefWidth="200.0">
                      <children>
@@ -107,7 +107,7 @@
                   <StackPane prefHeight="25.0" prefWidth="646.0">
                      <children>
                         <ProgressBar disable="true" prefHeight="25.0" prefWidth="667.0" progress="0.0" styleClass="progressBar" />
-                        <Label prefHeight="25.0" prefWidth="649.0" text="VEUILLER SÉLECTIONNER UN EMPLACEMENT POUR ENREGISTRER...">
+                        <Label fx:id="labelProgress" prefHeight="25.0" prefWidth="649.0" text="VEUILLER SÉLECTIONNER UN EMPLACEMENT POUR ENREGISTRER...">
                            <padding>
                               <Insets left="5.0" />
                            </padding>
@@ -121,6 +121,13 @@
                </BorderPane.margin>
             </HBox>
          </bottom>
+         <center>
+            <VBox fx:id="vboxMessages" alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="BOTTOM_CENTER">
+               <padding>
+                  <Insets bottom="30.0" />
+               </padding>
+            </VBox>
+         </center>
       </BorderPane>
    </center>
    <cursor>
