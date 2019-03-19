@@ -23,6 +23,8 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	 */
 	private int bitCourant;
 	
+	public static final byte BITS_DANS_OCTET = 7;
+	
 	/**
 	 * Ce constructeur permet de faire un octet en base 2
 	 * à partir d'un byte en décimal.
@@ -34,7 +36,7 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 			throw new IllegalArgumentException("Le byte ne peut pas être négatif");
 		}
 		
-		bits = new byte[7];
+		bits = new byte[BITS_DANS_OCTET];
 		bitCourant = 0;
 		calculerBits(b);
 	}
