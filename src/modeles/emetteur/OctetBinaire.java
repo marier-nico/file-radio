@@ -1,6 +1,8 @@
 package modeles.emetteur;
 
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * Cette classe représente un octet en base 2.
@@ -9,12 +11,17 @@ import java.util.Arrays;
  * @author Nicolas Marier
  *
  */
-public class OctetBinaire {
+public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	/**
 	 * Les différents chiffres de la représentation
 	 * en base 2.
 	 */
 	private byte[] bits;
+	
+	/**
+	 * Le bit courant pour l'itération
+	 */
+	private int bitCourant;
 	
 	/**
 	 * Ce constructeur permet de faire un octet en base 2
@@ -28,6 +35,7 @@ public class OctetBinaire {
 		}
 		
 		bits = new byte[7];
+		bitCourant = 1;
 		calculerBits(b);
 	}
 	
@@ -91,5 +99,42 @@ public class OctetBinaire {
 		}
 		
 		return egaux;
+	}
+
+	/**
+	 * Cette méthode permet d'obtenir l'itérateur pour itérer sur l'octet.
+	 * 
+	 * @see java.lang.Iterable#iterator()
+	 * @return iterator l'itérateur de l'octet
+	 */
+	@Override
+	public Iterator<Byte> iterator() {
+		return this;
+	}
+
+	/**
+	 * Cette méthode permet de voir s'il reste des bits dans l'octet.
+	 * 
+	 * @see java.util.Iterator#hasNext()
+	 * @return true si il reste un prochain bit false sinon
+	 */
+	@Override
+	public boolean hasNext() {
+		if(!this.hasNext()) {
+			throw new NoSuchElementException();
+		}
+		
+		return bitCourant < bits.length;
+	}
+
+	/**
+	 * Cette méthode permet d'obtenir le prochain bit de l'octet.
+	 * 
+	 * @see java.util.Iterator#next()
+	 * @return Byte le bit suivant dans l'octet
+	 */
+	@Override
+	public Byte next() {
+		return bits[bitCourant++];
 	}
 }
