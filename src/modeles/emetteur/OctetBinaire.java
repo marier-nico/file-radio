@@ -48,6 +48,8 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	 * @param b le byte en décimal
 	 */
 	private void calculerBits(byte b) {
+		if(!validerByte(b))
+			throw new IllegalArgumentException("Le byte ne peut pas être négatif");
 		String octetEnBinaire = Integer.toBinaryString(b);
 		octetEnBinaire = (new StringBuilder(octetEnBinaire).reverse().toString());
 		int i = bits.length - 1;
