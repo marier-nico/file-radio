@@ -32,7 +32,7 @@ public class RepresentationBinaire implements Iterable<OctetBinaire>, Iterator<O
 			throw new IllegalArgumentException("Il doit y avoir des octets");
 		}
 		octets = new OctetBinaire[bytes.length];
-		octetCourant = -1;
+		octetCourant = 0;
 		
 		int i = 0;
 		for(byte b : bytes) {
@@ -58,7 +58,7 @@ public class RepresentationBinaire implements Iterable<OctetBinaire>, Iterator<O
 	 */
 	@Override
 	public boolean hasNext() {
-		return (octetCourant + 1) < octets.length; 
+		return octetCourant < octets.length; 
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class RepresentationBinaire implements Iterable<OctetBinaire>, Iterator<O
 			throw new NoSuchElementException();
 		}
 		
-		return octets[++octetCourant];
+		return octets[octetCourant++];
 	}
 
 	/**
