@@ -48,6 +48,8 @@ public class GenerateurSon {
 	 * @param dureeEnSec la durée du son représentant chaque bit
 	 */
 	public static void calculerSonsPourBits(float dureeEnSec) {
+		if(!validerDureeEnSec(dureeEnSec))
+			throw new IllegalArgumentException("La durée doit être plus grande que 0 secondes");
 		float qualit = 44100;
 		int freq = 1000;
 		int volumeMin = 50;
