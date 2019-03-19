@@ -35,7 +35,7 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 		}
 		
 		bits = new byte[7];
-		bitCourant = 1;
+		bitCourant = 0;
 		calculerBits(b);
 	}
 	
@@ -120,10 +120,6 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	 */
 	@Override
 	public boolean hasNext() {
-		if(!this.hasNext()) {
-			throw new NoSuchElementException();
-		}
-		
 		return bitCourant < bits.length;
 	}
 
@@ -135,6 +131,10 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	 */
 	@Override
 	public Byte next() {
+		if(!this.hasNext()) {
+			throw new NoSuchElementException();
+		}
+		
 		return bits[bitCourant++];
 	}
 }
