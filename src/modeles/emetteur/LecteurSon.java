@@ -122,7 +122,7 @@ public class LecteurSon {
 	 * @return validite true si les données sont valides ou false sinon
 	 */
 	public static boolean validerDonneesSon(byte[][] donnees) {
-		return donnees.length > 0 && donnees[0].length > 0;
+		return donnees != null && donnees.length > 0 && donnees[0].length > 0;
 	}
 	
 	/**
