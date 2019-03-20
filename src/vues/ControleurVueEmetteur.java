@@ -42,6 +42,9 @@ public class ControleurVueEmetteur {
 
 	@FXML
 	private Button btnEnvoyer;
+	
+	@FXML
+	private Button btnAnnuler;
 
 	@FXML
 	private Slider slider;
@@ -122,6 +125,11 @@ public class ControleurVueEmetteur {
 			sliderLabel.textProperty().bind(slider.valueProperty().asString());
 		});
 	}
+	
+	@FXML
+    void clickedBtnAnnuler(ActionEvent event) {
+		System.out.println("Annuler!!!!!");
+    }
 
 	// Prochain Sprint...
 	private void afficherAnimation() {

@@ -29,7 +29,7 @@
       </StackPane>
    </top>
    <left>
-      <VBox prefHeight="611.0" prefWidth="194.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="611.0" prefWidth="154.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="145.0" prefWidth="160.0" spacing="15.0">
                <children>
@@ -92,11 +92,11 @@
             <HBox prefHeight="17.0" prefWidth="711.0" BorderPane.alignment="CENTER">
                <children>
                   <Region prefHeight="25.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="btnSelectionner" mnemonicParsing="false" onAction="#clickedBtnSelect" prefHeight="25.0" prefWidth="125.0" text="SÉLECTIONNER" />
-                  <StackPane prefHeight="25.0" prefWidth="614.0">
+                  <Button fx:id="btnSelectionner" mnemonicParsing="false" onAction="#clickedBtnSelect" prefHeight="25.0" prefWidth="111.0" text="SÉLECTIONNER" />
+                  <StackPane prefHeight="25.0" prefWidth="580.0">
                      <children>
-                        <ProgressBar prefHeight="25.0" prefWidth="632.0" progress="0.15" styleClass="progressBar" />
-                        <Label fx:id="labelProgress" prefHeight="25.0" prefWidth="637.0" text="VEUILLER SÉLECTIONNER UN FICHIER À ENVOYER...">
+                        <ProgressBar prefHeight="25.0" prefWidth="580.0" progress="0.15" styleClass="progressBar" />
+                        <Label fx:id="labelProgress" prefHeight="25.0" prefWidth="577.0" text="VEUILLER SÉLECTIONNER UN FICHIER À ENVOYER...">
                            <padding>
                               <Insets left="5.0" />
                            </padding></Label>
@@ -105,7 +105,8 @@
                         <Insets />
                      </HBox.margin>
                   </StackPane>
-                  <Button fx:id="btnEnvoyer" mnemonicParsing="false" onAction="#clickedBtnEnvoyer" prefHeight="25.0" prefWidth="100.0" text="ENVOYER" />
+                  <Button fx:id="btnAnnuler" layoutX="776.0" layoutY="10.0" mnemonicParsing="false" onAction="#clickedBtnAnnuler" prefHeight="25.0" prefWidth="78.0" text="ANNULER" />
+                  <Button fx:id="btnEnvoyer" mnemonicParsing="false" onAction="#clickedBtnEnvoyer" prefHeight="25.0" prefWidth="80.0" text="ENVOYER" />
                </children>
                <BorderPane.margin>
                   <Insets bottom="-2.0" />
