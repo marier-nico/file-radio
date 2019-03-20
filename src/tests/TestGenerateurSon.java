@@ -62,7 +62,7 @@ public class TestGenerateurSon {
 		gs.calculerSonsPourBits(duree);
 		byte[][] donnees = gs.getDonneesSon();
 		byte[] donnees0 = {0, 7, 14, 20};
-		byte[] donnees1 = {0, 21, 42, 62};
+		byte[] donnees1 = {0, 14, 28, 41};
 		for(int i = 0; i < 13; i++) {
 			assertTrue(Arrays.equals(donnees[i], donnees0));
 		}
@@ -73,7 +73,7 @@ public class TestGenerateurSon {
 	public void testGetDonneesSon() {
 		byte[][] donneesAttendues = new byte[14][];
 		byte[] donnees0 = {0, 7, 14, 20};
-		byte[] donnees1 = {0, 21, 42, 62};
+		byte[] donnees1 = {0, 14, 28, 41};
 		for(int i = 0; i < 13; i++) {
 			donneesAttendues[i] = donnees0;
 		}
