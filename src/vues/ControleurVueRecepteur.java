@@ -16,7 +16,7 @@ public class ControleurVueRecepteur {
 	
 	@FXML
     private BorderPane borderPaneRoot;
-
+	
     @FXML
     private Label freqLabel;
 
@@ -54,7 +54,7 @@ public class ControleurVueRecepteur {
 
 	@FXML
 	private void clickedBtnEnregistrer(ActionEvent event) {
-		Label l = new Label("Message enregistrer dans " + getEmplacementFichierSelct() + " !");
+		Label l = new Label("Message enregistré dans " + getEmplacementFichierSelct() + " !");
 		if (nbrMessage == 12) {
 			vboxMessages.getChildren().remove(vboxMessages.getChildren().get(0));
 			nbrMessage--;

@@ -25,8 +25,8 @@ public class ControleurVueMenu {
     private Button btnReception;
 
     private String themeCourant = DARK_N_GREEN;
-    public static final String DARK_N_GREEN = "/styles/DarkNGreen.css";
-    public static final String BLUE_N_RED = "/styles/BlueNRed.css";
+    private static final String DARK_N_GREEN = "/styles/DarkNGreen.css";
+    private static final String BLUE_N_RED = "/styles/BlueNRed.css";
 	private ApplicationRadio application = null;
 	public static final String ADRESSE_VUE_MENU = "/vues/Vue_Menu.fxml";
 

@@ -55,7 +55,7 @@ public class ApplicationRadio extends Application {
 		scene = new Scene(root);
 		scene.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
 		stage.setTitle("Émetteur");
-		stage.setResizable(true);
+		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.show();
 		setOptionRetour();
@@ -72,7 +72,7 @@ public class ApplicationRadio extends Application {
 		scene = new Scene(root);
 		scene.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
 		stage.setTitle("Récepteur");
-		stage.setResizable(true);
+		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.show();
 		setOptionRetour();
