@@ -42,6 +42,11 @@ public class LecteurSon {
 	private float dureeEnSec;
 	
 	/**
+	 * On veut savoir si un son est présentement en train d'être lu.
+	 */
+	private static boolean lectureEnCours;
+	
+	/**
 	 * Le constructeur permet d'initialiser le lecteur de sons
 	 * aux bonnes valeurs, qui doivent correspondre aux valeurs
 	 * utilisées par le générateur de sons.
@@ -55,6 +60,7 @@ public class LecteurSon {
 			throw new IllegalArgumentException("Les données doivent contenir de l'information et la durée doit être supérieure à 0.");
 		this.donneesSons = donneesSons;
 		this.dureeEnSec = dureeEnSec;
+		lectureEnCours = false;
 		creerAudioFormat();
 		creerSourceDataLine();
 	}
@@ -65,12 +71,27 @@ public class LecteurSon {
 	 * 
 	 * @throws LineUnavailableException si la sortie audio n'est pas disponible
 	 */
-	public void lireSons() throws LineUnavailableException {
+	public void lireSons() throws LineUnavailableException, IllegalStateException {
+		if(lectureEnCours)
+			throw new IllegalStateException("Un son est déjà en lecture");
 		preparerDataLineAEnvoi();
+		lectureEnCours = true;
 		for(byte[] donneesSon : donneesSons) {
 			sdl.write(donneesSon, 0, (int) (af.getSampleRate() * dureeEnSec));
 		}
+		lectureEnCours = false;
 		fermerDataLine();
+	}
+	
+	/**
+	 * Cette méthode permet de modifier les données sonores qui seront utilisés
+	 * lors de la lecture du son.
+	 * 
+	 * @param donneesSons les donneés sonores à faire jouer
+	 */
+	public void setDonneesSons(byte[][] donneesSons) {
+		if(validerDonneesSon(donneesSons))
+			this.donneesSons = donneesSons;
 	}
 	
 	/**
