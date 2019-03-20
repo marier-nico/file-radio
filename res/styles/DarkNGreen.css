@@ -1,6 +1,6 @@
 .root {
-	-fx-background-color: black;
-	-fx-border-color: green;
+	-fx-background-color: #0f0f0f;
+	-fx-border-color: #1d932a;
 	-fx-border-width: 3;
 }
 
@@ -9,28 +9,24 @@
 }
 
 .button {
-	-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, black, #0f0f0f);
+	-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #0f0f0f, #1c1c1c);
 	-fx-background-radius: 1;
 	-fx-border-width: 2;
 	-fx-border-radius: 1;
-	-fx-border-color: green;
+	-fx-border-color: #1d932a;
 	-fx-text-fill: white;
 }
 
 .button:hover {
-	-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #0f0f0f, #161616);
+	-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #1c1c1c, #0f0f0f);
 }
 
-.pane {
-	-fx-border-color: green;
+.pane, #contours {
+	-fx-border-color: #1d932a;
 }
 
 #3lines {
-	-fx-stroke: green;
-}
-
-#contours {
-	-fx-border-color: green;
+	-fx-stroke: #1d932a;
 }
 
 .progressBar {
@@ -52,27 +48,54 @@
 }
 
 .progressBar>.track {
-	-fx-background-color: black;
+	-fx-background-color: #0f0f0f;
 	-fx-background-insets: 0, 0 0 1 0, 1 1 2 1;
 	-fx-background-radius: 4, 3, 2;
-	-fx-border-color: green;
+	-fx-border-color: #1d932a;
 	-fx-border-width: 2;
 }
 
-.slider> .track {
- -fx-background-color: white;
- -fx-background-size: 1; 
+.slider>.track {
+	-fx-background-color: white;
+	-fx-background-size: 1;
 }
 
 .slider:vertical .track {
-    -fx-pref-width:2;
+	-fx-pref-width: 2;
 }
 
 .slider .thumb {
-    -fx-pref-height: 7;
-    -fx-pref-width: 26;
-    -fx-background-color: green;
-    -fx-border-width: 1;
+	-fx-pref-height: 7;
+	-fx-pref-width: 26;
+	-fx-background-color: #1d932a;
+	-fx-border-width: 1;
 	-fx-border-radius: 0;
 	-fx-border-color: white;
+}
+
+.split-menu-button {
+	-fx-background-color: #1d932a;
+}
+
+.split-menu-button .label {
+	-fx-background-color: #0f0f0f;
+}
+
+.split-menu-button .arrow {
+	-fx-background-color: white;
+}
+
+.split-menu-button .menu-item, .split-menu-button .arrow-button {
+	-fx-background-color: #0f0f0f;
+	-fx-border-color: #1d932a;
+}
+
+.split-menu-button .menu-item:hover {
+	-fx-border-color: #1d932a;
+	-fx-border-width: 3;
+}
+
+.split-menu-button .menu-item:disabled, split-menu-button .menu-item:disabled>*
+	{
+	-fx-opacity: 1.0;
 }

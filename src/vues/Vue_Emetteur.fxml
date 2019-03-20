@@ -9,20 +9,19 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 
-<BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="866.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueEmetteur">
+<BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueEmetteur">
    <top>
       <StackPane prefHeight="89.0" prefWidth="850.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="200.0" prefWidth="200.0" styleClass="pane">
+            <Pane fx:id="paneAnimation" prefHeight="200.0" prefWidth="200.0" styleClass="pane">
                <children>
-                  <Rectangle fill="#2197ff00" height="93.0" layoutX="-0.5" layoutY="-0.5" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="2.0" width="851.0" />
-                  <Line id="3lines" endX="444.0" layoutX="423.0" layoutY="46.5" startX="-425.0" />
+                  <Line id="3lines" endX="678.5" layoutX="423.0" layoutY="46.5" startX="-425.0" />
                   <Line id="3lines" endX="-77.0" layoutX="100.0" layoutY="23.25" startX="-100.0" />
                   <Line id="3lines" endX="-77.0" layoutX="100.0" layoutY="69.75" startX="-100.0" />
                </children>
@@ -31,45 +30,50 @@
       </StackPane>
    </top>
    <left>
-      <VBox prefHeight="441.0" prefWidth="139.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="611.0" prefWidth="156.0" BorderPane.alignment="CENTER">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <VBox prefHeight="145.0" prefWidth="160.0" spacing="15.0">
                <children>
-                  <Label text="COURANT :" />
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="20.0" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="TENSION :" />
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="23.0" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-               <children>
-                  <Label text="FRÉQUENCE :" />
-                  <Label fx:id="freqLabel" text="535.0" />
-                  <Label layoutX="81.0" layoutY="10.0" text="kHz" />
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="24.0" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="AMPLITUDE :" />
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="24.0" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="VITESSE D'ENVOI :" />
-               </children>
-            </HBox>
-            <HBox prefHeight="376.0" prefWidth="133.0">
-               <children>
-                  <StackPane prefHeight="150.0" prefWidth="200.0">
+                  <HBox prefHeight="0.0" prefWidth="200.0">
                      <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="356.0" stroke="TRANSPARENT" strokeType="INSIDE" width="56.0" />
+                        <Label text="COURANT :" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="0.0" prefWidth="200.0">
+                     <children>
+                        <Label text="TENSION :" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
+                     <children>
+                        <Label text="FRÉQUENCE :" />
+                        <Label fx:id="freqLabel" text="520.0" />
+                        <Label layoutX="81.0" layoutY="10.0" text="kHz" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="0.0" prefWidth="200.0">
+                     <children>
+                        <Label text="AMPLITUDE :" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="0.0" prefWidth="200.0">
+                     <children>
+                        <Label text="VITESSE D'ENVOI :" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Region prefHeight="0.0" prefWidth="170.0" VBox.vgrow="ALWAYS" />
+            <HBox prefHeight="404.0" prefWidth="170.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <StackPane prefHeight="412.0" prefWidth="56.0">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="445.0" stroke="TRANSPARENT" strokeType="INSIDE" width="170.0" />
                         <VBox id="contours" prefHeight="200.0" prefWidth="100.0">
                            <children>
                               <Label prefHeight="17.0" prefWidth="36.0" text="FREQ." />
-                              <Label fx:id="sliderLabel" text="535.0" />
-                              <Slider fx:id="slider" blockIncrement="1.0" majorTickUnit="1.0" max="1605.0" min="535.0" minorTickCount="0" orientation="VERTICAL" prefHeight="315.0" prefWidth="14.0" snapToTicks="true">
+                              <Label fx:id="sliderLabel" text="520.0" />
+                              <Slider fx:id="slider" blockIncrement="1.0" majorTickUnit="1.0" max="1600.0" min="520.0" minorTickCount="0" orientation="VERTICAL" prefHeight="405.0" prefWidth="19.0" snapToTicks="true">
                                  <padding>
                                     <Insets left="5.0" />
                                  </padding>
@@ -81,15 +85,6 @@
                         </VBox>
                      </children>
                   </StackPane>
-                  <VBox prefHeight="356.0" prefWidth="100.0" spacing="50.0">
-                     <children>
-                        <Circle fill="#ffffff00" radius="52.0" stroke="BLACK" strokeType="INSIDE" />
-                        <Circle fill="#ffffff00" layoutX="62.0" layoutY="62.0" radius="52.0" stroke="BLACK" strokeType="INSIDE" />
-                     </children>
-                     <padding>
-                        <Insets left="10.0" top="40.0" />
-                     </padding>
-                  </VBox>
                </children>
                <padding>
                   <Insets top="10.0" />
@@ -102,28 +97,41 @@
       </VBox>
    </left>
    <center>
-      <BorderPane id="contours" prefHeight="439.0" prefWidth="711.0" BorderPane.alignment="CENTER">
+      <BorderPane id="contours" prefHeight="611.0" prefWidth="845.0" BorderPane.alignment="CENTER">
          <bottom>
             <HBox prefHeight="17.0" prefWidth="711.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="btnSelectionner" mnemonicParsing="false" onAction="#clickedBtnSelect" prefHeight="25.0" prefWidth="114.0" text="SÉLECTIONNER" />
-                  <StackPane prefHeight="25.0" prefWidth="507.0" HBox.hgrow="ALWAYS">
+                  <Region prefHeight="25.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="btnSelectionner" mnemonicParsing="false" onAction="#clickedBtnSelect" prefHeight="25.0" prefWidth="125.0" text="SÉLECTIONNER" />
+                  <StackPane prefHeight="25.0" prefWidth="614.0">
                      <children>
-                        <ProgressBar prefHeight="25.0" prefWidth="503.0" progress="0.15" styleClass="progressBar" />
-                        <Label prefHeight="48.0" prefWidth="502.0" text="VEUILLER SÉLECTIONNER UN FICHIER À ENVOYER...">
+                        <ProgressBar prefHeight="25.0" prefWidth="632.0" progress="0.15" styleClass="progressBar" />
+                        <Label fx:id="labelProgress" prefHeight="25.0" prefWidth="637.0" text="VEUILLER SÉLECTIONNER UN FICHIER À ENVOYER...">
                            <padding>
                               <Insets left="5.0" />
                            </padding></Label>
                      </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
                   </StackPane>
-                  <Button fx:id="btnEnvoyer" mnemonicParsing="false" onAction="#clickedBtnEnvoyer" prefHeight="25.0" prefWidth="90.0" text="ENVOYER" />
+                  <Button fx:id="btnEnvoyer" mnemonicParsing="false" onAction="#clickedBtnEnvoyer" prefHeight="25.0" prefWidth="100.0" text="ENVOYER" />
                </children>
+               <BorderPane.margin>
+                  <Insets bottom="-2.0" />
+               </BorderPane.margin>
             </HBox>
          </bottom>
+         <center>
+            <VBox fx:id="vboxMessages" alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
+               <padding>
+                  <Insets bottom="30.0" />
+               </padding>
+            </VBox>
+         </center>
       </BorderPane>
    </center>
    <cursor>
       <Cursor fx:constant="DEFAULT" />
    </cursor>
 </BorderPane>
-

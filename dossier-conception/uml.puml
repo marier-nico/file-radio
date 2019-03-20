@@ -4,12 +4,16 @@ package "controleurs" {
     	- scene : Scene
     	- stage : Stage
     	- vueEmetteur : ControleurVueEmetteur
+    	- vueRecepteur : ControleurVueRecepteur
     	- vueMenu : ControleurVueMenu
         + void start(Stage stagePrincipal)
         + {static} void main()
         - void showVueMenu(Stage stage)
         + void showVueEmetteur()
+        + void showVueRecepteur()
         + Stage getStage()
+        + Stage getScene()
+        - void setOptionRetour()
     }
     
     class ControleurEnvoi {
@@ -30,30 +34,65 @@ package "vue" {
     	- slider : Slider
     	- freqLabel : Label
     	- sliderLabel : Label
+    	- labelProgress : Label
+    	- vboxMessages : VBox
+    	- paneAnimation : Pane
         - application : ApplicationRadio = null
         + {static} final ADRESSE_VUE_EMETTEUR : String = "/vues/Vue_Emetteur.fxml"
+        - final fileChooser : FileChooser = new FileChooser()
+        - file : File
+        - nbrMessage : int = 0
+        - anim : AnimationSinus = new AnimationSinus()
         + void setApplication(ApplicationRadio application)
         + BorderPane getBorderPaneRoot()
         - void clickedBtnEnvoyer(ActionEvent event)
         - void clickedBtnSelect(ActionEvent event)
         + void bindSlider()
+        - void afficherAnimation()
+        - void arretAnimation()
+        + String getEmplacementFichierSelect()
     }
 
-    note top of ControleurVueRecepteur : Le corps de cette classe reste à déterminer
     class ControleurVueRecepteur {
-        + void ControleurVueRecepteur()
+        - borderPaneRoot : BorderPane
+    	- btnSelectionner : Button
+    	- btnEnregistrer : Button
+    	- slider : Slider
+    	- freqLabel : Label
+    	- sliderLabel : Label
+    	- labelProgress : Label
+    	- vboxMessages : VBox
+        - application : ApplicationRadio = null
+        + {static} final ADRESSE_VUE_RECEPTEUR : String = "/vues/Vue_Recepteur.fxml"
+        - final directoryChooser : DirectoryChooser = new DirectoryChooser()
+        - file : File
+        - nbrMessage : int = 0
+        + void setApplication(ApplicationRadio application)
+        + BorderPane getBorderPaneRoot()
+        - void clickedBtnEnregistrer(ActionEvent event)
+        - void clickedBtnSelect(ActionEvent event)
+        + void bindSlider()
+        + String getEmplacementFichierSelect()
     }
 
     class ControleurVueMenu {
+    	- darkNGreen RadioMenuItem
+    	- blueNRed RadioMenuItem
         - vboxRoot : VBox
         - btnEmettre : Button
         - btnReception : Button
+        - themeCourant : String = DARK_N_GREEN
+        + {static} final DARK_N_GREEN : String = "/styles/DarkNGreen.css"
+        + {static} final BLUE_N_RED : String = "/styles/BlueNRed.css"
         - application : ApplicationRadio = null
         + {static} final ADRESSE_VUE_MENU : String = "/vues/Vue_Menu.fxml"
         + void setApplication(ApplicationRadio application)
         + VBox getVboxRoot()
         - void clickedBtnEmettre(ActionEvent event)
         - void clickedBtnReception(ActionEvent event)
+        - void selectedDarkNGreen(ActionEvent event)
+        - void selectedBlueNRed(ActionEvent event)
+        + String getThemeCourant()
     }
 }
 

@@ -53,12 +53,12 @@ public class TestRepresentationBinaire {
 			assertTrue(rb.hasNext());
 			assertTrue(rb.next().equals(new OctetBinaire(octets[i])));
 		}
-		assertFalse(rb.hasNext());
 		try {
 			rb.next();
 			fail();
 		} catch (NoSuchElementException ex) {
 		}
+		assertTrue(rb.hasNext());
 	}
 	
 	@Test
