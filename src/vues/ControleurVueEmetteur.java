@@ -6,6 +6,8 @@ import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 
 import controleurs.ApplicationRadio;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -38,9 +40,6 @@ public class ControleurVueEmetteur {
 	private Slider slider;
 
 	@FXML
-	private Label freqLabel;
-
-	@FXML
 	private Label sliderLabel;
 
 	@FXML
@@ -60,7 +59,7 @@ public class ControleurVueEmetteur {
 	private AnimationSinus anim = new AnimationSinus();
 	private GenerateurSon generateurSon;
 	private LecteurSon lecteurSon;
-	private float dureeSonBit = 0.001f;
+	private FloatProperty dureeSonBit = new SimpleFloatProperty(0.0001f);
 
 	public void setApplication(ApplicationRadio application) {
 		this.application = application;
@@ -83,10 +82,10 @@ public class ControleurVueEmetteur {
 				return;
 			}
 			RepresentationBinaire repr = new RepresentationBinaire(octetsFichier);
-			generateurSon = new GenerateurSon(repr, dureeSonBit);
+			generateurSon = new GenerateurSon(repr, dureeSonBit.get());
 			byte[][] donnees = generateurSon.getDonneesSon();
 			try {
-				lecteurSon = new LecteurSon(donnees, dureeSonBit);
+				lecteurSon = new LecteurSon(donnees, dureeSonBit.get());
 				lecteurSon.lireSons();
 			} catch (LineUnavailableException ex) {
 				afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
@@ -111,8 +110,8 @@ public class ControleurVueEmetteur {
 
 	public void bindSlider() {
 		slider.valueProperty().addListener((ov, old_val, new_val) -> {
-			freqLabel.textProperty().bind(slider.valueProperty().asString());
-			sliderLabel.textProperty().bind(freqLabel.textProperty());
+			dureeSonBit.bind(slider.valueProperty());
+			sliderLabel.textProperty().bind(slider.valueProperty().asString());
 		});
 	}
 

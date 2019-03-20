@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
-<?import javafx.scene.shape.Rectangle?>
 
 <BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueEmetteur">
    <top>
@@ -30,25 +29,26 @@
       </StackPane>
    </top>
    <left>
-      <VBox prefHeight="611.0" prefWidth="156.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="611.0" prefWidth="194.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="145.0" prefWidth="160.0" spacing="15.0">
                <children>
-                  <HBox prefHeight="0.0" prefWidth="200.0">
+                  <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Label text="COURANT :" />
+                        <Label layoutX="10.0" layoutY="10.0" text="2,5 A" />
                      </children>
                   </HBox>
-                  <HBox prefHeight="0.0" prefWidth="200.0">
+                  <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Label text="TENSION :" />
+                        <Label layoutX="10.0" layoutY="10.0" text="9 V" />
                      </children>
                   </HBox>
                   <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Label text="FRÉQUENCE :" />
-                        <Label fx:id="freqLabel" text="520.0" />
-                        <Label layoutX="81.0" layoutY="10.0" text="kHz" />
+                        <Label text="1280 kHz" />
                      </children>
                   </HBox>
                   <HBox prefHeight="0.0" prefWidth="200.0">
@@ -56,40 +56,30 @@
                         <Label text="AMPLITUDE :" />
                      </children>
                   </HBox>
-                  <HBox prefHeight="0.0" prefWidth="200.0">
+                  <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
                      <children>
-                        <Label text="VITESSE D'ENVOI :" />
+                        <Label text="VITESSE FICHIER :" />
+                        <Label layoutX="10.0" layoutY="10.0" text="0,001" />
+                        <Label layoutX="108.0" layoutY="10.0" text="B/s" />
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <Region prefHeight="0.0" prefWidth="170.0" VBox.vgrow="ALWAYS" />
-            <HBox prefHeight="404.0" prefWidth="170.0" VBox.vgrow="ALWAYS">
+            <Region prefHeight="46.0" prefWidth="156.0" VBox.vgrow="ALWAYS" />
+            <VBox id="contours" alignment="TOP_CENTER" prefHeight="430.0" prefWidth="156.0">
                <children>
-                  <StackPane prefHeight="412.0" prefWidth="56.0">
-                     <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="445.0" stroke="TRANSPARENT" strokeType="INSIDE" width="170.0" />
-                        <VBox id="contours" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Label prefHeight="17.0" prefWidth="36.0" text="FREQ." />
-                              <Label fx:id="sliderLabel" text="520.0" />
-                              <Slider fx:id="slider" blockIncrement="1.0" majorTickUnit="1.0" max="1600.0" min="520.0" minorTickCount="0" orientation="VERTICAL" prefHeight="405.0" prefWidth="19.0" snapToTicks="true">
-                                 <padding>
-                                    <Insets left="5.0" />
-                                 </padding>
-                              </Slider>
-                           </children>
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding>
-                        </VBox>
-                     </children>
-                  </StackPane>
+                  <Label prefHeight="17.0" prefWidth="138.0" text="TEMPS D'ENVOI D'UN BIT" />
+                  <Label fx:id="sliderLabel" prefHeight="17.0" prefWidth="35.0" text="0,0001">
+                     <VBox.margin>
+                        <Insets left="25.0" />
+                     </VBox.margin></Label>
+                  <Slider fx:id="slider" blockIncrement="0.01" majorTickUnit="0.01" max="1.0" min="1.0E-4" minorTickCount="0" orientation="VERTICAL" prefHeight="376.0" prefWidth="19.0" snapToTicks="true" value="1.0E-4">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Slider>
                </children>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-            </HBox>
+            </VBox>
          </children>
          <padding>
             <Insets top="10.0" />
