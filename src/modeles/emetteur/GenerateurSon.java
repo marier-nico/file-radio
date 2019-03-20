@@ -17,11 +17,11 @@ public class GenerateurSon {
 	/**
 	 * Les données sonores représentant le son d'un bit égal à 0.
 	 */
-	private static byte[] donneesSon0;
+	private byte[] donneesSon0;
 	/**
 	 * Les données sonores représentant le son d'un bit égal à 1.
 	 */
-	private static byte[] donneesSon1;
+	private byte[] donneesSon1;
 
 	/**
 	 * Le constructeur permet d'initialiser la représentation binaire ainsi que la
@@ -47,7 +47,7 @@ public class GenerateurSon {
 	 * 
 	 * @param dureeEnSec la durée du son représentant chaque bit
 	 */
-	public static void calculerSonsPourBits(float dureeEnSec) {
+	public void calculerSonsPourBits(float dureeEnSec) {
 		if(!validerDureeEnSec(dureeEnSec))
 			throw new IllegalArgumentException("La durée doit être plus grande que 0 secondes");
 		float qualit = 44100;
