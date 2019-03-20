@@ -80,23 +80,29 @@ package "modeles.emetteur" {
     }
 
     class GenerateurSon {
-        + octets : List<OctetBinaire>
-        + notes : List<Note>
-        + void GenerateurSon(List<OctetBinaire> octets)
-        - Note genererNote(byte b)
-        - void genererNotes()
-    }
-
-    class Note {
-        - numeroNote : int
-        - velocite : int
-        + void Note(int numeroNote, int velocite)
+        - repr : RepresentationBinaire
+        - donneesSon0 : byte[]
+        - donneesSon1 : byte[]
+        + GenerateurSon(RepresentationBinaire repr, float dureeEnSec)
+        + void calculerSonsPourBits(float dureeEnSec)
+        + byte[][] getDonneesSon()
+        + {static} boolean validerRepresentation(RepresentationBinaire repr)
+        + {static} boolean validerDureeEnSec(float duree)
     }
 
     class LecteurSon {
-        + void LecteurSon(List<Note>)
-        + void jouerSon(Note note)
-        + void jouerSons()
+        - donneesSons : byte[][]
+        - af : AudioFormat
+        - sdl : SourceDataLine
+        - dureeEnSec : float
+        + LecteurSon(byte[][] donneesSons, float dureeEnSec)
+        + void lireSons()
+        - void creerAudioFormat()
+        - void creerSourceDataLine()
+        - void preparerDataLineAEnvoi()
+        - void fermerDataLine()
+        + {static} boolean validerDonneesSon(byte[][] donnees)
+        + {static} boolean validerDuree(float duree)
     }
 }
 
@@ -130,6 +136,21 @@ package "passerelle" {
 }
 
 package "tests" {
+	class TestGenerateurSon {
+		+ {static} void setUp()
+		+ void testGenerateurSon()
+		+ void testGenerateurSonInvalide()
+		+ void testCalculerSonsPourBits()
+		+ void testGetDonneesSon()
+	}
+	
+	class TestLecteurSon {
+		+ void testLecteurSon()
+		+ void testLecteurSonInvalide()
+		+ void testValiderDonneesSon()
+		+ void testValiderDuree()
+	}
+
     class TestOctetBinaire {
         ob : OctetBinaire
         + void testOctetBinaire()
@@ -156,28 +177,37 @@ package "tests" {
     }
 }
 
-interface Iterable<OctetBinaire> {
+interface "Iterable<OctetBinaire>" as iterableOB {
     + OctetBinaire next()
     + boolean hasNext()
 }
-interface Iterator<OctetBinaire> {
+interface "Iterator<OctetBinaire>" as iteratorOB {
     + Iterator<OctetBinaire> iterator()
+}
+interface "Iterable<Byte>" as iterableBY {
+    + Byte next()
+    + boolean hasNext()
+}
+interface "Iterator<Byte>" as iteratorBY {
+    + Iterator<Byte> iterator()
 }
 
 ApplicationRadio --> ControleurEnvoi
 ControleurEnvoi --> PasserelleFichier
 ControleurEnvoi --> RepresentationBinaire
-ControleurEnvoi --> GenerateurSon
-ControleurEnvoi --> LecteurSon
 
-LecteurSon --> Note
+OctetBinaire --|> iterableBY
+OctetBinaire --|> iteratorBY
 
-GenerateurSon --> Note
-GenerateurSon --> OctetBinaire
 
 RepresentationBinaire --> OctetBinaire
-RepresentationBinaire --|> Iterable
-RepresentationBinaire --|> Iterator
+RepresentationBinaire --|> iterableOB
+RepresentationBinaire --|> iteratorOB
+
+GenerateurSon --> RepresentationBinaire
+GenerateurSon --> OctetBinaire
+
+LecteurSon --> GenerateurSon
 
 ControleurReception --> PasserelleFichier
 ControleurReception --> EcouteurSignaux
@@ -186,6 +216,9 @@ EcouteurSignaux --> OctetBinaire
 EcouteurSignaux --> Signal
 
 Signal --> ValeurSignal
+
+TestGenerateurSon --> GenerateurSon
+TestLecteurSon --> LecteurSon
 
 TestOctetBinaire --> OctetBinaire
 TestPasserelleFichier --> PasserelleFichier
