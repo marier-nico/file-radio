@@ -6,6 +6,7 @@ import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 
 import controleurs.ApplicationRadio;
+import javafx.application.Platform;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.event.ActionEvent;
@@ -87,20 +88,36 @@ public class ControleurVueEmetteur {
 				octetsFichier = PasserelleFichier.lireOctets(file);
 			} catch (IOException ex) {
 				afficherErreur("la lecture du fichier",
-						"Le fichier n'a pas pu être lu. Une erreur s'est produite pendant son ouverture. "
-								+ "Il est possible que le fichier soit ouvert dans un autre programme.",
-						ex);
+							   "Le fichier n'a pas pu être lu. Une erreur s'est produite pendant son ouverture. " 
+							   + "Il est possible que le fichier soit ouvert dans un autre programme.", ex);
 				return;
 			}
 			RepresentationBinaire repr = new RepresentationBinaire(octetsFichier);
-			generateurSon = new GenerateurSon(repr, dureeSonBit.get());
+			if(generateurSon == null)
+				generateurSon = new GenerateurSon(repr, dureeSonBit.get());
+			else
+				generateurSon.setRepresentationBinaire(repr);
 			byte[][] donnees = generateurSon.getDonneesSon();
 			try {
-				lecteurSon = new LecteurSon(donnees, dureeSonBit.get());
-				lecteurSon.lireSons();
+				if(lecteurSon == null)
+					lecteurSon = new LecteurSon(donnees, dureeSonBit.get());
+				else
+					lecteurSon.setDonneesSons(donnees);
+				Platform.runLater(() -> {
+					try {
+						lecteurSon.lireSons();
+					} catch (IllegalStateException ex) {
+						afficherErreur("la lecture du son", "Un autre son est déjà en lecture.", ex);
+					} catch (LineUnavailableException ex) {
+						afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
+								   + "Tentez de libérer la sortie audio de votre système.", ex);
+					}
+				});
 			} catch (LineUnavailableException ex) {
 				afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
-						+ "Tentez de libérer la sortie audio de votre système.", ex);
+							   + "Tentez de libérer la sortie audio de votre système.", ex);
+			} catch (IllegalStateException ex) {
+				afficherErreur("la lecture du son", "Un autre son est déjà en lecture.", ex);
 			}
 		}
 		Label l = new Label(getEmplacementFichierSelct() + " a été envoyé!");
