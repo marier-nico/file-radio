@@ -76,13 +76,10 @@ public class LecteurSon {
 			throw new IllegalStateException("Un son est déjà en lecture");
 		preparerDataLineAEnvoi();
 		lectureEnCours = true;
-		Thread t = new Thread(() -> {
-			for(byte[] donneesSon : donneesSons) {
-				sdl.write(donneesSon, 0, (int) (af.getSampleRate() * dureeEnSec));
-			}
-			lectureEnCours = false;
-		});
-		t.start();
+		for(byte[] donneesSon : donneesSons) {
+			sdl.write(donneesSon, 0, (int) (af.getSampleRate() * dureeEnSec));
+		}
+		lectureEnCours = false;
 		fermerDataLine();
 	}
 	
