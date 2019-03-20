@@ -12,6 +12,14 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 
+/**
+ * 
+ * Cette classe permet est le controleur de la vue du récepteur. Elle permet de
+ * creer une vue et de gérer les évenements.
+ * 
+ * @author Charles-Antoine Demetriade
+ *
+ */
 public class ControleurVueRecepteur {
 	
 	@FXML

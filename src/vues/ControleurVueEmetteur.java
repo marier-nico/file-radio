@@ -25,6 +25,13 @@ import modeles.emetteur.LecteurSon;
 import modeles.emetteur.RepresentationBinaire;
 import modeles.passerelle.PasserelleFichier;
 
+/**
+ * Cette classe permet est le controleur de la vue de l'emetteur. Elle permet de
+ * creer une vue et de gérer les évenements.
+ * 
+ * @author Charles-Antoine Demetriade
+ *
+ */
 public class ControleurVueEmetteur {
 
 	@FXML
@@ -77,8 +84,9 @@ public class ControleurVueEmetteur {
 				octetsFichier = PasserelleFichier.lireOctets(file);
 			} catch (IOException ex) {
 				afficherErreur("la lecture du fichier",
-							   "Le fichier n'a pas pu être lu. Une erreur s'est produite pendant son ouverture. " 
-							   + "Il est possible que le fichier soit ouvert dans un autre programme.", ex);
+						"Le fichier n'a pas pu être lu. Une erreur s'est produite pendant son ouverture. "
+								+ "Il est possible que le fichier soit ouvert dans un autre programme.",
+						ex);
 				return;
 			}
 			RepresentationBinaire repr = new RepresentationBinaire(octetsFichier);
@@ -89,7 +97,7 @@ public class ControleurVueEmetteur {
 				lecteurSon.lireSons();
 			} catch (LineUnavailableException ex) {
 				afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
-							   + "Tentez de libérer la sortie audio de votre système.", ex);
+						+ "Tentez de libérer la sortie audio de votre système.", ex);
 			}
 		}
 		Label l = new Label(getEmplacementFichierSelct() + " a été envoyé!");
