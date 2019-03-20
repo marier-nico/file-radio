@@ -2,6 +2,8 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.NoSuchElementException;
 
 import org.junit.Before;
@@ -10,7 +12,7 @@ import org.junit.Test;
 import modeles.emetteur.OctetBinaire;
 
 public class TestOctetBinaire {
-	
+
 	OctetBinaire ob;
 
 	@Before
@@ -21,7 +23,7 @@ public class TestOctetBinaire {
 		} catch (IllegalArgumentException ex) {
 			fail();
 		}
-		
+
 		try {
 			byte b = 127;
 			ob = new OctetBinaire(b);
@@ -29,24 +31,37 @@ public class TestOctetBinaire {
 			fail();
 		}
 	}
-	
+
 	@Test
 	public void testOctetBinaireInvalide() {
 		try {
 			byte b = -1;
 			ob = new OctetBinaire(b);
 			fail();
-		} catch (IllegalArgumentException ex) {}
+		} catch (IllegalArgumentException ex) {
+		}
 	}
-	
+
 	@Test
 	public void testCalculerBits() {
+		try {
+			Method calculerBits = OctetBinaire.class.getDeclaredMethod("calculerBits", byte.class);
+			calculerBits.setAccessible(true);
+			calculerBits.invoke(ob, (byte)-1);
+			fail();
+		} catch (IllegalArgumentException
+				| IllegalAccessException
+				| InvocationTargetException
+				| NoSuchMethodException
+				| SecurityException ex) {
+			ex.printStackTrace();
+		}
 		byte b = 10;
 		ob = new OctetBinaire(b);
-		byte[] bits = {0,0,0,1,0,1,0};
+		byte[] bits = { 0, 0, 0, 1, 0, 1, 0 };
 		assertArrayEquals(bits, ob.getBits());
 	}
-	
+
 	@SuppressWarnings("unlikely-arg-type")
 	@Test
 	public void testEquals() {
@@ -55,25 +70,25 @@ public class TestOctetBinaire {
 		OctetBinaire ob1 = new OctetBinaire(b);
 		OctetBinaire ob2 = new OctetBinaire(b2);
 		assertFalse(ob1.equals(ob2));
-		
+
 		b = 1;
 		OctetBinaire ob3 = new OctetBinaire(b);
 		assertTrue(ob3.equals(ob2));
-		
+
 		assertFalse(ob3.equals(new Integer(2)));
 	}
-	
+
 	@Test
 	public void testToString() {
 		byte b = 15;
 		OctetBinaire ob = new OctetBinaire(b);
 		assertTrue(ob.toString().equals("0001111"));
 	}
-	
+
 	@Test
 	public void testHasNextEtNext() {
 		byte[] bits = ob.getBits();
-		for(int i = 0; i < bits.length; i++) {
+		for (int i = 0; i < bits.length; i++) {
 			assertTrue(ob.hasNext());
 			assertTrue(ob.next().equals(bits[i]));
 		}
@@ -84,7 +99,7 @@ public class TestOctetBinaire {
 		}
 		assertTrue(ob.hasNext());
 	}
-	
+
 	@Test
 	public void testIterator() {
 		assertTrue(ob.iterator() == ob);
