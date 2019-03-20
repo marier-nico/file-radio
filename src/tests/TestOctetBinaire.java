@@ -54,7 +54,6 @@ public class TestOctetBinaire {
 				| InvocationTargetException
 				| NoSuchMethodException
 				| SecurityException ex) {
-			ex.printStackTrace();
 		}
 		byte b = 10;
 		ob = new OctetBinaire(b);
