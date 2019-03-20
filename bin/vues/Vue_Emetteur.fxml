@@ -69,10 +69,15 @@
             <VBox id="contours" alignment="TOP_CENTER" prefHeight="430.0" prefWidth="156.0">
                <children>
                   <Label prefHeight="17.0" prefWidth="138.0" text="TEMPS D'ENVOI D'UN BIT" />
-                  <Label fx:id="sliderLabel" prefHeight="17.0" prefWidth="35.0" text="0,0001">
-                     <VBox.margin>
-                        <Insets left="25.0" />
-                     </VBox.margin></Label>
+                  <HBox alignment="CENTER" prefHeight="13.0" prefWidth="154.0" spacing="5.0">
+                     <children>
+                        <Label fx:id="sliderLabel" prefHeight="17.0" prefWidth="35.0" text="0,0001" />
+                        <Label fx:id="sliderLabel1" layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="35.0" text="s/b" />
+                     </children>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </HBox>
                   <Slider fx:id="slider" blockIncrement="0.01" majorTickUnit="0.01" max="1.0" min="1.0E-4" minorTickCount="0" orientation="VERTICAL" prefHeight="376.0" prefWidth="19.0" snapToTicks="true" value="1.0E-4">
                      <padding>
                         <Insets left="5.0" />
