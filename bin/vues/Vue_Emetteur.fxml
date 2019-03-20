@@ -15,13 +15,12 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.shape.Rectangle?>
 
-<BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueEmetteur">
+<BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueEmetteur">
    <top>
       <StackPane prefHeight="89.0" prefWidth="850.0" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="200.0" prefWidth="200.0" styleClass="pane">
+            <Pane fx:id="paneAnimation" prefHeight="200.0" prefWidth="200.0" styleClass="pane">
                <children>
-                  <Rectangle fill="#2197ff00" height="93.0" layoutX="-0.5" layoutY="-0.5" stroke="#ffffff00" strokeType="INSIDE" strokeWidth="2.0" width="851.0" />
                   <Line id="3lines" endX="678.5" layoutX="423.0" layoutY="46.5" startX="-425.0" />
                   <Line id="3lines" endX="-77.0" layoutX="100.0" layoutY="23.25" startX="-100.0" />
                   <Line id="3lines" endX="-77.0" layoutX="100.0" layoutY="69.75" startX="-100.0" />
@@ -107,7 +106,7 @@
                   <StackPane prefHeight="25.0" prefWidth="614.0">
                      <children>
                         <ProgressBar prefHeight="25.0" prefWidth="632.0" progress="0.15" styleClass="progressBar" />
-                        <Label prefHeight="25.0" prefWidth="637.0" text="VEUILLER SÉLECTIONNER UN FICHIER À ENVOYER...">
+                        <Label fx:id="labelProgress" prefHeight="25.0" prefWidth="637.0" text="VEUILLER SÉLECTIONNER UN FICHIER À ENVOYER...">
                            <padding>
                               <Insets left="5.0" />
                            </padding></Label>
@@ -123,6 +122,13 @@
                </BorderPane.margin>
             </HBox>
          </bottom>
+         <center>
+            <VBox fx:id="vboxMessages" alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
+               <padding>
+                  <Insets bottom="30.0" />
+               </padding>
+            </VBox>
+         </center>
       </BorderPane>
    </center>
    <cursor>

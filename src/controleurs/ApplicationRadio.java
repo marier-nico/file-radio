@@ -3,6 +3,7 @@ package controleurs;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -54,9 +55,10 @@ public class ApplicationRadio extends Application {
 		scene = new Scene(root);
 		scene.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
 		stage.setTitle("Émetteur");
-		stage.setResizable(true);
+		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.show();
+		setOptionRetour();
 	}
 	
 	public void showVueRecepteur() throws Exception {
@@ -70,9 +72,10 @@ public class ApplicationRadio extends Application {
 		scene = new Scene(root);
 		scene.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
 		stage.setTitle("Récepteur");
-		stage.setResizable(true);
+		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.show();
+		setOptionRetour();
 	}
 
 	public Stage getStage() {
@@ -81,6 +84,21 @@ public class ApplicationRadio extends Application {
 	
 	public Scene getScene() {
 		return scene;
+	}
+	
+	/*
+	 * Permet de revenir à la vue menu en appuyant sur Escape.
+	 */
+	private void setOptionRetour() {
+		scene.setOnKeyPressed(e -> {
+		    if (e.getCode() == KeyCode.ESCAPE) {
+		    	try {
+					showVueMenu(stage);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+		    }
+		});
 	}
 }
 
