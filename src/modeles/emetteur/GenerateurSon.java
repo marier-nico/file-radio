@@ -53,7 +53,7 @@ public class GenerateurSon {
 		float qualit = 44100;
 		int freq = 1000;
 		int volumeMin = 50;
-		int volumeMax = 150;
+		int volumeMax = 100;
 		int nbVals = (int) (qualit * dureeEnSec);
 		donneesSon0 = new byte[nbVals];
 		donneesSon1 = new byte[nbVals];
