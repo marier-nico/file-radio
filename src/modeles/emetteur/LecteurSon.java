@@ -92,7 +92,7 @@ public class LecteurSon {
 	 * 
 	 * @param donneesSons les donneés sonores à faire jouer
 	 */
-	public void changerDonneesSons(byte[][] donneesSons) {
+	public void setDonneesSons(byte[][] donneesSons) {
 		if(validerDonneesSon(donneesSons))
 			this.donneesSons = donneesSons;
 	}

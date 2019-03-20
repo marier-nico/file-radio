@@ -68,13 +68,13 @@ public class TestLecteurSon {
 	@Test
 	public void testChangerDonneesSons() throws LineUnavailableException {
 		LecteurSon ls = new LecteurSon(donnees, 0.01f);
-		ls.changerDonneesSons(null);
+		ls.setDonneesSons(null);
 		assertTrue(Arrays.deepEquals(donnees, getValeurChampLecteurSon("donneesSons", ls)));
 		byte[][] donnesInvalides0 = {};
 		byte[][] donnesInvalides1 = {{}};
-		ls.changerDonneesSons(donnesInvalides0);
+		ls.setDonneesSons(donnesInvalides0);
 		assertTrue(Arrays.deepEquals(donnees, getValeurChampLecteurSon("donneesSons", ls)));
-		ls.changerDonneesSons(donnesInvalides1);
+		ls.setDonneesSons(donnesInvalides1);
 		assertTrue(Arrays.deepEquals(donnees, getValeurChampLecteurSon("donneesSons", ls)));
 	}
 
