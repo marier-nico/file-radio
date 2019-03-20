@@ -80,5 +80,19 @@ public class TestGenerateurSon {
 		donneesAttendues[13] = donnees1;
 		assertTrue(Arrays.deepEquals(donneesAttendues, gs.getDonneesSon()));
 	}
+	
+	@Test
+	public void testRepresentationBinaire() {
+		byte[] octets = {0, 0, 1, 13};
+		byte[][] donnees1 = gs.getDonneesSon();
+		gs.setRepresentationBinaire(null);
+		byte[][] donnees2 = gs.getDonneesSon();
+		RepresentationBinaire rbin = new RepresentationBinaire(octets);
+		gs.setRepresentationBinaire(rbin);
+		byte[][] donnees3 = gs.getDonneesSon();
+		
+		assertTrue(Arrays.deepEquals(donnees1, donnees2));
+		assertFalse(Arrays.deepEquals(donnees2, donnees3));
+	}
 
 }
