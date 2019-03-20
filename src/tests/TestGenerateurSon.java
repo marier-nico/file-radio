@@ -53,6 +53,11 @@ public class TestGenerateurSon {
 
 	@Test
 	public void testCalculerSonsPourBits() {
+		try {
+			gs.calculerSonsPourBits(0);
+			fail();
+		} catch (IllegalArgumentException ex) {}
+		
 		float duree = 0.0001f;
 		gs.calculerSonsPourBits(duree);
 		byte[][] donnees = gs.getDonneesSon();
