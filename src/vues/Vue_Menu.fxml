@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="vboxRoot" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueMenu">
+<VBox fx:id="vboxRoot" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueMenu">
    <children>
       <Region prefHeight="0.0" prefWidth="700.0" VBox.vgrow="ALWAYS" />
       <Button fx:id="btnEmettre" mnemonicParsing="false" onAction="#clickedBtnEmettre" prefHeight="65.0" prefWidth="226.0" text="Émettre un message" />
@@ -20,6 +20,7 @@
             <RadioMenuItem fx:id="blueNRed" mnemonicParsing="false" onAction="#selectedBlueNRed" text="BlueNRed" />
         </items>
       </SplitMenuButton>
+      <Region prefHeight="0.0" prefWidth="700.0" VBox.vgrow="ALWAYS" />
    </children>
    <padding>
       <Insets bottom="75.0" top="75.0" />

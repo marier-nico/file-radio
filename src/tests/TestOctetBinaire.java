@@ -2,6 +2,8 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.util.NoSuchElementException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -66,5 +68,25 @@ public class TestOctetBinaire {
 		byte b = 15;
 		OctetBinaire ob = new OctetBinaire(b);
 		assertTrue(ob.toString().equals("0001111"));
+	}
+	
+	@Test
+	public void testHasNextEtNext() {
+		byte[] bits = ob.getBits();
+		for(int i = 0; i < bits.length; i++) {
+			assertTrue(ob.hasNext());
+			assertTrue(ob.next().equals(bits[i]));
+		}
+		assertFalse(ob.hasNext());
+		try {
+			ob.next();
+			fail();
+		} catch (NoSuchElementException ex) {
+		}
+	}
+	
+	@Test
+	public void testIterator() {
+		assertTrue(ob.iterator() == ob);
 	}
 }
