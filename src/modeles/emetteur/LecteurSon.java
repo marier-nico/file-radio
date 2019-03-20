@@ -51,6 +51,8 @@ public class LecteurSon {
 	 * @throws LineUnavailableException si la sortie audio n'est pas disponible
 	 */
 	public LecteurSon(byte[][] donneesSons, float dureeEnSec) throws LineUnavailableException {
+		if(!validerDonneesSon(donneesSons) || !validerDuree(dureeEnSec))
+			throw new IllegalArgumentException("Les données doivent contenir de l'information et la durée doit être supérieure à 0.");
 		this.donneesSons = donneesSons;
 		this.dureeEnSec = dureeEnSec;
 		creerAudioFormat();
@@ -110,5 +112,27 @@ public class LecteurSon {
 	private void fermerDataLine() {
 		sdl.drain();
 		sdl.stop();
+	}
+	
+	/**
+	 * Cette méthode permet de valider si les données sonores sont valides.
+	 * Des données sont valides si elles contiennent de l'information.
+	 * 
+	 * @param donnees les données sonores
+	 * @return validite true si les données sont valides ou false sinon
+	 */
+	public static boolean validerDonneesSon(byte[][] donnees) {
+		return donnees.length > 0 && donnees[0].length > 0;
+	}
+	
+	/**
+	 * Cette méthode permet de valider si la durée en secondes est valide.
+	 * Pour être valide, la durée doit être supérieure à 0 secondes.
+	 * 
+	 * @param duree la durée en secondes
+	 * @return validite true si la durée est valide et false sinon
+	 */
+	public static boolean validerDuree(float duree) {
+		return duree > 0;
 	}
 }
