@@ -87,6 +87,17 @@ public class LecteurSon {
 	}
 	
 	/**
+	 * Cette méthode permet de modifier les données sonores qui seront utilisés
+	 * lors de la lecture du son.
+	 * 
+	 * @param donneesSons les donneés sonores à faire jouer
+	 */
+	public void changerDonneesSons(byte[][] donneesSons) {
+		if(validerDonneesSon(donneesSons))
+			this.donneesSons = donneesSons;
+	}
+	
+	/**
 	 * Cette méthode permet d'initialiser l'objet AudioFormat avec les bonnes valeurs.
 	 */
 	private void creerAudioFormat() {
