@@ -63,6 +63,17 @@ public class GenerateurSon {
 			donneesSon1[i] = (byte) (Math.sin(angle) * volumeMax);
 		}
 	}
+	
+	/**
+	 * Cette méthode permet de changer la représentation binaire à utiliser pour
+	 * trouver les données sonores.
+	 * 
+	 * @param repr la représentation binaire du fichier
+	 */
+	public void setRepresentationBinaire(RepresentationBinaire repr) {
+		if(validerRepresentation(repr))
+			this.repr = repr;
+	}
 
 	/**
 	 * Cette méthode permet d'obtenir les données sonores représentant l'ensemble
