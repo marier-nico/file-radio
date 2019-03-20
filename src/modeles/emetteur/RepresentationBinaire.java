@@ -58,7 +58,10 @@ public class RepresentationBinaire implements Iterable<OctetBinaire>, Iterator<O
 	 */
 	@Override
 	public boolean hasNext() {
-		return octetCourant < octets.length; 
+		boolean aProchain = octetCourant < octets.length;
+		if(!aProchain)
+			octetCourant = 0;
+		return aProchain; 
 	}
 
 	/**
@@ -70,6 +73,7 @@ public class RepresentationBinaire implements Iterable<OctetBinaire>, Iterator<O
 	@Override
 	public OctetBinaire next() {
 		if(!this.hasNext()) {
+			octetCourant = 0;
 			throw new NoSuchElementException();
 		}
 		

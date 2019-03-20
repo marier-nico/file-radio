@@ -124,7 +124,10 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	 */
 	@Override
 	public boolean hasNext() {
-		return bitCourant < bits.length;
+		boolean aProchain = bitCourant < bits.length;
+		if(!aProchain)
+			bitCourant = 0;
+		return aProchain;
 	}
 
 	/**
@@ -136,6 +139,7 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	@Override
 	public Byte next() {
 		if(!this.hasNext()) {
+			bitCourant = 0;
 			throw new NoSuchElementException();
 		}
 		
