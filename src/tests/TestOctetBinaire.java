@@ -77,12 +77,12 @@ public class TestOctetBinaire {
 			assertTrue(ob.hasNext());
 			assertTrue(ob.next().equals(bits[i]));
 		}
-		assertFalse(ob.hasNext());
 		try {
 			ob.next();
 			fail();
 		} catch (NoSuchElementException ex) {
 		}
+		assertTrue(ob.hasNext());
 	}
 	
 	@Test
