@@ -22,7 +22,7 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	 */
 	private int bitCourant;
 
-	public static final byte BITS_DANS_OCTET = 7;
+	public static final byte BITS_DANS_OCTET = 8;
 
 	/**
 	 * Ce constructeur permet de faire un octet en base 2 à partir d'un byte en
