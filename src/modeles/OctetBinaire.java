@@ -36,10 +36,6 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	 * @param b le byte en décimal
 	 */
 	public OctetBinaire(byte b) {
-		if (!validerByte(b)) {
-			throw new IllegalArgumentException("Le byte ne peut pas être négatif");
-		}
-
 		bits = new byte[BITS_DANS_OCTET];
 		bitCourant = 0;
 		representationDecimale = b;
@@ -53,8 +49,6 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	 * @param b le byte en décimal
 	 */
 	private void calculerBits(byte b) {
-		if (!validerByte(b))
-			throw new IllegalArgumentException("Le byte ne peut pas être négatif");
 		String octetEnBinaire = Integer.toBinaryString(b);
 		octetEnBinaire = (new StringBuilder(octetEnBinaire).reverse().toString());
 		int i = bits.length - 1;
@@ -136,16 +130,6 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 			}
 		}
 		return bitsCopie;
-	}
-	
-	/**
-	 * Cette méthode permet la validation du byte en décimal.
-	 * 
-	 * @param b le byte en décimal
-	 * @return true si le byte est valide sinon faux
-	 */
-	private static boolean validerByte(byte b) {
-		return b >= 0;
 	}
 
 	// TODO: OctetBinaireFactory(Signal[] signaux)
