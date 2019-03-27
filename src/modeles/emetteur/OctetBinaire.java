@@ -122,8 +122,8 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	 */
 	public byte[] complementerADeux(byte[] bits) {
 		byte[] bitsCopie = bits.clone();
+		boolean premierUnRencontre = false;
 		for(int i = BITS_DANS_OCTET - 1; i >=0; i--) {
-			boolean premierUnRencontre = false;
 			if(bitsCopie[i] == 0) {
 				if(premierUnRencontre) {
 					bitsCopie[i] = 1;
