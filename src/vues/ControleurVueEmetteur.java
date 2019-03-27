@@ -93,16 +93,10 @@ public class ControleurVueEmetteur {
 				return;
 			}
 			RepresentationBinaire repr = new RepresentationBinaire(octetsFichier);
-			if(generateurSon == null)
-				generateurSon = new GenerateurSon(repr, dureeSonBit.get());
-			else
-				generateurSon.setRepresentationBinaire(repr);
+			generateurSon = new GenerateurSon(repr, dureeSonBit.get());
 			byte[][] donnees = generateurSon.getDonneesSon();
 			try {
-				if(lecteurSon == null)
-					lecteurSon = new LecteurSon(donnees, dureeSonBit.get());
-				else
-					lecteurSon.setDonneesSons(donnees);
+				lecteurSon = new LecteurSon(donnees, dureeSonBit.get());
 				Platform.runLater(() -> {
 					try {
 						lecteurSon.lireSons();
