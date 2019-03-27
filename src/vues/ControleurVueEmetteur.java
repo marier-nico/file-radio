@@ -71,6 +71,7 @@ public class ControleurVueEmetteur {
 	private GenerateurSon generateurSon;
 	private LecteurSon lecteurSon;
 	private FloatProperty dureeSonBit = new SimpleFloatProperty(0.0001f);
+	private Thread threadSon;
 
 	public void setApplication(ApplicationRadio application) {
 		this.application = application;
@@ -97,16 +98,20 @@ public class ControleurVueEmetteur {
 			byte[][] donnees = generateurSon.getDonneesSon();
 			try {
 				lecteurSon = new LecteurSon(donnees, dureeSonBit.get());
-				Platform.runLater(() -> {
-					try {
-						lecteurSon.lireSons();
-					} catch (IllegalStateException ex) {
-						afficherErreur("la lecture du son", "Un autre son est déjà en lecture.", ex);
-					} catch (LineUnavailableException ex) {
-						afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
-								   + "Tentez de libérer la sortie audio de votre système.", ex);
+				threadSon = new Thread(new Runnable() {
+					@Override
+					public void run() {
+						try {
+							lecteurSon.lireSons();
+						} catch (IllegalStateException ex) {
+							afficherErreur("la lecture du son", "Un autre son est déjà en lecture.", ex);
+						} catch (LineUnavailableException ex) {
+							afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
+									   + "Tentez de libérer la sortie audio de votre système.", ex);
+						}
 					}
 				});
+				threadSon.start();
 			} catch (LineUnavailableException ex) {
 				afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
 							   + "Tentez de libérer la sortie audio de votre système.", ex);
@@ -139,7 +144,9 @@ public class ControleurVueEmetteur {
 	
 	@FXML
     void clickedBtnAnnuler(ActionEvent event) {
-		System.out.println("Annuler!!!!!");
+		if ((threadSon != null) && threadSon.isAlive()) {
+			threadSon.stop();
+		}
     }
 
 	// Prochain Sprint...
