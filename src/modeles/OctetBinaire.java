@@ -1,4 +1,4 @@
-package modeles.emetteur;
+package modeles;
 
 import java.util.Arrays;
 import java.util.Iterator;

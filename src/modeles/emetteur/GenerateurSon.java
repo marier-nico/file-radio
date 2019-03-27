@@ -1,5 +1,7 @@
 package modeles.emetteur;
 
+import modeles.OctetBinaire;
+
 /**
  * Cette classe permet de générer les sons qui représentent les bits de la
  * représentation binaire du fichier choisi.

@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 import org.junit.Before;
 import org.junit.Test;
 
-import modeles.emetteur.OctetBinaire;
+import modeles.OctetBinaire;
 import modeles.emetteur.RepresentationBinaire;
 
 public class TestRepresentationBinaire {
