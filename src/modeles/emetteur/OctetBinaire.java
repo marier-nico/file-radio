@@ -74,14 +74,22 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	 * @return un tableau de bits représentant la conversion du byte b en base 2.
 	 */
 	private byte[] decABin(byte b, byte[] representationBin, int index) {
+		boolean octetNegatif = false;
 		if (b == 0) {
 			return representationBin;
+		}
+		if (b < 0) {
+			b = (byte) Math.abs(b);
+			octetNegatif = true;
 		}
 		byte reste = (byte) (b - (2 * (Math.floor(b / 2))));
 		representationBin[index - 1] = reste;
 		byte quotient = (byte) Math.floor(b / 2);
 		index--;
 		decABin(quotient, representationBin, index);
+		if (octetNegatif) {
+			representationBin = complementerADeux(representationBin);
+		}
 		return representationBin;
 	}
 
