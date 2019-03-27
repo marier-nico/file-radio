@@ -106,9 +106,9 @@ public class TestOctetBinaire {
 	public void testDecABin() {
 		byte[] tabByte1 = ob.decABin((byte) 28);
 		byte[] tabByte11 = {0,0,0,1,1,1,0,0};
-		
 		byte[] tabByte2 = ob.decABin((byte) -28);
-		System.out.println(Arrays.toString(tabByte2));
+		byte[] tabByte22 = {1,1,1,0,0,1,0,0};
 		assertTrue(Arrays.equals(tabByte1, tabByte11));
+		assertTrue(Arrays.equals(tabByte2, tabByte22));
 	}
 }
