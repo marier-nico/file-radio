@@ -131,6 +131,15 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 		}
 		return bitsCopie;
 	}
+	
+	/**
+	 * Cette méthode permet d'obtenir la valeur de l'octet en décimal.
+	 * 
+	 * @return representationDecimale l'octet en représentation décimale
+	 */
+	public byte getOctetEnDecimal() {
+		return representationDecimale;
+	}
 
 	// TODO: OctetBinaireFactory(Signal[] signaux)
 
