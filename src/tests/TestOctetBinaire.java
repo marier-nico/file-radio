@@ -34,16 +34,6 @@ public class TestOctetBinaire {
 	}
 
 	@Test
-	public void testOctetBinaireInvalide() {
-		try {
-			byte b = -1;
-			ob = new OctetBinaire(b);
-			fail();
-		} catch (IllegalArgumentException ex) {
-		}
-	}
-
-	@Test
 	public void testCalculerBits() {
 		try {
 			Method calculerBits = OctetBinaire.class.getDeclaredMethod("calculerBits", byte.class);
@@ -110,5 +100,10 @@ public class TestOctetBinaire {
 		byte[] tabByte22 = {1,1,1,0,0,1,0,0};
 		assertTrue(Arrays.equals(tabByte1, tabByte11));
 		assertTrue(Arrays.equals(tabByte2, tabByte22));
+	}
+	
+	@Test
+	public void testGetOctetEnDecimal() {
+		assertTrue(ob.getOctetEnDecimal() == 127);
 	}
 }
