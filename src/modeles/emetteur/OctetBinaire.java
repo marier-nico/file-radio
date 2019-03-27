@@ -19,6 +19,11 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	private byte[] bits;
 	
 	/**
+	 * Le nombre original en représentation décimale 
+	 */
+	private byte representationDecimale;
+	
+	/**
 	 * Le bit courant pour l'itération
 	 */
 	private int bitCourant;
@@ -38,6 +43,7 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 		
 		bits = new byte[BITS_DANS_OCTET];
 		bitCourant = 0;
+		representationDecimale = b;
 		calculerBits(b);
 	}
 	
@@ -67,6 +73,14 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	 */
 	public byte[] getBits() {
 		return bits;
+	}
+	
+	/**
+	 * On calcule la complémentation à deux de notre octet et on change les
+	 * bits de notre octet binaire.
+	 */
+	public byte complementerADeux(byte b) {
+		return (byte) (~b + 1);
 	}
 	
 	/**
