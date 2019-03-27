@@ -55,7 +55,7 @@ public class TestOctetBinaire {
 		}
 		byte b = 10;
 		ob = new OctetBinaire(b);
-		byte[] bits = { 0, 0, 0, 1, 0, 1, 0 };
+		byte[] bits = {0, 0, 0, 0, 1, 0, 1, 0 };
 		assertArrayEquals(bits, ob.getBits());
 	}
 
@@ -79,7 +79,7 @@ public class TestOctetBinaire {
 	public void testToString() {
 		byte b = 15;
 		OctetBinaire ob = new OctetBinaire(b);
-		assertTrue(ob.toString().equals("0001111"));
+		assertTrue(ob.toString().equals("00001111"));
 	}
 
 	@Test
