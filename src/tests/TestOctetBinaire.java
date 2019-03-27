@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 import org.junit.Before;
@@ -47,12 +48,9 @@ public class TestOctetBinaire {
 		try {
 			Method calculerBits = OctetBinaire.class.getDeclaredMethod("calculerBits", byte.class);
 			calculerBits.setAccessible(true);
-			calculerBits.invoke(ob, (byte)-1);
+			calculerBits.invoke(ob, (byte) -1);
 			fail();
-		} catch (IllegalArgumentException
-				| IllegalAccessException
-				| InvocationTargetException
-				| NoSuchMethodException
+		} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchMethodException
 				| SecurityException ex) {
 		}
 		byte b = 10;
@@ -102,5 +100,12 @@ public class TestOctetBinaire {
 	@Test
 	public void testIterator() {
 		assertTrue(ob.iterator() == ob);
+	}
+
+	@Test
+	public void testDecABin() {
+		byte[] tabByte1 = ob.decABin((byte) 28);
+		byte[] tabByte11 = {0,0,0,1,1,1,0,0};
+		assertTrue(Arrays.equals(tabByte1, tabByte11));
 	}
 }
