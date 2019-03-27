@@ -5,70 +5,101 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
- * Cette classe représente un octet en base 2.
- * Elle sert à convertir entre un byte en décimal et un octet.
+ * Cette classe représente un octet en base 2. Elle sert à convertir entre un
+ * byte en décimal et un octet.
  *
  * @author Nicolas Marier
  *
  */
 public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	/**
-	 * Les différents chiffres de la représentation
-	 * en base 2.
+	 * Les différents chiffres de la représentation en base 2.
 	 */
 	private byte[] bits;
-	
+
 	/**
 	 * Le bit courant pour l'itération
 	 */
 	private int bitCourant;
-	
+
 	public static final byte BITS_DANS_OCTET = 7;
-	
+
 	/**
-	 * Ce constructeur permet de faire un octet en base 2
-	 * à partir d'un byte en décimal.
+	 * Ce constructeur permet de faire un octet en base 2 à partir d'un byte en
+	 * décimal.
 	 * 
 	 * @param b le byte en décimal
 	 */
 	public OctetBinaire(byte b) {
-		if(!validerByte(b)) {
+		if (!validerByte(b)) {
 			throw new IllegalArgumentException("Le byte ne peut pas être négatif");
 		}
-		
+
 		bits = new byte[BITS_DANS_OCTET];
 		bitCourant = 0;
 		calculerBits(b);
 	}
-	
+
 	/**
-	 * Cette méthode prend un byte décimal et inscrit les chiffres
-	 * de la représentation en base 2 dans un array.
+	 * Cette méthode prend un byte décimal et inscrit les chiffres de la
+	 * représentation en base 2 dans un array.
 	 * 
 	 * @param b le byte en décimal
 	 */
 	private void calculerBits(byte b) {
-		if(!validerByte(b))
+		if (!validerByte(b))
 			throw new IllegalArgumentException("Le byte ne peut pas être négatif");
 		String octetEnBinaire = Integer.toBinaryString(b);
 		octetEnBinaire = (new StringBuilder(octetEnBinaire).reverse().toString());
 		int i = bits.length - 1;
-		for(char bit : octetEnBinaire.toCharArray()) {
+		for (char bit : octetEnBinaire.toCharArray()) {
 			bits[i] = Byte.parseByte("" + bit);
 			i--;
 		}
 	}
-	
+
 	/**
-	 * Cette méthode retourne les chiffres en base 2
-	 * qui représentent le byte en décimal.
+	 * Convertit un entier de base 10 vers en base 2. Retourne un tableau de cette
+	 * conversion sur 8 bits.
+	 * 
+	 * @param b                 le byte en décimal
+	 * @param representationBin le tableau de bits
+	 * @param index             du tableau
+	 * @return un tableau de bits représentant la conversion du byte b en base 2.
+	 */
+	private byte[] decABin(byte b, byte[] representationBin, int index) {
+		if (b == 0) {
+			return representationBin;
+		}
+		byte reste = (byte) (b - (2 * (Math.floor(b / 2))));
+		representationBin[index - 1] = reste;
+		byte quotient = (byte) Math.floor(b / 2);
+		index--;
+		decABin(quotient, representationBin, index);
+		return representationBin;
+	}
+
+	/**
+	 * Cette méthode est une surchage pour appeler la méthode decABin pour pouvoir
+	 * initier l'array de bits.
+	 * 
+	 * @param b le byte en décimal
+	 * @return un tableau de bits représentant la conversion du byte b en base 2.
+	 */
+	public byte[] decABin(byte b) {
+		return decABin(b, new byte[8], BITS_DANS_OCTET);
+	}
+
+	/**
+	 * Cette méthode retourne les chiffres en base 2 qui représentent le byte en
+	 * décimal.
 	 * 
 	 * @return bits les chiffres de la base 2
 	 */
 	public byte[] getBits() {
 		return bits;
 	}
-	
+
 	/**
 	 * Cette méthode permet la validation du byte en décimal.
 	 * 
@@ -78,17 +109,17 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	private static boolean validerByte(byte b) {
 		return b >= 0;
 	}
-	
-	//TODO: OctetBinaireFactory(Signal[] signaux)
-	
+
+	// TODO: OctetBinaireFactory(Signal[] signaux)
+
 	@Override
 	public String toString() {
 		return Arrays.toString(bits).replaceAll("[\\[\\], ]", "");
 	}
-	
+
 	/**
-	 * Cette méthode compare deux octets binaires.
-	 * Deux octets binaires sont égaux si leurs bits sont égaux.
+	 * Cette méthode compare deux octets binaires. Deux octets binaires sont égaux
+	 * si leurs bits sont égaux.
 	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 * @return true si les octets sont égaux sinon faux
@@ -96,12 +127,12 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	@Override
 	public boolean equals(Object obj) {
 		boolean egaux = false;
-		
-		if(obj instanceof OctetBinaire) {
+
+		if (obj instanceof OctetBinaire) {
 			OctetBinaire autre = (OctetBinaire) obj;
 			egaux = Arrays.equals(bits, autre.bits);
 		}
-		
+
 		return egaux;
 	}
 
@@ -125,7 +156,7 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	@Override
 	public boolean hasNext() {
 		boolean aProchain = bitCourant < bits.length;
-		if(!aProchain)
+		if (!aProchain)
 			bitCourant = 0;
 		return aProchain;
 	}
@@ -138,10 +169,10 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	 */
 	@Override
 	public Byte next() {
-		if(!this.hasNext()) {
+		if (!this.hasNext()) {
 			throw new NoSuchElementException();
 		}
-		
+
 		return bits[bitCourant++];
 	}
 }
