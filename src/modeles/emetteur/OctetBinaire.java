@@ -109,9 +109,25 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	/**
 	 * On calcule la complémentation à deux de notre octet et on change les
 	 * bits de notre octet binaire.
+	 * @param bits les bits à complémenter
+	 * @return byte[] les bits une fois complémentés
 	 */
-	public byte complementerADeux(byte b) {
-		return (byte) (~b + 1);
+	public byte[] complementerADeux(byte[] bits) {
+		byte[] bitsCopie = bits.clone();
+		for(int i = BITS_DANS_OCTET - 1; i >=0; i--) {
+			boolean premierUnRencontre = false;
+			if(bitsCopie[i] == 0) {
+				if(premierUnRencontre) {
+					bitsCopie[i] = 1;
+				}
+			} else {
+				if(premierUnRencontre)
+					bitsCopie[i] = 0;
+				else
+					premierUnRencontre = true;
+			}
+		}
+		return bitsCopie;
 	}
 	
 	/**
