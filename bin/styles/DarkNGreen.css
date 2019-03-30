@@ -1,7 +1,12 @@
+* {
+   -fx-couleurFond: #1c1c1e;
+   -fx-couleurBordures: #1f6b0c;
+}
+
 .root {
-	-fx-background-color: #0f0f0f;
-	-fx-border-color: #1d932a;
-	-fx-border-width: 3;
+	-fx-background-color: -fx-couleurFond;
+	-fx-border-color: -fx-couleurBordures;
+	-fx-border-width: 3.0;
 }
 
 .label {
@@ -9,37 +14,37 @@
 }
 
 .button {
-	-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #0f0f0f, #1c1c1c);
-	-fx-background-radius: 1;
-	-fx-border-width: 2;
-	-fx-border-radius: 1;
-	-fx-border-color: #1d932a;
+	-fx-background-color: linear-gradient(from 25.0% 25.0% to 100.0% 100.0%, -fx-couleurFond, #282827);
+	-fx-background-radius: 1.0;
+	-fx-border-width: 2.0;
+	-fx-border-radius: 1.0;
+	-fx-border-color: -fx-couleurBordures;
 	-fx-text-fill: white;
 }
 
 .button:hover {
-	-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #1c1c1c, #0f0f0f);
+	-fx-background-color: linear-gradient(from 25.0% 25.0% to 100.0% 100.0%, #282827, -fx-couleurFond);
 }
 
 .pane, #contours {
-	-fx-border-color: #1d932a;
+	-fx-border-color: -fx-couleurBordures;
 }
 
-#3lines {
-	-fx-stroke: #1d932a;
+#lines {
+	-fx-stroke: -fx-couleurBordures;
 }
 
 .progressBar {
-	-fx-indeterminate-bar-length: 60;
+	-fx-indeterminate-bar-length: 60.0;
 	-fx-indeterminate-bar-escape: true;
 	-fx-indeterminate-bar-flip: true;
-	-fx-indeterminate-bar-animation-time: 2;
+	-fx-indeterminate-bar-animation-time: 2.0;
 }
 
 .progressBar>.bar {
 	-fx-background-color: #2c3d2b;
-	-fx-background-insets: 3 3 4 3;
-	-fx-background-radius: 2;
+	-fx-background-insets: 3.0 3.0 4.0 3.0;
+	-fx-background-radius: 2.0;
 	-fx-padding: 0.75em;
 }
 
@@ -48,37 +53,37 @@
 }
 
 .progressBar>.track {
-	-fx-background-color: #0f0f0f;
-	-fx-background-insets: 0, 0 0 1 0, 1 1 2 1;
-	-fx-background-radius: 4, 3, 2;
-	-fx-border-color: #1d932a;
-	-fx-border-width: 2;
+	-fx-background-color: -fx-couleurFond;
+	-fx-background-insets: 0.0, 0.0 0.0 1.0 0.0, 1.0 1.0 2.0 1.0;
+	-fx-background-radius: 4.0, 3.0, 2.0;
+	-fx-border-color: -fx-couleurBordures;
+	-fx-border-width: 2.0;
 }
 
 .slider>.track {
 	-fx-background-color: white;
-	-fx-background-size: 1;
+	-fx-background-size: 1.0;
 }
 
 .slider:vertical .track {
-	-fx-pref-width: 2;
+	-fx-pref-width: 2.0;
 }
 
 .slider .thumb {
-	-fx-pref-height: 7;
-	-fx-pref-width: 26;
-	-fx-background-color: #1d932a;
-	-fx-border-width: 1;
-	-fx-border-radius: 0;
+	-fx-pref-height: 7.0;
+	-fx-pref-width: 26.0;
+	-fx-background-color: -fx-couleurBordures;
+	-fx-border-width: 1.0;
+	-fx-border-radius: 0.0;
 	-fx-border-color: white;
 }
 
 .split-menu-button {
-	-fx-background-color: #1d932a;
+	-fx-background-color: -fx-couleurBordures;
 }
 
 .split-menu-button .label {
-	-fx-background-color: #0f0f0f;
+	-fx-background-color: -fx-couleurFond;
 }
 
 .split-menu-button .arrow {
@@ -86,13 +91,13 @@
 }
 
 .split-menu-button .menu-item, .split-menu-button .arrow-button {
-	-fx-background-color: #0f0f0f;
-	-fx-border-color: #1d932a;
+	-fx-background-color: -fx-couleurFond;
+	-fx-border-color: -fx-couleurBordures;
 }
 
 .split-menu-button .menu-item:hover {
-	-fx-border-color: #1d932a;
-	-fx-border-width: 3;
+	-fx-border-color: -fx-couleurBordures;
+	-fx-border-width: 3.0;
 }
 
 .split-menu-button .menu-item:disabled, split-menu-button .menu-item:disabled>*

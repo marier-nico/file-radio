@@ -20,9 +20,9 @@
          <children>
             <Pane fx:id="paneAnimation" prefHeight="200.0" prefWidth="200.0" styleClass="pane">
                <children>
-                  <Line id="3lines" endX="888.5" layoutX="423.0" layoutY="46.5" startX="-425.0" />
-                  <Line id="3lines" endX="-77.0" layoutX="100.0" layoutY="23.25" startX="-100.0" />
-                  <Line id="3lines" endX="-77.0" layoutX="100.0" layoutY="69.75" startX="-100.0" />
+                  <Line id="lines" endX="888.5" layoutX="423.0" layoutY="46.5" startX="-425.0" />
+                  <Line id="lines" endX="-77.0" layoutX="100.0" layoutY="23.25" startX="-100.0" />
+                  <Line id="lines" endX="-77.0" layoutX="100.0" layoutY="69.75" startX="-100.0" />
                </children>
             </Pane>
          </children>
