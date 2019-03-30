@@ -64,20 +64,13 @@ public class ControleurVueRecepteur {
 
 	@FXML
 	private void clickedBtnSelect(ActionEvent event) {
-		directoryChooser.setTitle("Veiller sélectionner un emplacement de destination");
+		directoryChooser.setTitle("Veuiller sélectionner un emplacement de destination");
 		file = directoryChooser.showDialog(application.getStage());
 		labelProgress.setText(getEmplacementFichierSelct());
 	}
 	
-//	public void bindSlider() {
-//		slider.valueProperty().addListener((ov, old_val, new_val) -> {
-//		    freqLabel.textProperty().bind(slider.valueProperty().asString());
-//		    sliderLabel.textProperty().bind(freqLabel.textProperty());
-//		});
-//	}
-	
 	public String getEmplacementFichierSelct() {
-		String retour = "rien";
+		String retour = "Rien";
 		if (file != null) {
 			retour = file.getAbsolutePath();
 		}

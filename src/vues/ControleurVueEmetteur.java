@@ -130,7 +130,7 @@ public class ControleurVueEmetteur {
 
 	@FXML
 	private void clickedBtnSelect(ActionEvent event) {
-		fileChooser.setTitle("Veiller sélectionner un fichier");
+		fileChooser.setTitle("Veuiller sélectionner un fichier");
 		file = fileChooser.showOpenDialog(application.getStage());
 		labelProgress.setText(getEmplacementFichierSelct());
 	}
@@ -159,7 +159,7 @@ public class ControleurVueEmetteur {
 	}
 
 	public String getEmplacementFichierSelct() {
-		String retour = "rien";
+		String retour = "Rien";
 		if (file != null) {
 			retour = file.getAbsolutePath();
 		}

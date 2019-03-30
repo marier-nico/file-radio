@@ -100,6 +100,13 @@ public class ApplicationRadio extends Application {
 		setOptionRetour();
 	}
 	
+	/**
+	 * Configure et démarre le stage.
+	 * 
+	 * @param titre du stage
+	 * @param redimension vrai ou faux
+	 * @param scene de la vue
+	 */
 	private void demarrageStage(String titre, boolean redimension, Scene scene) {
 		stage.setTitle(titre);
 		stage.setResizable(redimension);
