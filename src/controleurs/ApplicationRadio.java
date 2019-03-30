@@ -25,6 +25,7 @@ public class ApplicationRadio extends Application {
 	private ControleurVueEmetteur vueEmetteur;
 	private ControleurVueRecepteur vueRecepteur;
 	private ControleurVueMenu vueMenu;
+	private boolean redimensionnable = true;
 
 	/**
 	 * Démarre l'application.
@@ -59,10 +60,7 @@ public class ApplicationRadio extends Application {
 		VBox root = vueMenu.getVboxRoot();
 		scene = new Scene(root);
 		scene.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
-		stage.setTitle("Menu");
-		stage.setResizable(true);
-		stage.setScene(scene);
-		stage.show();
+		demarrageStage("Menu", redimensionnable, getScene());
 	}
 
 	/**
@@ -80,10 +78,7 @@ public class ApplicationRadio extends Application {
 		BorderPane root = vueEmetteur.getBorderPaneRoot();
 		scene = new Scene(root);
 		scene.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
-		stage.setTitle("Émetteur");
-		stage.setResizable(false);
-		stage.setScene(scene);
-		stage.show();
+		demarrageStage("Émetteur", redimensionnable, getScene());
 		setOptionRetour();
 	}
 
@@ -101,11 +96,15 @@ public class ApplicationRadio extends Application {
 		BorderPane root = vueRecepteur.getBorderPaneRoot();
 		scene = new Scene(root);
 		scene.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
-		stage.setTitle("Récepteur");
-		stage.setResizable(false);
+		demarrageStage("Récepteur", redimensionnable, getScene());
+		setOptionRetour();
+	}
+	
+	private void demarrageStage(String titre, boolean redimension, Scene scene) {
+		stage.setTitle(titre);
+		stage.setResizable(redimension);
 		stage.setScene(scene);
 		stage.show();
-		setOptionRetour();
 	}
 
 	/**

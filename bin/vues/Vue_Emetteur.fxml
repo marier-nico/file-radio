@@ -14,13 +14,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueEmetteur">
+<BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="1255.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueEmetteur">
    <top>
       <StackPane prefHeight="89.0" prefWidth="850.0" BorderPane.alignment="CENTER">
          <children>
             <Pane fx:id="paneAnimation" prefHeight="200.0" prefWidth="200.0" styleClass="pane">
                <children>
-                  <Line id="3lines" endX="678.5" layoutX="423.0" layoutY="46.5" startX="-425.0" />
+                  <Line id="3lines" endX="888.5" layoutX="423.0" layoutY="46.5" startX="-425.0" />
                   <Line id="3lines" endX="-77.0" layoutX="100.0" layoutY="23.25" startX="-100.0" />
                   <Line id="3lines" endX="-77.0" layoutX="100.0" layoutY="69.75" startX="-100.0" />
                </children>
@@ -29,7 +29,7 @@
       </StackPane>
    </top>
    <left>
-      <VBox prefHeight="611.0" prefWidth="154.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="704.0" prefWidth="179.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="145.0" prefWidth="160.0" spacing="15.0">
                <children>
@@ -65,7 +65,7 @@
                   </HBox>
                </children>
             </VBox>
-            <Region prefHeight="46.0" prefWidth="156.0" VBox.vgrow="ALWAYS" />
+            <Region prefHeight="95.0" prefWidth="154.0" VBox.vgrow="ALWAYS" />
             <VBox id="contours" alignment="TOP_CENTER" prefHeight="430.0" prefWidth="156.0">
                <children>
                   <Label prefHeight="17.0" prefWidth="138.0" text="TEMPS D'ENVOI D'UN BIT" />
@@ -96,12 +96,12 @@
          <bottom>
             <HBox prefHeight="17.0" prefWidth="711.0" BorderPane.alignment="CENTER">
                <children>
-                  <Region prefHeight="25.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="btnSelectionner" mnemonicParsing="false" onAction="#clickedBtnSelect" prefHeight="25.0" prefWidth="111.0" text="SÉLECTIONNER" />
-                  <StackPane prefHeight="25.0" prefWidth="580.0">
+                  <Region prefHeight="25.0" prefWidth="2.0" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="btnSelectionner" mnemonicParsing="false" onAction="#clickedBtnSelect" prefHeight="25.0" prefWidth="172.0" text="SÉLECTIONNER" />
+                  <StackPane prefHeight="25.0" prefWidth="722.0">
                      <children>
-                        <ProgressBar prefHeight="25.0" prefWidth="580.0" progress="0.15" styleClass="progressBar" />
-                        <Label fx:id="labelProgress" prefHeight="25.0" prefWidth="577.0" text="VEUILLER SÉLECTIONNER UN FICHIER À ENVOYER...">
+                        <ProgressBar prefHeight="25.0" prefWidth="833.0" progress="0.15" styleClass="progressBar" />
+                        <Label fx:id="labelProgress" prefHeight="25.0" prefWidth="834.0" text="VEUILLER SÉLECTIONNER UN FICHIER À ENVOYER...">
                            <padding>
                               <Insets left="5.0" />
                            </padding></Label>
@@ -110,8 +110,8 @@
                         <Insets />
                      </HBox.margin>
                   </StackPane>
-                  <Button fx:id="btnAnnuler" layoutX="776.0" layoutY="10.0" mnemonicParsing="false" onAction="#clickedBtnAnnuler" prefHeight="25.0" prefWidth="78.0" text="ANNULER" />
-                  <Button fx:id="btnEnvoyer" mnemonicParsing="false" onAction="#clickedBtnEnvoyer" prefHeight="25.0" prefWidth="80.0" text="ENVOYER" />
+                  <Button fx:id="btnAnnuler" layoutX="776.0" layoutY="10.0" mnemonicParsing="false" onAction="#clickedBtnAnnuler" prefHeight="25.0" prefWidth="172.0" text="ANNULER" />
+                  <Button fx:id="btnEnvoyer" mnemonicParsing="false" onAction="#clickedBtnEnvoyer" prefHeight="25.0" prefWidth="168.0" text="ENVOYER" />
                </children>
                <BorderPane.margin>
                   <Insets bottom="-2.0" />
@@ -119,7 +119,7 @@
             </HBox>
          </bottom>
          <center>
-            <VBox fx:id="vboxMessages" alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
+            <VBox fx:id="vboxMessages" alignment="BOTTOM_CENTER" prefHeight="681.0" prefWidth="1104.0" spacing="30.0" BorderPane.alignment="CENTER">
                <padding>
                   <Insets bottom="30.0" />
                </padding>

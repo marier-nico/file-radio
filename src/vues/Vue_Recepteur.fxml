@@ -13,13 +13,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-<BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueRecepteur">
+<BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="1255.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueRecepteur">
    <top>
       <StackPane prefHeight="89.0" prefWidth="850.0" BorderPane.alignment="CENTER">
          <children>
             <Pane fx:id="paneAnimation" prefHeight="200.0" prefWidth="200.0" styleClass="pane">
                <children>
-                  <Line id="3lines" endX="619.5" layoutX="423.0" layoutY="46.5" startX="-425.0" />
+                  <Line id="3lines" endX="875.0" layoutX="423.0" layoutY="46.5" startX="-425.0" />
                   <Line id="3lines" endX="-77.0" layoutX="100.0" layoutY="23.25" startX="-100.0" />
                   <Line id="3lines" endX="-77.0" layoutX="100.0" layoutY="69.75" startX="-100.0" />
                </children>
@@ -28,7 +28,7 @@
       </StackPane>
    </top>
    <left>
-      <VBox prefHeight="611.0" prefWidth="151.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="704.0" prefWidth="192.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="172.0" prefWidth="139.0" spacing="15.0">
                <children>
@@ -62,7 +62,6 @@
                   </HBox>
                </children>
             </VBox>
-            <Region prefHeight="448.0" prefWidth="139.0" VBox.vgrow="ALWAYS" />
          </children>
          <padding>
             <Insets top="10.0" />
@@ -74,19 +73,19 @@
          <bottom>
             <HBox prefHeight="17.0" prefWidth="711.0" BorderPane.alignment="CENTER">
                <children>
-                  <Region prefHeight="25.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="btnSelectionner" mnemonicParsing="false" onAction="#clickedBtnSelect" prefHeight="25.0" prefWidth="114.0" text="SÉLECTIONNER" />
-                  <StackPane prefHeight="25.0" prefWidth="646.0">
+                  <Region prefHeight="25.0" prefWidth="7.0" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="btnSelectionner" mnemonicParsing="false" onAction="#clickedBtnSelect" prefHeight="25.0" prefWidth="140.0" text="SÉLECTIONNER" />
+                  <StackPane prefHeight="25.0" prefWidth="792.0">
                      <children>
-                        <ProgressBar disable="true" prefHeight="25.0" prefWidth="667.0" progress="0.0" styleClass="progressBar" />
-                        <Label fx:id="labelProgress" prefHeight="25.0" prefWidth="649.0" text="VEUILLER SÉLECTIONNER UN EMPLACEMENT POUR ENREGISTRER...">
+                        <ProgressBar disable="true" prefHeight="25.0" prefWidth="789.0" progress="0.0" styleClass="progressBar" />
+                        <Label fx:id="labelProgress" minHeight="25.0" minWidth="788.0" prefHeight="25.0" prefWidth="788.0" text="VEUILLER SÉLECTIONNER UN EMPLACEMENT POUR ENREGISTRER...">
                            <padding>
                               <Insets left="5.0" />
                            </padding>
                         </Label>
                      </children>
                   </StackPane>
-                  <Button fx:id="btnEnregistrer" mnemonicParsing="false" onAction="#clickedBtnEnregistrer" prefHeight="25.0" prefWidth="101.0" text="ENREGISTRER" />
+                  <Button fx:id="btnEnregistrer" mnemonicParsing="false" onAction="#clickedBtnEnregistrer" prefHeight="25.0" prefWidth="140.0" text="ENREGISTRER" />
                </children>
                <BorderPane.margin>
                   <Insets bottom="-2.0" />

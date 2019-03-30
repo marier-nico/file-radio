@@ -30,7 +30,7 @@ import modeles.passerelle.PasserelleFichier;
  * Cette classe permet est le controleur de la vue de l'emetteur. Elle permet de
  * creer une vue et de gérer les évenements.
  * 
- * @author Charles-Antoine Demetriade
+ * @author Charles-Antoine Demetriade et Nicolas Marier
  *
  */
 public class ControleurVueEmetteur {
