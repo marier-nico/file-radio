@@ -101,7 +101,7 @@
    <center>
       <BorderPane id="contours" prefHeight="611.0" prefWidth="845.0" BorderPane.alignment="CENTER">
          <bottom>
-            <HBox prefHeight="17.0" prefWidth="711.0" BorderPane.alignment="CENTER">
+            <HBox id="contours" prefHeight="17.0" prefWidth="711.0" BorderPane.alignment="CENTER">
                <children>
                   <Region prefHeight="25.0" prefWidth="2.0" HBox.hgrow="ALWAYS" />
                   <Button fx:id="btnSelectionner" mnemonicParsing="false" onAction="#clickedBtnSelect" prefHeight="25.0" prefWidth="172.0" text="SÉLECTIONNER" />

@@ -16,7 +16,7 @@
 .button {
 	-fx-background-color: linear-gradient(from 25.0% 25.0% to 100.0% 100.0%, -fx-couleurFond, #282827);
 	-fx-background-radius: 1.0;
-	-fx-border-width: 2.0;
+	-fx-border-width: 1.0;
 	-fx-border-radius: 1.0;
 	-fx-border-color: -fx-couleurBordures;
 	-fx-text-fill: white;
@@ -57,7 +57,7 @@
 	-fx-background-insets: 0.0, 0.0 0.0 1.0 0.0, 1.0 1.0 2.0 1.0;
 	-fx-background-radius: 4.0, 3.0, 2.0;
 	-fx-border-color: -fx-couleurBordures;
-	-fx-border-width: 2.0;
+	-fx-border-width: 1.0;
 }
 
 .slider>.track {

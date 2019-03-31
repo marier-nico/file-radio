@@ -16,7 +16,7 @@
 .button {
 	-fx-background-color: -fx-couleurFond;
 	-fx-background-radius: 1;
-	-fx-border-width: 2;
+	-fx-border-width: 1;
 	-fx-border-radius: 1;
 	-fx-border-color: -fx-couleurBordures;
 	-fx-text-fill: white;
@@ -57,6 +57,7 @@
 	-fx-background-insets: 0, 0 0 1 0, 1 1 2 1;
 	-fx-background-radius: 4, 3, 2;
 	-fx-border-color: -fx-couleurBordures;
+	-fx-border-width: 1.0;
 }
 
 .slider>.track {
