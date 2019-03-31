@@ -100,7 +100,7 @@
                   <Button fx:id="btnSelectionner" mnemonicParsing="false" onAction="#clickedBtnSelect" prefHeight="25.0" prefWidth="172.0" text="SÉLECTIONNER" />
                   <StackPane prefHeight="25.0" prefWidth="722.0">
                      <children>
-                        <ProgressBar prefHeight="25.0" prefWidth="833.0" progress="0.15" styleClass="progressBar" />
+                        <ProgressBar fx:id="progressBar" prefHeight="25.0" prefWidth="833.0" progress="0.0" styleClass="progressBar" />
                         <Label fx:id="labelProgress" prefHeight="25.0" prefWidth="834.0" text="VEUILLER SÉLECTIONNER UN FICHIER À ENVOYER...">
                            <padding>
                               <Insets left="5.0" />

@@ -6,13 +6,13 @@ import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 
 import controleurs.ApplicationRadio;
-import javafx.application.Platform;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -20,6 +20,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import modeles.AnimationProgressBar;
 import modeles.AnimationSinus;
 import modeles.emetteur.GenerateurSon;
 import modeles.emetteur.LecteurSon;
@@ -61,6 +62,9 @@ public class ControleurVueEmetteur {
 
 	@FXML
 	private Pane paneAnimation;
+	
+	@FXML
+	private ProgressBar progressBar;
 
 	private ApplicationRadio application = null;
 	public static final String ADRESSE_VUE_EMETTEUR = "/vues/Vue_Emetteur.fxml";
@@ -72,6 +76,7 @@ public class ControleurVueEmetteur {
 	private LecteurSon lecteurSon;
 	private FloatProperty dureeSonBit = new SimpleFloatProperty(0.0001f);
 	private Thread threadSon;
+	private AnimationProgressBar animProgress;
 
 	public void setApplication(ApplicationRadio application) {
 		this.application = application;
@@ -111,6 +116,7 @@ public class ControleurVueEmetteur {
 						}
 					}
 				});
+				animProgress = new AnimationProgressBar(progressBar, dureeSonBit.get(), octetsFichier.length*8);
 				threadSon.start();
 			} catch (LineUnavailableException ex) {
 				afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
@@ -120,7 +126,7 @@ public class ControleurVueEmetteur {
 			}
 		}
 		Label l = new Label(getEmplacementFichierSelct() + " a été envoyé!");
-		if (nbrMessage == 12) {
+		if (nbrMessage == 14) {
 			vboxMessages.getChildren().remove(vboxMessages.getChildren().get(0));
 			nbrMessage--;
 		}
@@ -146,6 +152,7 @@ public class ControleurVueEmetteur {
     void clickedBtnAnnuler(ActionEvent event) {
 		if ((threadSon != null) && threadSon.isAlive()) {
 			threadSon.stop();
+			animProgress.stopProgressAnim();
 		}
     }
 
