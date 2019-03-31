@@ -73,7 +73,7 @@ public class ApplicationRadio extends Application {
 		loader.load();
 		vueEmetteur = loader.getController();
 		vueEmetteur.setApplication(this);
-		vueEmetteur.bindSlider();
+		vueEmetteur.bindSliderEtLabel();
 
 		BorderPane root = vueEmetteur.getBorderPaneRoot();
 		scene = new Scene(root);

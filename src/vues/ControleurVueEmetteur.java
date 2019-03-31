@@ -6,7 +6,9 @@ import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 
 import controleurs.ApplicationRadio;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,7 +46,7 @@ public class ControleurVueEmetteur {
 
 	@FXML
 	private Button btnEnvoyer;
-	
+
 	@FXML
 	private Button btnAnnuler;
 
@@ -58,11 +60,17 @@ public class ControleurVueEmetteur {
 	private Label labelProgress;
 
 	@FXML
+	private Label labelVitesseFichier;
+
+	@FXML
+	private Label labelTempsEstim;
+
+	@FXML
 	private VBox vboxMessages;
 
 	@FXML
 	private Pane paneAnimation;
-	
+
 	@FXML
 	private ProgressBar progressBar;
 
@@ -94,8 +102,9 @@ public class ControleurVueEmetteur {
 				octetsFichier = PasserelleFichier.lireOctets(file);
 			} catch (IOException ex) {
 				afficherErreur("la lecture du fichier",
-							   "Le fichier n'a pas pu être lu. Une erreur s'est produite pendant son ouverture. " 
-							   + "Il est possible que le fichier soit ouvert dans un autre programme.", ex);
+						"Le fichier n'a pas pu être lu. Une erreur s'est produite pendant son ouverture. "
+								+ "Il est possible que le fichier soit ouvert dans un autre programme.",
+						ex);
 				return;
 			}
 			RepresentationBinaire repr = new RepresentationBinaire(octetsFichier);
@@ -111,16 +120,18 @@ public class ControleurVueEmetteur {
 						} catch (IllegalStateException ex) {
 							afficherErreur("la lecture du son", "Un autre son est déjà en lecture.", ex);
 						} catch (LineUnavailableException ex) {
-							afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
-									   + "Tentez de libérer la sortie audio de votre système.", ex);
+							afficherErreur("la lecture du son",
+									"Le son n'a pas pu être lu, car la sortie audio est indisponible. "
+											+ "Tentez de libérer la sortie audio de votre système.",
+									ex);
 						}
 					}
 				});
-				animProgress = new AnimationProgressBar(progressBar, dureeSonBit.get(), octetsFichier.length*8);
+				animProgress = new AnimationProgressBar(progressBar, dureeSonBit.get(), octetsFichier.length * 8);
 				threadSon.start();
 			} catch (LineUnavailableException ex) {
 				afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
-							   + "Tentez de libérer la sortie audio de votre système.", ex);
+						+ "Tentez de libérer la sortie audio de votre système.", ex);
 			} catch (IllegalStateException ex) {
 				afficherErreur("la lecture du son", "Un autre son est déjà en lecture.", ex);
 			}
@@ -141,20 +152,31 @@ public class ControleurVueEmetteur {
 		labelProgress.setText(getEmplacementFichierSelct());
 	}
 
-	public void bindSlider() {
+	public void bindSliderEtLabel() {
 		slider.valueProperty().addListener((ov, old_val, new_val) -> {
 			dureeSonBit.bind(slider.valueProperty());
 			sliderLabel.textProperty().bind(slider.valueProperty().asString());
+			DoubleProperty vitFich = new SimpleDoubleProperty(slider.getValue() * 8);
+			labelVitesseFichier.textProperty().bind(vitFich.asString());
+			if (file != null) {
+				DoubleProperty tempsEstim;
+				try {
+					tempsEstim = new SimpleDoubleProperty(dureeSonBit.get()*(PasserelleFichier.lireOctets(file).length)*8);
+					labelTempsEstim.textProperty().bind(tempsEstim.asString());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		});
 	}
-	
+
 	@FXML
-    void clickedBtnAnnuler(ActionEvent event) {
+	void clickedBtnAnnuler(ActionEvent event) {
 		if ((threadSon != null) && threadSon.isAlive()) {
 			threadSon.stop();
 			animProgress.stopProgressAnim();
 		}
-    }
+	}
 
 	// Prochain Sprint...
 	private void afficherAnimation() {

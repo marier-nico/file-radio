@@ -59,20 +59,27 @@
                   <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Label text="VITESSE FICHIER :" />
-                        <Label layoutX="10.0" layoutY="10.0" text="0,001" />
+                        <Label fx:id="labelVitesseFichier" layoutX="10.0" layoutY="10.0" text="0,0008" />
                         <Label layoutX="108.0" layoutY="10.0" text="B/s" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="138.0" prefHeight="0.0" prefWidth="200.0" spacing="5.0">
+                     <children>
+                        <Label text="TEMPS ESTIMÉ :" />
+                        <Label fx:id="labelTempsEstim" layoutX="10.0" layoutY="10.0" text="?" />
+                        <Label layoutX="108.0" layoutY="10.0" text="s" />
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <Region prefHeight="95.0" prefWidth="154.0" VBox.vgrow="ALWAYS" />
+            <Region prefHeight="33.0" prefWidth="179.0" VBox.vgrow="ALWAYS" />
             <VBox id="contours" alignment="TOP_CENTER" prefHeight="430.0" prefWidth="156.0">
                <children>
                   <Label prefHeight="17.0" prefWidth="138.0" text="TEMPS D'ENVOI D'UN BIT" />
                   <HBox alignment="CENTER" prefHeight="13.0" prefWidth="154.0" spacing="5.0">
                      <children>
-                        <Label fx:id="sliderLabel" prefHeight="17.0" prefWidth="35.0" text="0,0001" />
-                        <Label fx:id="sliderLabel1" layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="35.0" text="s/b" />
+                        <Label fx:id="sliderLabel" prefHeight="17.0" prefWidth="36.0" text="0,0001" />
+                        <Label fx:id="sliderLabel1" layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="35.0" text="s" />
                      </children>
                      <padding>
                         <Insets left="30.0" />

@@ -9,15 +9,16 @@ import javafx.util.Duration;
 
 public class AnimationProgressBar {
 	
-	
 	private ProgressBar progressBar;
 	private Timeline timeline = new Timeline();
+	private double tempsEstim = 0;
 	
 	public AnimationProgressBar(ProgressBar pb, float dureeSon, double nbrBits) {
 		progressBar = pb;
 		progressBar.setProgress(0);
 		KeyValue keyValue = new KeyValue(progressBar.progressProperty(), 1);
-		KeyFrame keyFrame = new KeyFrame(new Duration(dureeSon*nbrBits*1000), keyValue);
+		tempsEstim = dureeSon*nbrBits*1000;
+		KeyFrame keyFrame = new KeyFrame(new Duration(tempsEstim), keyValue);
 		timeline.getKeyFrames().add(keyFrame);
 		timeline.play();
 	}
