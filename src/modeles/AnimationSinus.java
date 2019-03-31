@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+// Ne sera pas dans la version finale
 public class AnimationSinus {
 
 	private DoubleProperty frequence = new SimpleDoubleProperty(2);

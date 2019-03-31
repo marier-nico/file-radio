@@ -22,6 +22,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import modeles.AnimationEnvoi;
 import modeles.AnimationProgressBar;
 import modeles.AnimationSinus;
 import modeles.emetteur.GenerateurSon;
@@ -79,12 +80,12 @@ public class ControleurVueEmetteur {
 	private final FileChooser fileChooser = new FileChooser();
 	private File file;
 	private int nbrMessage = 0;
-	private AnimationSinus anim = new AnimationSinus();
 	private GenerateurSon generateurSon;
 	private LecteurSon lecteurSon;
 	private FloatProperty dureeSonBit = new SimpleFloatProperty(0.0001f);
 	private Thread threadSon;
-	private AnimationProgressBar animProgress;
+	private AnimationProgressBar animProgressBar;
+	//private AnimationEnvoi animEnvoi;
 
 	public void setApplication(ApplicationRadio application) {
 		this.application = application;
@@ -127,8 +128,9 @@ public class ControleurVueEmetteur {
 						}
 					}
 				});
-				animProgress = new AnimationProgressBar(progressBar, dureeSonBit.get(), octetsFichier.length * 8);
 				threadSon.start();
+				animProgressBar = new AnimationProgressBar(progressBar, dureeSonBit.get(), octetsFichier.length * 8);
+				//animEnvoi = new AnimationEnvoi(paneAnimation, dureeSonBit.get(), octetsFichier);
 			} catch (LineUnavailableException ex) {
 				afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
 						+ "Tentez de libérer la sortie audio de votre système.", ex);
@@ -174,17 +176,8 @@ public class ControleurVueEmetteur {
 	void clickedBtnAnnuler(ActionEvent event) {
 		if ((threadSon != null) && threadSon.isAlive()) {
 			threadSon.stop();
-			animProgress.stopProgressAnim();
+			animProgressBar.stopProgressAnim();
 		}
-	}
-
-	// Prochain Sprint...
-	private void afficherAnimation() {
-		anim.startAnimationSinus(paneAnimation);
-	}
-
-	private void arretAnimation() {
-		anim.stopAnimationSinus();
 	}
 
 	public String getEmplacementFichierSelct() {
