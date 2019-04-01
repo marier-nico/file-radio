@@ -42,8 +42,19 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 		calculerBits(b);
 	}
 	
+	/**
+	 * Ce constructeur permet de faire un octet en base 2 à partir d'un octet en base 2
+	 * et de créer la représentation décimale.
+	 * 
+	 * @param bits les bits de l'octet
+	 */
 	public OctetBinaire(byte[] bits) {
+		if(!validerBits(bits)) {
+			throw new IllegalArgumentException("Les bits ne peuvent pas être null et il doit y en avoir " + BITS_DANS_OCTET);
+		}
 		
+		this.bits = bits;
+		calculerRepresentationDecimal();
 	}
 
 	/**
@@ -132,6 +143,19 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	}
 	
 	/**
+	 * Cette méthode utilise la méthode de Horner pour calculer
+	 * la valeur décimale d'une série de bits.
+	 */
+	private void calculerRepresentationDecimal() {
+		byte valeurCourante = 0;
+		for(int i = 0; i < BITS_DANS_OCTET; i++) {
+			valeurCourante += bits[i];
+			valeurCourante *= 2;
+		}
+		representationDecimale = valeurCourante;
+	}
+	
+	/**
 	 * Cette méthode permet d'obtenir la valeur de l'octet en décimal.
 	 * 
 	 * @return representationDecimale l'octet en représentation décimale
@@ -202,5 +226,13 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 		}
 
 		return bits[bitCourant++];
+	}
+	
+	/**
+	 * @param bits les bits à valider
+	 * @return la validité des bits
+	 */
+	private static boolean validerBits(byte[] bits) {
+		return bits != null && bits.length == BITS_DANS_OCTET;
 	}
 }
