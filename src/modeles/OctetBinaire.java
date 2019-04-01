@@ -41,6 +41,10 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 		representationDecimale = b;
 		calculerBits(b);
 	}
+	
+	public OctetBinaire(byte[] bits) {
+		
+	}
 
 	/**
 	 * Cette méthode prend un byte décimal et inscrit les chiffres de la
@@ -135,8 +139,6 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	public byte getOctetEnDecimal() {
 		return representationDecimale;
 	}
-
-	// TODO: OctetBinaireFactory(Signal[] signaux)
 
 	@Override
 	public String toString() {
