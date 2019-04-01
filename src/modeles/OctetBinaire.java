@@ -49,13 +49,8 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	 * @param b le byte en décimal
 	 */
 	private void calculerBits(byte b) {
-		String octetEnBinaire = Integer.toBinaryString(b);
-		octetEnBinaire = (new StringBuilder(octetEnBinaire).reverse().toString());
-		int i = bits.length - 1;
-		for (char bit : octetEnBinaire.toCharArray()) {
-			bits[i] = Byte.parseByte("" + bit);
-			i--;
-		}
+		byte[] bits = decABin(b);
+		this.bits = bits;
 	}
 
 	/**
