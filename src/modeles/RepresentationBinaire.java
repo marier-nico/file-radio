@@ -1,9 +1,7 @@
-package modeles.emetteur;
+package modeles;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-
-import modeles.OctetBinaire;
 
 /**
  * Cette classe permet de représenter un fichier avec ses octets en base 2.

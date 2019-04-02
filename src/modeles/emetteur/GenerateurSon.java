@@ -1,6 +1,7 @@
 package modeles.emetteur;
 
 import modeles.OctetBinaire;
+import modeles.RepresentationBinaire;
 
 /**
  * Cette classe permet de générer les sons qui représentent les bits de la
@@ -13,7 +14,7 @@ public class GenerateurSon {
 	/**
 	 * La représentation binaire à partir de laquelle on veut calculer les bits.
 	 * 
-	 * @see modeles.emetteur.RepresentationBinaire
+	 * @see modeles.RepresentationBinaire
 	 */
 	private RepresentationBinaire repr;
 	/**

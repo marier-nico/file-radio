@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import modeles.emetteur.RepresentationBinaire;
+import modeles.RepresentationBinaire;
 
 /**
  * Cette classe permet de lire le contenu d'un fichier et d'obtenir

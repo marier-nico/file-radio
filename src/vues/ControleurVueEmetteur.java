@@ -25,9 +25,9 @@ import javafx.stage.FileChooser;
 import modeles.AnimationEnvoi;
 import modeles.AnimationProgressBar;
 import modeles.AnimationSinus;
+import modeles.RepresentationBinaire;
 import modeles.emetteur.GenerateurSon;
 import modeles.emetteur.LecteurSon;
-import modeles.emetteur.RepresentationBinaire;
 import modeles.passerelle.PasserelleFichier;
 
 /**

@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import modeles.OctetBinaire;
-import modeles.emetteur.RepresentationBinaire;
+import modeles.RepresentationBinaire;
 
 public class TestRepresentationBinaire {
 	

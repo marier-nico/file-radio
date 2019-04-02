@@ -8,8 +8,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import modeles.RepresentationBinaire;
 import modeles.emetteur.GenerateurSon;
-import modeles.emetteur.RepresentationBinaire;
 
 public class TestGenerateurSon {
 	
