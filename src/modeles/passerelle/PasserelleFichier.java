@@ -1,9 +1,13 @@
 package modeles.passerelle;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 
+import modeles.OctetBinaire;
 import modeles.RepresentationBinaire;
 
 /**
@@ -25,8 +29,14 @@ public class PasserelleFichier {
 		return Files.readAllBytes(fichier.toPath());
 	}
 	
-	public static void ecrireOctets(RepresentationBinaire binaire) {
-		//TODO: Sprint 2-3
+	public static void ecrireOctets(RepresentationBinaire repr, File fichier) throws IOException {
+		FileOutputStream fos = new FileOutputStream(fichier);
+		BufferedOutputStream bos = new BufferedOutputStream(fos);
+		for(OctetBinaire octet : repr) {
+			bos.write(octet.getOctetEnDecimal());
+		}
+		bos.flush();
+		bos.close();
 	}
 	
 	/**
