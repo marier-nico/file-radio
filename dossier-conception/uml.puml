@@ -271,13 +271,10 @@ LecteurSon --> GenerateurSon
 ControleurReception --> PasserelleFichier
 ControleurReception --> EcouteurSignaux
 
-EcouteurSignaux --> OctetBinaire
-EcouteurSignaux --> Signal
-
-Signal --> ValeurSignal
-
 TestGenerateurSon --> GenerateurSon
 TestLecteurSon --> LecteurSon
+
+EcouteurDeReception --> ReconstitueurDeMessages
 
 TestOctetBinaire --> OctetBinaire
 TestPasserelleFichier --> PasserelleFichier
