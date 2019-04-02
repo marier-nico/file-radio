@@ -101,7 +101,7 @@ package "vue" {
     }
 }
 
-package "modeles.emetteur" {
+package "modeles" {
     class RepresentationBinaire {
         - octets : OctetBinaire[]
         - octetCourant : int
@@ -122,7 +122,9 @@ package "modeles.emetteur" {
         + String toString()
         + boolean equals(Object obj)
     }
+}
 
+package "modeles.emetteur" {
     class GenerateurSon {
         - repr : RepresentationBinaire
         - donneesSon0 : byte[]
