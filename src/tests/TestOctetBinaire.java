@@ -35,14 +35,6 @@ public class TestOctetBinaire {
 
 	@Test
 	public void testCalculerBits() {
-		try {
-			Method calculerBits = OctetBinaire.class.getDeclaredMethod("calculerBits", byte.class);
-			calculerBits.setAccessible(true);
-			calculerBits.invoke(ob, (byte) -1);
-			fail();
-		} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException | NoSuchMethodException
-				| SecurityException ex) {
-		}
 		byte b = 10;
 		ob = new OctetBinaire(b);
 		byte[] bits = {0, 0, 0, 0, 1, 0, 1, 0 };
