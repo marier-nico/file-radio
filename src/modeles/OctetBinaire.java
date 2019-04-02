@@ -240,10 +240,31 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	}
 	
 	/**
+	 * Cette méthode permet de valider l'ensemble des bits.
+	 * Les bits ne peuvent pas être null, et il doit y avoir
+	 * exactement le nombre de bits pour faire un octet.
+	 * 
 	 * @param bits les bits à valider
 	 * @return la validité des bits
 	 */
 	private static boolean validerBits(byte[] bits) {
-		return bits != null && bits.length == BITS_DANS_OCTET;
+		if(bits == null)
+			return false;
+		
+		boolean valeursValides = true;
+		for(byte b : bits)
+			valeursValides = validerBit(b) ? valeursValides : false;
+		return bits.length == BITS_DANS_OCTET && valeursValides;
+	}
+	
+	/**
+	 * Cette méthode permet de valider un bit individuel.
+	 * Pour être valide, le bit doit avoir la valeur de 0 ou 1.
+	 * 
+	 * @param b le bit à valider
+	 * @return si le bit est valide
+	 */
+	public static boolean validerBit(byte b) {
+		return b == 0 || b == 1;
 	}
 }
