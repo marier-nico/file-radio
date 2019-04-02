@@ -212,11 +212,16 @@ package "tests" {
 
     class TestOctetBinaire {
         ob : OctetBinaire
-        + void testOctetBinaire()
+        + void testOctetBinaireValide()
         + void testOctetBinaireInvalide()
         + void testCalculerBits()
         + void testEquals()
         + void testToString()
+        + void testHasNextEtNext()
+        + void testIterator()
+        + void testDecABin()
+        + void testGetOctetEnDecimal()
+        + void testValiderBit()
     }
 
     class TestPasserelleFichier {
