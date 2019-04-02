@@ -61,6 +61,13 @@ public class TestOctetBinaire {
 			fail();
 		} catch(IllegalArgumentException ex) {
 		}
+		
+		byte[] bits3 = {0, 0, 1, 1, 1, 0, 2};
+		try {
+			ob = new OctetBinaire(bits3);
+			fail();
+		} catch(IllegalArgumentException ex) {
+		}
 	}
 	
 	@Test
@@ -135,5 +142,13 @@ public class TestOctetBinaire {
 		byte[] bits2 = {1, 1, 1, 1, 0, 1, 1, 0};
 		ob = new OctetBinaire(bits2);
 		assertTrue(ob.getOctetEnDecimal() == -10);
+	}
+	
+	@Test
+	public void testValiderBit() {
+		assertTrue(OctetBinaire.validerBit((byte) 0));
+		assertTrue(OctetBinaire.validerBit((byte) 1));
+		assertFalse(OctetBinaire.validerBit((byte) -1));
+		assertFalse(OctetBinaire.validerBit((byte) 2));
 	}
 }
