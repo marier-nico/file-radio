@@ -176,6 +176,13 @@ package "modeles.receveur" {
         + void ajouterBit(byte bit)
         + RepresentationBinaire getRepresentationBinaire()
     }
+
+    class EcouteurDeReception {
+        - rdm : ReconstitueurDeMessages
+        + EcouteurDeReception()
+        + void ecouter()
+        - Optional<Byte> analyserSignal()
+    }
 }
 
 package "passerelle" {
