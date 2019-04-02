@@ -130,7 +130,7 @@ public class ControleurVueEmetteur {
 				});
 				threadSon.start();
 				animProgressBar = new AnimationProgressBar(progressBar, dureeSonBit.get(), octetsFichier.length * 8);
-				//animEnvoi = new AnimationEnvoi(paneAnimation, dureeSonBit.get(), octetsFichier);
+				//animEnvoi = new AnimationEnvoi(paneAnimation, dureeSonBit.get(), donnees);
 			} catch (LineUnavailableException ex) {
 				afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
 						+ "Tentez de libérer la sortie audio de votre système.", ex);
