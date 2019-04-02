@@ -60,6 +60,6 @@ public class ReconstitueurDeMessages {
 	 * @return la RepresentationBinaire du fichier reçu
 	 */
 	public RepresentationBinaire getRepresentationBinaire() {
-		return new RepresentationBinaire((OctetBinaire[]) octetsComplets.toArray());
+		return new RepresentationBinaire(octetsComplets.toArray(new OctetBinaire[octetsComplets.size()]));
 	}
 }
