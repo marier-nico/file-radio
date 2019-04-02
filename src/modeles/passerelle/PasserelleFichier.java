@@ -25,10 +25,6 @@ public class PasserelleFichier {
 		return Files.readAllBytes(fichier.toPath());
 	}
 	
-	public static void ecrireOctets(byte[] octets) {
-		//TODO: Sprint 2-3
-	}
-	
 	public static void ecrireOctets(RepresentationBinaire binaire) {
 		//TODO: Sprint 2-3
 	}
