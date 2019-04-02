@@ -226,6 +226,7 @@ package "tests" {
 
     class TestPasserelleFichier {
         + void testLireFichier()
+        + void testEcrireFichier()
     }
 
     class TestRepresentationBinaire {
