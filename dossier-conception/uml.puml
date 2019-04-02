@@ -106,11 +106,13 @@ package "modeles" {
         - octets : OctetBinaire[]
         - octetCourant : int
         + RepresentationBinaire(byte[] bytes)
+        + RepresentationBinaire(OctetBinaire[])
         + OctetBinaire[] getOctets()
         + boolean hasNext()
         + OctetBinaire next()
         + Iterator<OctetBinaire> iterator()
         - {static} boolean validerOctets(byte[] octets)
+        - {static} boolean validerOctets(OctetBinaire[] octets)
     }
 
     class OctetBinaire {
