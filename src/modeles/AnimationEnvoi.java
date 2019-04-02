@@ -3,9 +3,11 @@ package modeles;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
 
@@ -16,19 +18,21 @@ public class AnimationEnvoi {
 	private Timeline timeline = new Timeline();
 	private double tempsEstim = 0;
 	private Line ligne1 = new Line(-100, 0, 77, 0);
-	private Line ligne0 = new Line(-100, 0, 77, 0);
-	double posXinit = 100;
-	byte[] tabBits;
+	private Line ligne0 = new Line(0, 0, 77, 0);
+	private double posXinit = 100;
+	private byte[][] tabBits;
+	private Group gr = null;
 
-	public AnimationEnvoi(Pane p, float dureeSon, byte[] tabBits) {
+	public AnimationEnvoi(Pane p, float dureeSon, byte[][] tabBits) {
 		pane = p;
 		this.tabBits = tabBits;
 		
-		Canvas canvas = new Canvas(1000, 200);
-		GraphicsContext gc = canvas.getGraphicsContext2D();
+		if (gr != null) {
+			gr.getChildren().clear();
+		}
+		constructionDessin();
+		pane.getChildren().add(gr);
 		
-		pane.getChildren().clear();
-		constructionDessin(gc);
 		KeyValue keyValue = new KeyValue(pane.translateXProperty(), 1);
 		tempsEstim = dureeSon*tabBits.length*1000;
 		KeyFrame keyFrame = new KeyFrame(new Duration(tempsEstim), keyValue);
@@ -40,20 +44,26 @@ public class AnimationEnvoi {
 		timeline.stop();
 	}
 	
-	private void constructionDessin(GraphicsContext gc) {
+	private void constructionDessin() {
+		gr = new Group();
 		ligne1.setLayoutX(posXinit);
 		ligne1.setLayoutY(23.5);
-		ligne0.setLayoutX(posXinit);
+		ligne1.setFill(Color.WHITE);
+		ligne0.setLayoutX(posXinit + posXinit);
 		ligne0.setLayoutY(69.75);
+		ligne0.setFill(Color.WHITE);
+		gr.getChildren().addAll(ligne1, ligne0);
 		
-		for (int i = 0; i <= tabBits.length; i++) {
-			if (tabBits[i] == 0) {
-				ligne0.setLayoutX(posXinit + (i*100));
-				pane.getChildren().add(ligne1);
-			} else {
-				ligne1.setLayoutX(posXinit + (i*100));
-				pane.getChildren().add(ligne0);
-			}
-		}
+//		for (int i = 0; i <= tabBits.length; i++) {
+//			for (int j = 0; j <= tabBits[i].length; j++) {
+//				if (tabBits[i][j] == 0) {
+//					ligne0.setLayoutX(posXinit + (j*100));
+//					gr.getChildren().add(ligne1);
+//				} else {
+//					ligne1.setLayoutX(posXinit + (j*100));
+//					gr.getChildren().add(ligne0);
+//				}
+//			}
+//		}
 	}
 }
