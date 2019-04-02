@@ -115,12 +115,25 @@ package "modeles" {
 
     class OctetBinaire {
         - bits : byte[]
+        - representationDecimale : byte
+        - bitCourant : int
+        + {static} {final} BITS_DANS_OCTET : byte
         + OctetBinaire(byte b)
+        + OctetBinaire(byte[] bits)
         - void calculerBits(byte b)
+        - byte[] decABin(byte b, byte[] representationBin, int index)
+        + byte[] decABin(byte b)
         + byte[] getBits()
-        - {static} boolean validerByte(byte b)
+        + byte[] complementerADeux(byte[] bits)
+        - void calculerRepresentationDecimal()
+        + byte getOctetEnDecimal()
         + String toString()
         + boolean equals(Object obj)
+        + Iterator<Byte> iterator()
+        + boolean hasNext()
+        + Byte next()
+        - {static} boolean validerBits(byte[] bits)
+        + {static} boolean validerBit(byte b)
     }
 }
 
