@@ -148,10 +148,20 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 	 */
 	private void calculerRepresentationDecimal() {
 		byte valeurCourante = 0;
+		boolean estNegatif = false;
+		byte[] copieBits = bits.clone();
+		if(bits[0] == 1) {
+			copieBits = complementerADeux(copieBits);
+			estNegatif = true;
+		}
+		
 		for(int i = 0; i < BITS_DANS_OCTET; i++) {
 			valeurCourante += bits[i];
 			valeurCourante *= 2;
 		}
+		
+		if(estNegatif)
+			valeurCourante *= -1;
 		representationDecimale = valeurCourante;
 	}
 	
