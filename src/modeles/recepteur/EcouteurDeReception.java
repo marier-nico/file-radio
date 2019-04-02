@@ -7,7 +7,7 @@ public class EcouteurDeReception {
 	 * Le reconstitueur de messages sera utilisé
 	 * pour refaire le message reçu.
 	 */
-	ReconstitueurDeMessages rdm;
+	private ReconstitueurDeMessages rdm;
 	
 	/**
 	 * Ce constructeur permet d'initialiser le
