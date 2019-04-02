@@ -13,20 +13,30 @@ import modeles.RepresentationBinaire;
 public class TestRepresentationBinaire {
 	
 	RepresentationBinaire rb;
+	RepresentationBinaire rb1;
 	byte[] octets = {0, 1, 2, 3};
 
 	@Before
 	public void testRepresentationBinaire() {
 		rb = new RepresentationBinaire(octets);
+		OctetBinaire[] ob = {new OctetBinaire((byte) 3)};
+		rb1 = new RepresentationBinaire(ob);
 	}
 	
 	@Test
 	public void testRepresentationBinaireInvalide() {
+		byte[] octets = null;
 		try {
-			rb = new RepresentationBinaire(null);
+			rb = new RepresentationBinaire(octets);
 			fail();
 		} catch (IllegalArgumentException ex) {
-			
+		}
+		
+		OctetBinaire[] octets1 = null;
+		try {
+			rb = new RepresentationBinaire(octets1);
+			fail();
+		} catch (IllegalArgumentException ex) {
 		}
 		
 		byte[] b = {};
@@ -34,7 +44,13 @@ public class TestRepresentationBinaire {
 			rb = new RepresentationBinaire(b);
 			fail();
 		} catch (IllegalArgumentException ex) {
-			
+		}
+		
+		OctetBinaire[] b1 = {};
+		try {
+			rb = new RepresentationBinaire(b1);
+			fail();
+		} catch (IllegalArgumentException ex) {
 		}
 	}
 	
