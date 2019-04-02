@@ -58,6 +58,8 @@ public class ReconstitueurDeMessages {
 	 * @return la RepresentationBinaire du fichier reçu
 	 */
 	public RepresentationBinaire getRepresentationBinaire() {
+		if(octetsComplets.size() <= 0)
+			throw new IllegalArgumentException("Il n'y a aucun octet à représenter.");
 		return new RepresentationBinaire(octetsComplets.toArray(new OctetBinaire[octetsComplets.size()]));
 	}
 }
