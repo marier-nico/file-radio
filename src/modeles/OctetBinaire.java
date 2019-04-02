@@ -156,8 +156,9 @@ public class OctetBinaire implements Iterator<Byte>, Iterable<Byte> {
 		}
 		
 		for(int i = 0; i < BITS_DANS_OCTET; i++) {
-			valeurCourante += bits[i];
-			valeurCourante *= 2;
+			valeurCourante += copieBits[i];
+			if(i < BITS_DANS_OCTET - 1)
+				valeurCourante *= 2;
 		}
 		
 		if(estNegatif)
