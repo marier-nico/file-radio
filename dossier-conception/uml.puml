@@ -238,6 +238,13 @@ package "tests" {
         + void testIterator()
     }
 
+    class TestReconstitueurDeMessages {
+        rdm : ReconstitueurDeMessages
+        + void testReconstitueurDeMessages()
+        + void testAjouterBit()
+        + void testGetRepresentationBinaire()
+    }
+
     class TestSuite {
     }
 }
