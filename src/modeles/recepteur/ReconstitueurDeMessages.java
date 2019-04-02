@@ -41,12 +41,10 @@ public class ReconstitueurDeMessages {
 	 */
 	public void ajouterBit(byte b) {
 		if(OctetBinaire.validerBit(b)) {
-			if(indiceConstructionCourant < OctetBinaire.BITS_DANS_OCTET) {
-				octetEnConstruction[indiceConstructionCourant++] = b;
-			} else {
+			octetEnConstruction[indiceConstructionCourant++] = b;
+			if(indiceConstructionCourant >= OctetBinaire.BITS_DANS_OCTET) {
 				octetsComplets.add(new OctetBinaire(octetEnConstruction));
 				indiceConstructionCourant = 0;
-				ajouterBit(b);
 			}
 		} else {
 			throw new IllegalArgumentException("Le bit reçu est invalide.");
