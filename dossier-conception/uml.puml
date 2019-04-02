@@ -231,10 +231,12 @@ package "tests" {
 
     class TestRepresentationBinaire {
         rb : RepresentationBinaire
+        rb1 : RepresentationBinaire
         octets : byte[] = {0, 1, 2, 3};
         + void testRepresentationBinaire()
         + void testRepresentationBinaireInvalide()
         + void testGetOctets()
+        + void testHasNextEtNext()
         + void testIterator()
     }
 
