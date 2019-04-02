@@ -168,22 +168,13 @@ package "modeles.emetteur" {
 }
 
 package "modeles.receveur" {
-    class EcouteurSignaux{
-        - enEcoute : boolean
-        + void EcouteurSignaux()
-        + void ecouter()
-        + void arreterEcouter()
-    }
-
-    class Signal{
-        - valeur : ValeurSignal
-        + void Signal(ValeurSignal signal)
-        + byte obtenirValeurBit()
-    }
-
-    enum ValeurSignal{
-        HAUT
-        BAS
+    class ReconstitueurDeMessages {
+        - octetEnConstruction : byte[]
+        - indiceConstructionCourant : int
+        - octetsComplets : List<OctetBinaire>
+        + ReconstitueurDeMessages()
+        + void ajouterBit(byte bit)
+        + RepresentationBinaire getRepresentationBinaire()
     }
 }
 
