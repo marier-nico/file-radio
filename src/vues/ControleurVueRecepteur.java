@@ -32,6 +32,9 @@ public class ControleurVueRecepteur {
     private Button btnEnregistrer;
     
     @FXML
+    private Button btnEcouter;
+    
+    @FXML
     private VBox vboxMessages;
     
     @FXML
@@ -68,6 +71,11 @@ public class ControleurVueRecepteur {
 		file = directoryChooser.showDialog(application.getStage());
 		labelProgress.setText(getEmplacementFichierSelct());
 	}
+	
+	@FXML
+    void clickedBtnEcouter(ActionEvent event) {
+		//TODO
+    }
 	
 	public String getEmplacementFichierSelct() {
 		String retour = "Rien";
