@@ -10,6 +10,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleFloatProperty;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -134,6 +135,29 @@ public class ControleurVueEmetteur {
 			} catch (LineUnavailableException ex) {
 				afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
 						+ "Tentez de libérer la sortie audio de votre système.", ex);
+			if(generateurSon == null)
+				generateurSon = new GenerateurSon(repr, dureeSonBit);
+			else
+				generateurSon.setRepresentationBinaire(repr);
+			byte[][] donnees = generateurSon.getDonneesSon();
+			try {
+				if(lecteurSon == null)
+					lecteurSon = new LecteurSon(donnees, dureeSonBit);
+				else
+					lecteurSon.setDonneesSons(donnees);
+				Platform.runLater(() -> {
+					try {
+						lecteurSon.lireSons();
+					} catch (IllegalStateException ex) {
+						afficherErreur("la lecture du son", "Un autre son est déjà en lecture.", ex);
+					} catch (LineUnavailableException ex) {
+						afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
+								   + "Tentez de libérer la sortie audio de votre système.", ex);
+					}
+				});
+			} catch (LineUnavailableException ex) {
+				afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
+							   + "Tentez de libérer la sortie audio de votre système.", ex);
 			} catch (IllegalStateException ex) {
 				afficherErreur("la lecture du son", "Un autre son est déjà en lecture.", ex);
 			}
@@ -191,7 +215,7 @@ public class ControleurVueEmetteur {
 	private void afficherErreur(String emplacement, String detail, Exception ex) {
 		Alert erreur = new Alert(AlertType.ERROR);
 		erreur.setHeaderText("Erreur dans " + emplacement);
-		erreur.setContentText(detail + "\n\n" + ex.getMessage());
+		erreur.setContentText(detail + "\n\n" + ex.getStackTrace());
 		erreur.setTitle("Erreur");
 		erreur.showAndWait();
 	}
