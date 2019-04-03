@@ -288,6 +288,7 @@ ControleurReception --> EcouteurSignaux
 
 TestGenerateurSon --> GenerateurSon
 TestLecteurSon --> LecteurSon
+TestReconstitueurDeMessages --> ReconstitueurDeMessages
 
 EcouteurDeReception --> ReconstitueurDeMessages
 
