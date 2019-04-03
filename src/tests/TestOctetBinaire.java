@@ -4,12 +4,13 @@ import static org.junit.Assert.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import modeles.emetteur.OctetBinaire;
+import modeles.OctetBinaire;
 
 public class TestOctetBinaire {
 
@@ -30,34 +31,50 @@ public class TestOctetBinaire {
 		} catch (IllegalArgumentException ex) {
 			fail();
 		}
+		
+		byte[] bits = {1, 0, 0, 1, 0, 0, 0, 1};
+		try {
+			OctetBinaire ob1 = new OctetBinaire(bits);
+		} catch (IllegalArgumentException ex) {
+			fail();
+		}
 	}
-
+	
 	@Test
 	public void testOctetBinaireInvalide() {
 		try {
-			byte b = -1;
-			ob = new OctetBinaire(b);
+			ob = new OctetBinaire(null);
 			fail();
-		} catch (IllegalArgumentException ex) {
+		} catch(IllegalArgumentException ex) {
+		}
+		
+		byte[] bits = {1, 0, 0 ,1, 1, 1, 0, 0, 1};
+		try {
+			ob = new OctetBinaire(bits);
+			fail();
+		} catch(IllegalArgumentException ex) {
+		}
+		
+		byte[] bits2 = {0, 0, 1, 1, 1, 0, 0};
+		try {
+			ob = new OctetBinaire(bits2);
+			fail();
+		} catch(IllegalArgumentException ex) {
+		}
+		
+		byte[] bits3 = {0, 0, 1, 1, 1, 0, 2};
+		try {
+			ob = new OctetBinaire(bits3);
+			fail();
+		} catch(IllegalArgumentException ex) {
 		}
 	}
-
+	
 	@Test
 	public void testCalculerBits() {
-		try {
-			Method calculerBits = OctetBinaire.class.getDeclaredMethod("calculerBits", byte.class);
-			calculerBits.setAccessible(true);
-			calculerBits.invoke(ob, (byte)-1);
-			fail();
-		} catch (IllegalArgumentException
-				| IllegalAccessException
-				| InvocationTargetException
-				| NoSuchMethodException
-				| SecurityException ex) {
-		}
 		byte b = 10;
 		ob = new OctetBinaire(b);
-		byte[] bits = { 0, 0, 0, 1, 0, 1, 0 };
+		byte[] bits = {0, 0, 0, 0, 1, 0, 1, 0 };
 		assertArrayEquals(bits, ob.getBits());
 	}
 
@@ -81,7 +98,7 @@ public class TestOctetBinaire {
 	public void testToString() {
 		byte b = 15;
 		OctetBinaire ob = new OctetBinaire(b);
-		assertTrue(ob.toString().equals("0001111"));
+		assertTrue(ob.toString().equals("00001111"));
 	}
 
 	@Test
@@ -102,5 +119,36 @@ public class TestOctetBinaire {
 	@Test
 	public void testIterator() {
 		assertTrue(ob.iterator() == ob);
+	}
+
+	@Test
+	public void testDecABin() {
+		byte[] tabByte1 = ob.decABin((byte) 28);
+		byte[] tabByte11 = {0,0,0,1,1,1,0,0};
+		byte[] tabByte2 = ob.decABin((byte) -28);
+		byte[] tabByte22 = {1,1,1,0,0,1,0,0};
+		assertTrue(Arrays.equals(tabByte1, tabByte11));
+		assertTrue(Arrays.equals(tabByte2, tabByte22));
+	}
+	
+	@Test
+	public void testGetOctetEnDecimal() {
+		assertTrue(ob.getOctetEnDecimal() == 127);
+		
+		byte[] bits = {0, 0, 0, 0, 0, 1, 1, 0};
+		ob = new OctetBinaire(bits);
+		assertTrue(ob.getOctetEnDecimal() == 6);
+		
+		byte[] bits2 = {1, 1, 1, 1, 0, 1, 1, 0};
+		ob = new OctetBinaire(bits2);
+		assertTrue(ob.getOctetEnDecimal() == -10);
+	}
+	
+	@Test
+	public void testValiderBit() {
+		assertTrue(OctetBinaire.validerBit((byte) 0));
+		assertTrue(OctetBinaire.validerBit((byte) 1));
+		assertFalse(OctetBinaire.validerBit((byte) -1));
+		assertFalse(OctetBinaire.validerBit((byte) 2));
 	}
 }

@@ -8,7 +8,8 @@ import org.junit.runners.Suite;
 	TestPasserelleFichier.class,
 	TestRepresentationBinaire.class,
 	TestGenerateurSon.class,
-	TestLecteurSon.class})
+	TestLecteurSon.class,
+	TestReconstitueurDeMessages.class})
 
 public class TestSuite {
 

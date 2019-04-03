@@ -1,6 +1,11 @@
+* {
+   -fx-couleurFond: linear-gradient(from 25% 25% to 100% 100%, #000d21, #000c3d);
+   -fx-couleurBordures: #7c0000;
+}
+
 .root {
-	-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #000d21, #000c3d);
-	-fx-border-color: #7c0000;
+	-fx-background-color: -fx-couleurFond;
+	-fx-border-color: -fx-couleurBordures;
 	-fx-border-width: 3;
 }
 
@@ -9,11 +14,11 @@
 }
 
 .button {
-	-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #000d21, #000c3d);
+	-fx-background-color: -fx-couleurFond;
 	-fx-background-radius: 1;
-	-fx-border-width: 2;
+	-fx-border-width: 1;
 	-fx-border-radius: 1;
-	-fx-border-color: #7c0000;
+	-fx-border-color: -fx-couleurBordures;
 	-fx-text-fill: white;
 }
 
@@ -22,11 +27,11 @@
 }
 
 .pane, #contours {
-	-fx-border-color: #7c0000;
+	-fx-border-color: -fx-couleurBordures;
 }
 
-#3lines {
-	-fx-stroke: #7c0000;
+#lines {
+	-fx-stroke: -fx-couleurBordures;
 }
 
 .progressBar {
@@ -48,10 +53,11 @@
 }
 
 .progressBar>.track {
-	-fx-background-color: linear-gradient(from 25% 25% to 100% 100%, #000d21, #000c3d);
+	-fx-background-color: -fx-couleurFond;
 	-fx-background-insets: 0, 0 0 1 0, 1 1 2 1;
 	-fx-background-radius: 4, 3, 2;
-	-fx-border-color: #7c0000;
+	-fx-border-color: -fx-couleurBordures;
+	-fx-border-width: 1.0;
 }
 
 .slider>.track {
@@ -66,18 +72,18 @@
 .slider .thumb {
 	-fx-pref-height: 5;
 	-fx-pref-width: 22;
-	-fx-background-color: #7c0000;
+	-fx-background-color: -fx-couleurBordures;
 	-fx-border-width: 1;
 	-fx-border-radius: 0;
 	-fx-border-color: white;
 }
 
 .split-menu-button {
-	-fx-background-color: #7c0000;
+	-fx-background-color: -fx-couleurBordures;
 }
 
 .split-menu-button .label {
-	-fx-background-color: #000d21;
+	-fx-background-color: -fx-couleurFond;
 }
 
 .split-menu-button .arrow {
@@ -85,12 +91,12 @@
 }
 
 .split-menu-button .arrow-button, .split-menu-button .arrow-button {
-	-fx-background-color: #000d21;
-	-fx-border-color: #7c0000;
+	-fx-background-color: -fx-couleurFond;
+	-fx-border-color: -fx-couleurBordures;
 }
 
 .split-menu-button .menu-item:hover {
-	-fx-border-color: #7c0000;
+	-fx-border-color: -fx-couleurBordures;
 	-fx-border-width: 3;
 }
 

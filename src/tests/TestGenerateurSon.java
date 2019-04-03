@@ -8,8 +8,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import modeles.RepresentationBinaire;
 import modeles.emetteur.GenerateurSon;
-import modeles.emetteur.RepresentationBinaire;
 
 public class TestGenerateurSon {
 	
@@ -63,22 +63,36 @@ public class TestGenerateurSon {
 		byte[][] donnees = gs.getDonneesSon();
 		byte[] donnees0 = {0, 7, 14, 20};
 		byte[] donnees1 = {0, 14, 28, 41};
-		for(int i = 0; i < 13; i++) {
+		for(int i = 0; i < 15; i++) {
 			assertTrue(Arrays.equals(donnees[i], donnees0));
 		}
-		assertTrue(Arrays.equals(donnees[13], donnees1));
+		assertTrue(Arrays.equals(donnees[15], donnees1));
 	}
 
 	@Test
 	public void testGetDonneesSon() {
-		byte[][] donneesAttendues = new byte[14][];
+		byte[][] donneesAttendues = new byte[16][];
 		byte[] donnees0 = {0, 7, 14, 20};
 		byte[] donnees1 = {0, 14, 28, 41};
-		for(int i = 0; i < 13; i++) {
+		for(int i = 0; i < 15; i++) {
 			donneesAttendues[i] = donnees0;
 		}
-		donneesAttendues[13] = donnees1;
+		donneesAttendues[15] = donnees1;
 		assertTrue(Arrays.deepEquals(donneesAttendues, gs.getDonneesSon()));
+	}
+	
+	@Test
+	public void testRepresentationBinaire() {
+		byte[] octets = {0, 0, 1, 13};
+		byte[][] donnees1 = gs.getDonneesSon();
+		gs.setRepresentationBinaire(null);
+		byte[][] donnees2 = gs.getDonneesSon();
+		RepresentationBinaire rbin = new RepresentationBinaire(octets);
+		gs.setRepresentationBinaire(rbin);
+		byte[][] donnees3 = gs.getDonneesSon();
+		
+		assertTrue(Arrays.deepEquals(donnees1, donnees2));
+		assertFalse(Arrays.deepEquals(donnees2, donnees3));
 	}
 
 }

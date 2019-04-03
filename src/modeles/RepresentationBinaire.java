@@ -1,4 +1,4 @@
-package modeles.emetteur;
+package modeles;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -21,7 +21,7 @@ public class RepresentationBinaire implements Iterable<OctetBinaire>, Iterator<O
 	private int octetCourant;
 	
 	/**
-	 * Cette méthode permet de prendre un fichier
+	 * Ce constructeur permet de prendre un fichier
 	 * et de calculer sa représentation en base 2.
 	 * 
 	 * @param bytes les octets en décimal du fichier
@@ -39,6 +39,21 @@ public class RepresentationBinaire implements Iterable<OctetBinaire>, Iterator<O
 			octets[i] = new OctetBinaire(b);
 			i++;
 		}
+	}
+	
+	/**
+	 * Ce constructeur permet de prendre les octets reçus et
+	 * de faire une représentation binaire avec, pour éventuellement
+	 * générer un fichier avec.
+	 * 
+	 * @param octets les octets en base 2 de la représentation
+	 */
+	public RepresentationBinaire(OctetBinaire[] octets) {
+		if(!validerOctets(octets)) {
+			throw new IllegalArgumentException("Il doit y avoir des octets");
+		}
+		this.octets = octets;
+		octetCourant = 0;
 	}
 	
 	/**
@@ -98,6 +113,18 @@ public class RepresentationBinaire implements Iterable<OctetBinaire>, Iterator<O
 	 * @return true si les octets sont valides false sinon
 	 */
 	private static boolean validerOctets(byte[] octets) {
+		return octets != null && octets.length >= 1;
+	}
+	
+	/**
+	 * Cette méthode permet de valider les octets binaires
+	 * passés en paramètres. Ils ne peuvent pas être null
+	 * et il doit y en avoir au moins un.
+	 * 
+	 * @param octets les octets binaires à valider
+	 * @return la validité des octets
+	 */
+	private static boolean validerOctets(OctetBinaire[] octets) {
 		return octets != null && octets.length >= 1;
 	}
 }
