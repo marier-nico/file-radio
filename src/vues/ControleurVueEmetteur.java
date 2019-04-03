@@ -135,29 +135,6 @@ public class ControleurVueEmetteur {
 			} catch (LineUnavailableException ex) {
 				afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
 						+ "Tentez de libérer la sortie audio de votre système.", ex);
-			if(generateurSon == null)
-				generateurSon = new GenerateurSon(repr, dureeSonBit);
-			else
-				generateurSon.setRepresentationBinaire(repr);
-			byte[][] donnees = generateurSon.getDonneesSon();
-			try {
-				if(lecteurSon == null)
-					lecteurSon = new LecteurSon(donnees, dureeSonBit);
-				else
-					lecteurSon.setDonneesSons(donnees);
-				Platform.runLater(() -> {
-					try {
-						lecteurSon.lireSons();
-					} catch (IllegalStateException ex) {
-						afficherErreur("la lecture du son", "Un autre son est déjà en lecture.", ex);
-					} catch (LineUnavailableException ex) {
-						afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
-								   + "Tentez de libérer la sortie audio de votre système.", ex);
-					}
-				});
-			} catch (LineUnavailableException ex) {
-				afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
-							   + "Tentez de libérer la sortie audio de votre système.", ex);
 			} catch (IllegalStateException ex) {
 				afficherErreur("la lecture du son", "Un autre son est déjà en lecture.", ex);
 			}
