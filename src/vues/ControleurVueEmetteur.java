@@ -6,14 +6,11 @@ import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 
 import controleurs.ApplicationRadio;
-<<<<<<< src/vues/ControleurVueEmetteur.java
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleFloatProperty;
-=======
 import javafx.application.Platform;
->>>>>>> src/vues/ControleurVueEmetteur.java
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -113,7 +110,6 @@ public class ControleurVueEmetteur {
 				return;
 			}
 			RepresentationBinaire repr = new RepresentationBinaire(octetsFichier);
-<<<<<<< src/vues/ControleurVueEmetteur.java
 			generateurSon = new GenerateurSon(repr, dureeSonBit.get());
 			byte[][] donnees = generateurSon.getDonneesSon();
 			try {
@@ -139,7 +135,6 @@ public class ControleurVueEmetteur {
 			} catch (LineUnavailableException ex) {
 				afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
 						+ "Tentez de libérer la sortie audio de votre système.", ex);
-=======
 			if(generateurSon == null)
 				generateurSon = new GenerateurSon(repr, dureeSonBit);
 			else
@@ -163,7 +158,6 @@ public class ControleurVueEmetteur {
 			} catch (LineUnavailableException ex) {
 				afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
 							   + "Tentez de libérer la sortie audio de votre système.", ex);
->>>>>>> src/vues/ControleurVueEmetteur.java
 			} catch (IllegalStateException ex) {
 				afficherErreur("la lecture du son", "Un autre son est déjà en lecture.", ex);
 			}
