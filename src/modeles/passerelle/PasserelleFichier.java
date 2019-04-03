@@ -29,6 +29,13 @@ public class PasserelleFichier {
 		return Files.readAllBytes(fichier.toPath());
 	}
 	
+	/**
+	 * Cette méthode permet d'écrire des octets dans un fichier passé en paramètre.
+	 * 
+	 * @param repr la représentation du fichier à écrire
+	 * @param fichier le fichier où écrire
+	 * @throws IOException s'il est impossible d'écrire dans le fichier
+	 */
 	public static void ecrireOctets(RepresentationBinaire repr, File fichier) throws IOException {
 		FileOutputStream fos = new FileOutputStream(fichier);
 		BufferedOutputStream bos = new BufferedOutputStream(fos);
