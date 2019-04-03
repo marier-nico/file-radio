@@ -13,42 +13,42 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
-<?import javafx.scene.shape.Rectangle?>
 
-<BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueEmetteur">
+<BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="1255.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueEmetteur">
    <top>
       <StackPane prefHeight="89.0" prefWidth="850.0" BorderPane.alignment="CENTER">
          <children>
             <Pane fx:id="paneAnimation" prefHeight="200.0" prefWidth="200.0" styleClass="pane">
                <children>
-                  <Line id="3lines" endX="678.5" layoutX="423.0" layoutY="46.5" startX="-425.0" />
-                  <Line id="3lines" endX="-77.0" layoutX="100.0" layoutY="23.25" startX="-100.0" />
-                  <Line id="3lines" endX="-77.0" layoutX="100.0" layoutY="69.75" startX="-100.0" />
+                  <Line id="lines" endX="888.5" layoutX="423.0" layoutY="46.5" startX="-425.0" />
+                  <Line id="lines" endX="-77.0" layoutX="100.0" layoutY="23.25" startX="-100.0" />
+                  <Line id="lines" endX="-77.0" layoutX="100.0" layoutY="69.75" startX="-100.0" />
                </children>
             </Pane>
          </children>
       </StackPane>
    </top>
    <left>
-      <VBox prefHeight="611.0" prefWidth="156.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="704.0" prefWidth="179.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="145.0" prefWidth="160.0" spacing="15.0">
                <children>
-                  <HBox prefHeight="0.0" prefWidth="200.0">
+                  <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Label text="COURANT :" />
+                        <Label layoutX="10.0" layoutY="10.0" text="2,5 A" />
                      </children>
                   </HBox>
-                  <HBox prefHeight="0.0" prefWidth="200.0">
+                  <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Label text="TENSION :" />
+                        <Label layoutX="10.0" layoutY="10.0" text="9 V" />
                      </children>
                   </HBox>
                   <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Label text="FRÉQUENCE :" />
-                        <Label fx:id="freqLabel" text="520.0" />
-                        <Label layoutX="81.0" layoutY="10.0" text="kHz" />
+                        <Label text="1280 kHz" />
                      </children>
                   </HBox>
                   <HBox prefHeight="0.0" prefWidth="200.0">
@@ -56,40 +56,42 @@
                         <Label text="AMPLITUDE :" />
                      </children>
                   </HBox>
-                  <HBox prefHeight="0.0" prefWidth="200.0">
+                  <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
                      <children>
-                        <Label text="VITESSE D'ENVOI :" />
+                        <Label text="VITESSE FICHIER :" />
+                        <Label fx:id="labelVitesseFichier" layoutX="10.0" layoutY="10.0" text="0,0008" />
+                        <Label layoutX="108.0" layoutY="10.0" text="B/s" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="138.0" prefHeight="0.0" prefWidth="200.0" spacing="5.0">
+                     <children>
+                        <Label text="TEMPS ESTIMÉ :" />
+                        <Label fx:id="labelTempsEstim" layoutX="10.0" layoutY="10.0" text="?" />
+                        <Label layoutX="108.0" layoutY="10.0" text="s" />
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <Region prefHeight="0.0" prefWidth="170.0" VBox.vgrow="ALWAYS" />
-            <HBox prefHeight="404.0" prefWidth="170.0" VBox.vgrow="ALWAYS">
+            <Region prefHeight="33.0" prefWidth="179.0" VBox.vgrow="ALWAYS" />
+            <VBox id="contours" alignment="TOP_CENTER" prefHeight="430.0" prefWidth="156.0">
                <children>
-                  <StackPane prefHeight="412.0" prefWidth="56.0">
+                  <Label prefHeight="17.0" prefWidth="138.0" text="TEMPS D'ENVOI D'UN BIT" />
+                  <HBox alignment="CENTER" prefHeight="13.0" prefWidth="154.0" spacing="5.0">
                      <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="445.0" stroke="TRANSPARENT" strokeType="INSIDE" width="170.0" />
-                        <VBox id="contours" prefHeight="200.0" prefWidth="100.0">
-                           <children>
-                              <Label prefHeight="17.0" prefWidth="36.0" text="FREQ." />
-                              <Label fx:id="sliderLabel" text="520.0" />
-                              <Slider fx:id="slider" blockIncrement="1.0" majorTickUnit="1.0" max="1600.0" min="520.0" minorTickCount="0" orientation="VERTICAL" prefHeight="405.0" prefWidth="19.0" snapToTicks="true">
-                                 <padding>
-                                    <Insets left="5.0" />
-                                 </padding>
-                              </Slider>
-                           </children>
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding>
-                        </VBox>
+                        <Label fx:id="sliderLabel" prefHeight="17.0" prefWidth="36.0" text="0,0001" />
+                        <Label fx:id="sliderLabel1" layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="35.0" text="s" />
                      </children>
-                  </StackPane>
+                     <padding>
+                        <Insets left="30.0" />
+                     </padding>
+                  </HBox>
+                  <Slider fx:id="slider" blockIncrement="0.01" majorTickUnit="0.01" max="1.0" min="1.0E-4" minorTickCount="0" orientation="VERTICAL" prefHeight="376.0" prefWidth="19.0" snapToTicks="true" value="1.0E-4">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Slider>
                </children>
-               <padding>
-                  <Insets top="10.0" />
-               </padding>
-            </HBox>
+            </VBox>
          </children>
          <padding>
             <Insets top="10.0" />
@@ -99,14 +101,14 @@
    <center>
       <BorderPane id="contours" prefHeight="611.0" prefWidth="845.0" BorderPane.alignment="CENTER">
          <bottom>
-            <HBox prefHeight="17.0" prefWidth="711.0" BorderPane.alignment="CENTER">
+            <HBox id="contours" prefHeight="17.0" prefWidth="711.0" BorderPane.alignment="CENTER">
                <children>
-                  <Region prefHeight="25.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="btnSelectionner" mnemonicParsing="false" onAction="#clickedBtnSelect" prefHeight="25.0" prefWidth="125.0" text="SÉLECTIONNER" />
-                  <StackPane prefHeight="25.0" prefWidth="614.0">
+                  <Region prefHeight="25.0" prefWidth="2.0" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="btnSelectionner" mnemonicParsing="false" onAction="#clickedBtnSelect" prefHeight="25.0" prefWidth="172.0" text="SÉLECTIONNER" />
+                  <StackPane prefHeight="25.0" prefWidth="722.0">
                      <children>
-                        <ProgressBar prefHeight="25.0" prefWidth="632.0" progress="0.15" styleClass="progressBar" />
-                        <Label fx:id="labelProgress" prefHeight="25.0" prefWidth="637.0" text="VEUILLER SÉLECTIONNER UN FICHIER À ENVOYER...">
+                        <ProgressBar fx:id="progressBar" prefHeight="25.0" prefWidth="833.0" progress="0.0" styleClass="progressBar" />
+                        <Label fx:id="labelProgress" prefHeight="25.0" prefWidth="834.0" text="VEUILLER SÉLECTIONNER UN FICHIER À ENVOYER...">
                            <padding>
                               <Insets left="5.0" />
                            </padding></Label>
@@ -115,7 +117,8 @@
                         <Insets />
                      </HBox.margin>
                   </StackPane>
-                  <Button fx:id="btnEnvoyer" mnemonicParsing="false" onAction="#clickedBtnEnvoyer" prefHeight="25.0" prefWidth="100.0" text="ENVOYER" />
+                  <Button fx:id="btnAnnuler" layoutX="776.0" layoutY="10.0" mnemonicParsing="false" onAction="#clickedBtnAnnuler" prefHeight="25.0" prefWidth="172.0" text="ANNULER" />
+                  <Button fx:id="btnEnvoyer" mnemonicParsing="false" onAction="#clickedBtnEnvoyer" prefHeight="25.0" prefWidth="168.0" text="ENVOYER" />
                </children>
                <BorderPane.margin>
                   <Insets bottom="-2.0" />
@@ -123,7 +126,7 @@
             </HBox>
          </bottom>
          <center>
-            <VBox fx:id="vboxMessages" alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
+            <VBox fx:id="vboxMessages" alignment="BOTTOM_CENTER" prefHeight="681.0" prefWidth="1104.0" spacing="30.0" BorderPane.alignment="CENTER">
                <padding>
                   <Insets bottom="30.0" />
                </padding>

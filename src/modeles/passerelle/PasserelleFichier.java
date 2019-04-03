@@ -1,10 +1,14 @@
 package modeles.passerelle;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import modeles.emetteur.RepresentationBinaire;
+import modeles.OctetBinaire;
+import modeles.RepresentationBinaire;
 
 /**
  * Cette classe permet de lire le contenu d'un fichier et d'obtenir
@@ -25,12 +29,21 @@ public class PasserelleFichier {
 		return Files.readAllBytes(fichier.toPath());
 	}
 	
-	public static void ecrireOctets(byte[] octets) {
-		//TODO: Sprint 2-3
-	}
-	
-	public static void ecrireOctets(RepresentationBinaire binaire) {
-		//TODO: Sprint 2-3
+	/**
+	 * Cette méthode permet d'écrire des octets dans un fichier passé en paramètre.
+	 * 
+	 * @param repr la représentation du fichier à écrire
+	 * @param fichier le fichier où écrire
+	 * @throws IOException s'il est impossible d'écrire dans le fichier
+	 */
+	public static void ecrireOctets(RepresentationBinaire repr, File fichier) throws IOException {
+		FileOutputStream fos = new FileOutputStream(fichier);
+		BufferedOutputStream bos = new BufferedOutputStream(fos);
+		for(OctetBinaire octet : repr) {
+			bos.write(octet.getOctetEnDecimal());
+		}
+		bos.flush();
+		bos.close();
 	}
 	
 	/**
