@@ -1,5 +1,7 @@
 package vues;
 
+import com.jfoenix.controls.JFXButton;
+
 import controleurs.ApplicationRadio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,10 +30,10 @@ public class ControleurVueMenu {
 	private VBox vboxRoot;
 
 	@FXML
-	private Button btnEmettre;
+	private JFXButton btnEmettre;
 
 	@FXML
-	private Button btnReception;
+	private JFXButton btnReception;
 
 	private String themeCourant = DARK_N_GREEN;
 	private static final String DARK_N_GREEN = "/styles/DarkNGreen.css";

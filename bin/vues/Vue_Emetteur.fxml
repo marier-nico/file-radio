@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXSlider?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -29,9 +29,9 @@
       </StackPane>
    </top>
    <left>
-      <VBox prefHeight="704.0" prefWidth="179.0" BorderPane.alignment="CENTER">
+      <VBox id="contours" prefHeight="704.0" prefWidth="195.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="145.0" prefWidth="160.0" spacing="15.0">
+            <VBox prefHeight="189.0" prefWidth="195.0" spacing="15.0">
                <children>
                   <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
                      <children>
@@ -72,24 +72,20 @@
                   </HBox>
                </children>
             </VBox>
-            <Region prefHeight="33.0" prefWidth="179.0" VBox.vgrow="ALWAYS" />
-            <VBox id="contours" alignment="TOP_CENTER" prefHeight="430.0" prefWidth="156.0">
+            <Region prefHeight="6.0" prefWidth="195.0" VBox.vgrow="ALWAYS" />
+            <VBox alignment="TOP_CENTER" prefHeight="430.0" prefWidth="156.0" VBox.vgrow="ALWAYS">
                <children>
                   <Label prefHeight="17.0" prefWidth="138.0" text="TEMPS D'ENVOI D'UN BIT" />
                   <HBox alignment="CENTER" prefHeight="13.0" prefWidth="154.0" spacing="5.0">
                      <children>
-                        <Label fx:id="sliderLabel" prefHeight="17.0" prefWidth="36.0" text="0,0001" />
+                        <Label fx:id="sliderLabel" prefHeight="18.0" prefWidth="62.0" text="0,0001" />
                         <Label fx:id="sliderLabel1" layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="35.0" text="s" />
                      </children>
                      <padding>
                         <Insets left="30.0" />
                      </padding>
                   </HBox>
-                  <Slider fx:id="slider" blockIncrement="0.01" majorTickUnit="0.01" max="1.0" min="1.0E-4" minorTickCount="0" orientation="VERTICAL" prefHeight="376.0" prefWidth="19.0" snapToTicks="true" value="1.0E-4">
-                     <padding>
-                        <Insets left="5.0" />
-                     </padding>
-                  </Slider>
+                  <JFXSlider fx:id="slider" blockIncrement="0.1" majorTickUnit="0.01" max="1.0" min="1.0E-4" minorTickCount="0" orientation="VERTICAL" prefHeight="392.0" prefWidth="24.0" value="1.0E-4" />
                </children>
             </VBox>
          </children>
@@ -98,43 +94,41 @@
          </padding>
       </VBox>
    </left>
-   <center>
-      <BorderPane id="contours" prefHeight="611.0" prefWidth="845.0" BorderPane.alignment="CENTER">
-         <bottom>
-            <HBox id="contours" prefHeight="17.0" prefWidth="711.0" BorderPane.alignment="CENTER">
-               <children>
-                  <Region prefHeight="25.0" prefWidth="2.0" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="btnSelectionner" mnemonicParsing="false" onAction="#clickedBtnSelect" prefHeight="25.0" prefWidth="172.0" text="SÉLECTIONNER" />
-                  <StackPane prefHeight="25.0" prefWidth="722.0">
-                     <children>
-                        <ProgressBar fx:id="progressBar" prefHeight="25.0" prefWidth="833.0" progress="0.0" styleClass="progressBar" />
-                        <Label fx:id="labelProgress" prefHeight="25.0" prefWidth="834.0" text="VEUILLER SÉLECTIONNER UN FICHIER À ENVOYER...">
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding></Label>
-                     </children>
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </StackPane>
-                  <Button fx:id="btnAnnuler" layoutX="776.0" layoutY="10.0" mnemonicParsing="false" onAction="#clickedBtnAnnuler" prefHeight="25.0" prefWidth="172.0" text="ANNULER" />
-                  <Button fx:id="btnEnvoyer" mnemonicParsing="false" onAction="#clickedBtnEnvoyer" prefHeight="25.0" prefWidth="168.0" text="ENVOYER" />
-               </children>
-               <BorderPane.margin>
-                  <Insets bottom="-2.0" />
-               </BorderPane.margin>
-            </HBox>
-         </bottom>
-         <center>
-            <VBox fx:id="vboxMessages" alignment="BOTTOM_CENTER" prefHeight="681.0" prefWidth="1104.0" spacing="30.0" BorderPane.alignment="CENTER">
-               <padding>
-                  <Insets bottom="30.0" />
-               </padding>
-            </VBox>
-         </center>
-      </BorderPane>
-   </center>
    <cursor>
       <Cursor fx:constant="DEFAULT" />
    </cursor>
+   <bottom>
+      <HBox prefHeight="44.0" prefWidth="1076.0" BorderPane.alignment="CENTER">
+         <children>
+            <Region prefHeight="44.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+            <JFXButton fx:id="btnSelectionner" buttonType="RAISED" onAction="#clickedBtnSelect" prefHeight="74.0" prefWidth="135.0" text="SÉLECTIONNER" />
+            <StackPane prefHeight="44.0" prefWidth="834.0">
+               <children>
+                  <ProgressBar fx:id="progressBar" prefHeight="96.0" prefWidth="841.0" progress="0.0" />
+                  <Label fx:id="labelProgress" prefHeight="44.0" prefWidth="857.0" text="VEUILLER SÉLECTIONNER UN FICHIER À ENVOYER...">
+                     <padding>
+                        <Insets left="5.0" />
+                     </padding>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </StackPane>
+            <JFXButton fx:id="btnAnnuler" buttonType="RAISED" onAction="#clickedBtnAnnuler" prefHeight="44.0" prefWidth="144.0" text="ANNULER" />
+            <JFXButton fx:id="btnEnvoyer" buttonType="RAISED" layoutX="10.0" layoutY="10.0" onAction="#clickedBtnEnvoyer" prefHeight="44.0" prefWidth="144.0" text="ENVOYER" />
+            <Region layoutX="10.0" layoutY="10.0" prefHeight="44.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+   <center>
+      <VBox fx:id="vboxMessages" alignment="BOTTOM_CENTER" prefHeight="681.0" prefWidth="1104.0" spacing="30.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="30.0" />
+         </padding>
+      </VBox>
+   </center>
 </BorderPane>

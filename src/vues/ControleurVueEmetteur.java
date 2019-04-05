@@ -5,6 +5,10 @@ import java.io.IOException;
 
 import javax.sound.sampled.LineUnavailableException;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXProgressBar;
+import com.jfoenix.controls.JFXSlider;
+
 import controleurs.ApplicationRadio;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.FloatProperty;
@@ -44,16 +48,16 @@ public class ControleurVueEmetteur {
 	private BorderPane borderPaneRoot;
 
 	@FXML
-	private Button btnSelectionner;
+	private JFXButton btnSelectionner;
 
 	@FXML
-	private Button btnEnvoyer;
+	private JFXButton btnEnvoyer;
 
 	@FXML
-	private Button btnAnnuler;
+	private JFXButton btnAnnuler;
 
 	@FXML
-	private Slider slider;
+	private JFXSlider slider;
 
 	@FXML
 	private Label sliderLabel;
