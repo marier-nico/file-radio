@@ -63,8 +63,10 @@ public class PasserelleFichier {
 		AudioFileFormat.Type type = new AudioFileFormat.Type("asdf", "asdf");
 		MicrophoneAnalyzer microAnal = new MicrophoneAnalyzer(type);
 		microAnal.open();
-		System.out.println(microAnal.getState());
-		System.out.println(microAnal.getAudioVolume(5000));
+		for (int i = 0; i < 30; i++) {
+			System.out.println(microAnal.getAudioVolume(1000));
+		}
+		
 		microAnal.close();
 	}
 }
