@@ -101,7 +101,7 @@
       <HBox prefHeight="44.0" prefWidth="1076.0" BorderPane.alignment="CENTER">
          <children>
             <Region prefHeight="44.0" prefWidth="0.0" HBox.hgrow="ALWAYS" />
-            <JFXButton fx:id="btnSelectionner" buttonType="RAISED" onAction="#clickedBtnSelect" prefHeight="74.0" prefWidth="135.0" text="SÉLECTIONNER" />
+            <JFXButton fx:id="btnSelectionner" buttonType="RAISED" onAction="#clickedBtnSelect" prefHeight="55.0" prefWidth="160.0" text="SÉLECTIONNER" />
             <StackPane prefHeight="44.0" prefWidth="834.0">
                <children>
                   <ProgressBar fx:id="progressBar" prefHeight="96.0" prefWidth="841.0" progress="0.0" />

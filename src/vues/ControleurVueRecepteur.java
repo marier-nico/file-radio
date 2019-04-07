@@ -2,6 +2,8 @@ package vues;
 
 import java.io.File;
 
+import com.jfoenix.controls.JFXButton;
+
 import controleurs.ApplicationRadio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,13 +28,13 @@ public class ControleurVueRecepteur {
     private BorderPane borderPaneRoot;
 	
     @FXML
-    private Button btnSelectionner;
+    private JFXButton btnSelectionner;
 
     @FXML
-    private Button btnEnregistrer;
+    private JFXButton btnEnregistrer;
     
     @FXML
-    private Button btnEcouter;
+    private JFXButton btnEcouter;
     
     @FXML
     private VBox vboxMessages;
