@@ -28,7 +28,7 @@
       </StackPane>
    </top>
    <left>
-      <VBox prefHeight="704.0" prefWidth="192.0" BorderPane.alignment="CENTER">
+      <VBox id="contours" prefHeight="704.0" prefWidth="192.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="172.0" prefWidth="139.0" spacing="15.0">
                <children>

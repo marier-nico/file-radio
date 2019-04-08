@@ -1,12 +1,19 @@
 package controleurs;
 
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import vues.ControleurVueEmetteur;
 import vues.ControleurVueMenu;
 import vues.ControleurVueRecepteur;
@@ -61,6 +68,7 @@ public class ApplicationRadio extends Application {
 		scene = new Scene(root);
 		scene.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
 		demarrageStage("Menu", redimensionnable, getScene());
+		transitionVerticaleVersHaut(false, scene, root);
 	}
 
 	/**
@@ -75,10 +83,14 @@ public class ApplicationRadio extends Application {
 		vueEmetteur.setApplication(this);
 		vueEmetteur.bindSliderEtLabel();
 
+		
 		BorderPane root = vueEmetteur.getBorderPaneRoot();
 		scene = new Scene(root);
 		scene.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
+		
 		demarrageStage("Émetteur", redimensionnable, getScene());
+		transitionVerticaleVersHaut(true, scene, root);
+		
 		setOptionRetour();
 	}
 
@@ -130,6 +142,21 @@ public class ApplicationRadio extends Application {
 	 */
 	public Scene getScene() {
 		return scene;
+	}
+	
+	private void transitionVerticaleVersHaut(boolean versHaut, Scene scene, Parent root) {
+		int coef = -1;
+		if (versHaut) {
+			coef = 1;
+		}
+		root.translateYProperty().set(coef*scene.getHeight());
+		Timeline timeline = new Timeline();
+        KeyValue kv = new KeyValue(root.translateYProperty(), 0, Interpolator.EASE_IN);
+        KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
+        timeline.getKeyFrames().add(kf);
+        timeline.setOnFinished(t -> {
+        });
+        timeline.play();
 	}
 
 	/*
