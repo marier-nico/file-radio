@@ -68,7 +68,7 @@ public class ApplicationRadio extends Application {
 		scene = new Scene(root);
 		scene.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
 		demarrageStage("Menu", redimensionnable, getScene());
-		transitionVerticaleVersHaut(false, scene, root);
+		//transitionVerticaleVersHaut(false, scene, root);
 	}
 
 	/**
@@ -82,6 +82,7 @@ public class ApplicationRadio extends Application {
 		vueEmetteur = loader.getController();
 		vueEmetteur.setApplication(this);
 		vueEmetteur.bindSliderEtLabel();
+		vueEmetteur.bindProgressBar();
 
 		
 		BorderPane root = vueEmetteur.getBorderPaneRoot();
@@ -89,7 +90,7 @@ public class ApplicationRadio extends Application {
 		scene.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
 		
 		demarrageStage("Émetteur", redimensionnable, getScene());
-		transitionVerticaleVersHaut(true, scene, root);
+		//transitionVerticaleVersHaut(true, scene, root);
 		
 		setOptionRetour();
 	}
@@ -104,6 +105,7 @@ public class ApplicationRadio extends Application {
 		loader.load();
 		vueRecepteur = loader.getController();
 		vueRecepteur.setApplication(this);
+		vueRecepteur.bindProgressBar();
 
 		BorderPane root = vueRecepteur.getBorderPaneRoot();
 		scene = new Scene(root);

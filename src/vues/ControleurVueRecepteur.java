@@ -3,14 +3,17 @@ package vues;
 import java.io.File;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXSlider;
 
 import controleurs.ApplicationRadio;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 
@@ -41,6 +44,16 @@ public class ControleurVueRecepteur {
     
     @FXML
     private Label labelProgress;
+    
+    @FXML
+    private JFXSlider slider;
+    
+    @FXML
+    private ProgressBar progressBar;
+    
+    @FXML
+    private HBox hboxProgressBar;
+
 
 	private ApplicationRadio application = null;
 	public static final String ADRESSE_VUE_RECEPTEUR = "/vues/Vue_Recepteur.fxml";
@@ -78,6 +91,13 @@ public class ControleurVueRecepteur {
     void clickedBtnEcouter(ActionEvent event) {
 		//TODO
     }
+	
+	/**
+	 * Cette méthode permet de créer un "hgrow" à la progressBar.
+	 */
+	public void bindProgressBar() {
+		progressBar.prefWidthProperty().bind(hboxProgressBar.widthProperty());
+	}
 	
 	public String getEmplacementFichierSelct() {
 		String retour = "Rien";

@@ -20,6 +20,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -74,6 +75,9 @@ public class ControleurVueEmetteur {
 	@FXML
 	private ProgressBar progressBar;
 
+	@FXML
+	private HBox hboxProgressBar;
+
 	private ApplicationRadio application = null;
 	public static final String ADRESSE_VUE_EMETTEUR = "/vues/Vue_Emetteur.fxml";
 	private final FileChooser fileChooser = new FileChooser();
@@ -84,7 +88,7 @@ public class ControleurVueEmetteur {
 	private FloatProperty dureeSonBit = new SimpleFloatProperty(0.0001f);
 	private Thread threadSon;
 	private AnimationProgressBar animProgressBar;
-	//private AnimationEnvoi animEnvoi;
+	// private AnimationEnvoi animEnvoi;
 
 	public void setApplication(ApplicationRadio application) {
 		this.application = application;
@@ -129,7 +133,7 @@ public class ControleurVueEmetteur {
 				});
 				threadSon.start();
 				animProgressBar = new AnimationProgressBar(progressBar, dureeSonBit.get(), octetsFichier.length * 8);
-				//animEnvoi = new AnimationEnvoi(paneAnimation, dureeSonBit.get(), donnees);
+				// animEnvoi = new AnimationEnvoi(paneAnimation, dureeSonBit.get(), donnees);
 			} catch (LineUnavailableException ex) {
 				afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
 						+ "Tentez de libérer la sortie audio de votre système.", ex);
@@ -153,6 +157,10 @@ public class ControleurVueEmetteur {
 		labelProgress.setText(getEmplacementFichierSelct());
 	}
 
+	/**
+	 * Cette méthode bind le slider avec tous les labels affichant des informations
+	 * en lien avec celui-ci.
+	 */
 	public void bindSliderEtLabel() {
 		slider.valueProperty().addListener((ov, old_val, new_val) -> {
 			dureeSonBit.bind(slider.valueProperty());
@@ -162,13 +170,21 @@ public class ControleurVueEmetteur {
 			if (file != null) {
 				DoubleProperty tempsEstim;
 				try {
-					tempsEstim = new SimpleDoubleProperty(dureeSonBit.get()*(PasserelleFichier.lireOctets(file).length)*8);
+					tempsEstim = new SimpleDoubleProperty(
+							dureeSonBit.get() * (PasserelleFichier.lireOctets(file).length) * 8);
 					labelTempsEstim.textProperty().bind(tempsEstim.asString());
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
 		});
+	}
+
+	/**
+	 * Cette méthode permet de créer un "hgrow" à la progressBar.
+	 */
+	public void bindProgressBar() {
+		progressBar.prefWidthProperty().bind(hboxProgressBar.widthProperty());
 	}
 
 	@FXML
