@@ -7,6 +7,7 @@ import javax.sound.sampled.LineUnavailableException;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.JFXSlider.IndicatorPosition;
 
 import controleurs.ApplicationRadio;
 import javafx.beans.property.DoubleProperty;
