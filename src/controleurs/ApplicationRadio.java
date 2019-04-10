@@ -102,6 +102,7 @@ public class ApplicationRadio extends Application {
 		loader.load();
 		vueRecepteur = loader.getController();
 		vueRecepteur.setApplication(this);
+		vueRecepteur.bindSliderEtLabel();
 		vueRecepteur.bindProgressBar();
 
 		BorderPane root = vueRecepteur.getBorderPaneRoot();
