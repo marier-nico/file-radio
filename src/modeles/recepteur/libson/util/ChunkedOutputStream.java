@@ -1,4 +1,4 @@
-package com.darkprograms.speech.util;
+package modeles.recepteur.libson.util;
 
 //TODO Replace this class with something that isn't 20 years old.
 

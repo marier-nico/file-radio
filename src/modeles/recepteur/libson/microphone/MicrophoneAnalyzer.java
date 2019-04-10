@@ -1,7 +1,7 @@
-package com.darkprograms.speech.microphone;
+package modeles.recepteur.libson.microphone;
 
 import javax.sound.sampled.AudioFileFormat;
-import com.darkprograms.speech.util.*;
+import modeles.recepteur.libson.util.*;
 
 /********************************************************************************************
  * Microphone Analyzer class, detects pitch and volume while extending the microphone class.

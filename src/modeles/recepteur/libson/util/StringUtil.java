@@ -1,4 +1,4 @@
-package com.darkprograms.speech.util;
+package modeles.recepteur.libson.util;
 
 /**
  * A string utility class for commonly used methods. 
