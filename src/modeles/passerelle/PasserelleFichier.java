@@ -6,10 +6,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 
-import javax.sound.sampled.AudioFileFormat;
-
-import com.darkprograms.speech.microphone.MicrophoneAnalyzer;
-
 import modeles.OctetBinaire;
 import modeles.RepresentationBinaire;
 
@@ -58,15 +54,5 @@ public class PasserelleFichier {
 	public static File obtenirFichier(String chemin) {
 		return new File(chemin);
 	}
-	
-	public static void main(String[] args) {
-		AudioFileFormat.Type type = new AudioFileFormat.Type("asdf", "asdf");
-		MicrophoneAnalyzer microAnal = new MicrophoneAnalyzer(type);
-		microAnal.open();
-		for (int i = 0; i < 30; i++) {
-			System.out.println(microAnal.getAudioVolume(1000));
-		}
-		
-		microAnal.close();
-	}
+
 }
