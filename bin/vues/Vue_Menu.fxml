@@ -17,7 +17,7 @@
       <SplitMenuButton mnemonicParsing="false" prefHeight="16.0" prefWidth="91.0" styleClass="slpitMenu" text="Thèmes">
         <items>
             <RadioMenuItem fx:id="darkNGreen" disable="true" mnemonicParsing="false" onAction="#selectedDarkNGreen" selected="true" text="DarkNGreen" />
-            <RadioMenuItem fx:id="blueNRed" mnemonicParsing="false" onAction="#selectedBlueNRed" text="BlueNRed" />
+            <RadioMenuItem fx:id="powderBlue" mnemonicParsing="false" onAction="#selectedPowderBlue" text="PowderBlue" />
         </items>
       </SplitMenuButton>
       <Region prefHeight="0.0" prefWidth="700.0" VBox.vgrow="ALWAYS" />

@@ -1,19 +1,12 @@
 package controleurs;
 
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import vues.ControleurVueEmetteur;
 import vues.ControleurVueMenu;
 import vues.ControleurVueRecepteur;
@@ -27,7 +20,10 @@ import vues.ControleurVueRecepteur;
  */
 public class ApplicationRadio extends Application {
 
-	private Scene scene;
+	private Scene sceneCourante;
+	private Scene sceneMenu;
+	private Scene sceneEmetteur;
+	private Scene sceneRecepteur;
 	private Stage stage;
 	private ControleurVueEmetteur vueEmetteur;
 	private ControleurVueRecepteur vueRecepteur;
@@ -59,15 +55,16 @@ public class ApplicationRadio extends Application {
 	 * @throws Exception
 	 */
 	private void showVueMenu(Stage stage) throws Exception {
+		if (sceneMenu == null) {
 		FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/vues/Vue_Menu.fxml"));
 		loader.load();
 		vueMenu = loader.getController();
 		vueMenu.setApplication(this);
-
 		VBox root = vueMenu.getVboxRoot();
-		scene = new Scene(root);
-		scene.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
-		demarrageStage("Menu", redimensionnable, getScene());
+		sceneMenu = new Scene(root);
+		sceneMenu.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
+		}
+		demarrageStage("Menu", redimensionnable, sceneMenu);
 	}
 
 	/**
@@ -76,20 +73,19 @@ public class ApplicationRadio extends Application {
 	 * @throws Exception
 	 */
 	public void showVueEmetteur() throws Exception {
+		if (sceneEmetteur == null) {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(ControleurVueEmetteur.ADRESSE_VUE_EMETTEUR));
 		loader.load();
 		vueEmetteur = loader.getController();
 		vueEmetteur.setApplication(this);
 		vueEmetteur.bindSliderEtLabel();
 		vueEmetteur.bindProgressBar();
-
-		
 		BorderPane root = vueEmetteur.getBorderPaneRoot();
-		scene = new Scene(root);
-		scene.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
-		
-		demarrageStage("Émetteur", redimensionnable, getScene());
-		setOptionRetour();
+		sceneEmetteur = new Scene(root);
+		setOptionRetour(sceneEmetteur);
+		}
+		sceneEmetteur.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
+		demarrageStage("Émetteur", redimensionnable, sceneEmetteur);
 	}
 
 	/**
@@ -98,18 +94,19 @@ public class ApplicationRadio extends Application {
 	 * @throws Exception
 	 */
 	public void showVueRecepteur() throws Exception {
+		if (sceneRecepteur == null) {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource(ControleurVueRecepteur.ADRESSE_VUE_RECEPTEUR));
 		loader.load();
 		vueRecepteur = loader.getController();
 		vueRecepteur.setApplication(this);
 		vueRecepteur.bindSliderEtLabel();
 		vueRecepteur.bindProgressBar();
-
 		BorderPane root = vueRecepteur.getBorderPaneRoot();
-		scene = new Scene(root);
-		scene.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
-		demarrageStage("Récepteur", redimensionnable, getScene());
-		setOptionRetour();
+		sceneRecepteur = new Scene(root);
+		setOptionRetour(sceneRecepteur);
+		}
+		sceneRecepteur.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
+		demarrageStage("Récepteur", redimensionnable, sceneRecepteur);
 	}
 	
 	/**
@@ -124,6 +121,7 @@ public class ApplicationRadio extends Application {
 		stage.setResizable(redimension);
 		stage.setScene(scene);
 		stage.show();
+		setSceneCourante(scene);
 	}
 
 	/**
@@ -140,14 +138,18 @@ public class ApplicationRadio extends Application {
 	 * 
 	 * @return scene
 	 */
-	public Scene getScene() {
-		return scene;
+	public Scene getSceneCourante() {
+		return sceneCourante;
+	}
+	
+	public void setSceneCourante(Scene sceneCour) {
+		sceneCourante = sceneCour;
 	}
 
 	/*
 	 * Permet de revenir à la vue menu en appuyant sur la touche Escape.
 	 */
-	private void setOptionRetour() {
+	private void setOptionRetour(Scene scene) {
 		scene.setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.ESCAPE) {
 				try {
