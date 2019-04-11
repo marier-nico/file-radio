@@ -38,6 +38,9 @@
 	-fx-stroke: -fx-couleurBordures;
 }
 
+.jfx-slider > .colored-track {
+     -fx-background-color: -fx-couleurBordures;
+}
 
 .slider>.track {
 	-fx-background-color: white;
