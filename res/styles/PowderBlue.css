@@ -1,0 +1,96 @@
+* {
+   -fx-couleurFond: #1c1c1e;
+   -fx-couleurBordures:  #b0e0e6;
+}
+
+.root {
+	-fx-background-color: -fx-couleurFond;
+	-fx-border-color: -fx-couleurBordures;
+	-fx-border-width: 3.0;
+}
+
+.label {
+	-fx-text-fill: -fx-couleurBordures;
+}
+
+.jfx-button {
+	-jfx-disable-visual-focus: true; 
+}
+
+.button {
+	-fx-background-color: -fx-couleurBordures;
+	-fx-border-width: 1.0;
+	-fx-border-radius: 1.0;
+	-fx-border-color: -fx-couleurBordures;
+	-fx-text-fill: -fx-couleurFond;
+}
+
+.button:hover {
+	-fx-background-color: -fx-couleurFond;
+	-fx-text-fill: -fx-couleurBordures;
+}
+
+.pane, #contours {
+	-fx-border-color: -fx-couleurBordures;
+}
+
+#lines {
+	-fx-stroke: -fx-couleurBordures;
+}
+
+
+.slider>.track {
+	-fx-background-color: white;
+	-fx-background-size: 2.0;
+}
+
+.slider:vertical .track {
+	-fx-pref-width: 2.0;
+}
+
+.slider .thumb {
+	-fx-background-color: -fx-couleurBordures;
+}
+.jfx-slider > .animated-thumb {
+     -fx-background-color: -fx-couleurFond;
+}
+
+.jfx-slider .slider-value {
+     -fx-stroke: -fx-couleurFond;
+}
+
+.progress-bar > .bar {
+    -fx-background-color: -fx-couleurBordures;
+}
+
+.progress-bar > .track {
+    -fx-background-color: -fx-couleurFond;
+    -fx-border-color: -fx-couleurBordures;
+}
+
+.split-menu-button {
+	-fx-background-color: -fx-couleurBordures;
+}
+
+.split-menu-button .label {
+	-fx-background-color: -fx-couleurFond;
+}
+
+.split-menu-button .arrow {
+	-fx-background-color: white;
+}
+
+.split-menu-button .menu-item, .split-menu-button .arrow-button {
+	-fx-background-color: -fx-couleurFond;
+	-fx-border-color: -fx-couleurBordures;
+}
+
+.split-menu-button .menu-item:hover {
+	-fx-border-color: -fx-couleurBordures;
+	-fx-border-width: 3.0;
+}
+
+.split-menu-button .menu-item:disabled, split-menu-button .menu-item:disabled>*
+	{
+	-fx-opacity: 1.0;
+}
