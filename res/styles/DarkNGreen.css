@@ -37,6 +37,9 @@
 	-fx-stroke: -fx-couleurBordures;
 }
 
+.jfx-slider > .colored-track {
+     -fx-background-color: -fx-couleurBordures;
+}
 
 .slider>.track {
 	-fx-background-color: white;
@@ -49,6 +52,13 @@
 
 .slider .thumb {
 	-fx-background-color: -fx-couleurBordures;
+}
+.jfx-slider > .animated-thumb {
+     -fx-background-color: -fx-couleurFond;
+}
+
+.jfx-slider .slider-value {
+     -fx-stroke: -fx-couleurFond;
 }
 
 .progress-bar > .bar {

@@ -6,6 +6,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
 
 import controleurs.ApplicationRadio;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -49,6 +51,9 @@ public class ControleurVueRecepteur {
     private JFXSlider slider;
     
     @FXML
+    private Label labelSlider;
+    
+    @FXML
     private ProgressBar progressBar;
     
     @FXML
@@ -60,6 +65,7 @@ public class ControleurVueRecepteur {
 	final DirectoryChooser directoryChooser = new DirectoryChooser();
 	private File file;
 	private int nbrMessage = 0;
+	private FloatProperty dureeIntervalleRecep = new SimpleFloatProperty(0.0001f);
 
 	public void setApplication(ApplicationRadio application) {
 		this.application = application;
@@ -91,6 +97,13 @@ public class ControleurVueRecepteur {
     void clickedBtnEcouter(ActionEvent event) {
 		//TODO
     }
+	
+	public void bindSliderEtLabel() {
+		slider.valueProperty().addListener((ov, old_val, new_val) -> {
+			dureeIntervalleRecep.bind(slider.valueProperty());
+			labelSlider.textProperty().bind(slider.valueProperty().asString());
+		});
+	}
 	
 	/**
 	 * Cette méthode permet de créer un "hgrow" à la progressBar.
