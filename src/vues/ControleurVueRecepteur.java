@@ -4,10 +4,15 @@ import java.io.File;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.JFXTextField;
 
 import controleurs.ApplicationRadio;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -58,6 +63,12 @@ public class ControleurVueRecepteur {
     
     @FXML
     private HBox hboxProgressBar;
+    
+    @FXML
+    private JFXTextField textFieldVolumeUn;
+
+    @FXML
+    private JFXTextField textFieldVolumeZero;
 
 
 	private ApplicationRadio application = null;
@@ -66,6 +77,8 @@ public class ControleurVueRecepteur {
 	private File file;
 	private int nbrMessage = 0;
 	private FloatProperty dureeIntervalleRecep = new SimpleFloatProperty(0.0001f);
+	private DoubleProperty volumeUn = new SimpleDoubleProperty(0);
+	private DoubleProperty volumeZeros = new SimpleDoubleProperty(0);
 
 	public void setApplication(ApplicationRadio application) {
 		this.application = application;
@@ -112,10 +125,39 @@ public class ControleurVueRecepteur {
 		progressBar.prefWidthProperty().bind(hboxProgressBar.widthProperty());
 	}
 	
+	public void bindTextView() {
+		textFieldVolumeUn.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue.matches("-?\\d+(\\.\\d+)?")) {
+                	double val = Double.parseDouble(newValue);
+                	volumeUn.set(val);
+                }
+            }
+        });
+		textFieldVolumeZero.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (newValue.matches("-?\\d+(\\.\\d+)?")) {
+                	double val = Double.parseDouble(newValue);
+                	volumeZeros.set(val);
+                }
+            }
+        });
+	}
+	
 	public String getEmplacementFichierSelct() {
 		String retour = "Rien";
 		if (file != null) {
 			retour = file.getAbsolutePath();
+		}
+		return retour;
+	}
+	
+	private boolean validerVolume(double valMax) {
+		boolean retour = false;
+		if ((volumeUn.get() > 0) && (volumeZeros.get() > 0) && (volumeUn.get() <= valMax) && (volumeZeros.get() <= valMax)) {
+			retour = true;
 		}
 		return retour;
 	}
