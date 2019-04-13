@@ -70,6 +70,10 @@
     -fx-border-color: -fx-couleurBordures;
 }
 
+.text-input {
+    -fx-text-fill: white;
+    }
+
 .split-menu-button {
 	-fx-background-color: -fx-couleurBordures;
 }
