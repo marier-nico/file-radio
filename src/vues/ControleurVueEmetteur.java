@@ -101,47 +101,64 @@ public class ControleurVueEmetteur {
 	@FXML
 	private void clickedBtnEnvoyer(ActionEvent event) {
 		if (file != null) {
-			byte[] octetsFichier = null;
-			try {
-				octetsFichier = PasserelleFichier.lireOctets(file);
-			} catch (IOException ex) {
-				afficherErreur("la lecture du fichier",
-						"Le fichier n'a pas pu être lu. Une erreur s'est produite pendant son ouverture. "
-								+ "Il est possible que le fichier soit ouvert dans un autre programme.",
-						ex);
-				return;
-			}
-			RepresentationBinaire repr = new RepresentationBinaire(octetsFichier);
-			generateurSon = new GenerateurSon(repr, dureeSonBit.get());
-			byte[][] donnees = generateurSon.getDonneesSon();
-			try {
-				lecteurSon = new LecteurSon(donnees, dureeSonBit.get());
-				threadSon = new Thread(new Runnable() {
-					@Override
-					public void run() {
-						try {
-							lecteurSon.lireSons();
-						} catch (IllegalStateException ex) {
-							afficherErreur("la lecture du son", "Un autre son est déjà en lecture.", ex);
-						} catch (LineUnavailableException ex) {
-							afficherErreur("la lecture du son",
-									"Le son n'a pas pu être lu, car la sortie audio est indisponible. "
-											+ "Tentez de libérer la sortie audio de votre système.",
-									ex);
+			if ((threadSon != null) && (threadSon.isAlive())) {
+				Alert erreur = new Alert(AlertType.ERROR);
+				erreur.setHeaderText("Erreur");
+				erreur.setContentText("Un envoi est déjà en cours, veuillez l'anuler pour faire un autre envoi...");
+				erreur.setTitle("Erreur");
+				erreur.showAndWait();
+			} else {
+				byte[] octetsFichier = null;
+				try {
+					octetsFichier = PasserelleFichier.lireOctets(file);
+				} catch (IOException ex) {
+					afficherErreur("la lecture du fichier",
+							"Le fichier n'a pas pu être lu. Une erreur s'est produite pendant son ouverture. "
+									+ "Il est possible que le fichier soit ouvert dans un autre programme.",
+							ex);
+					return;
+				}
+				RepresentationBinaire repr = new RepresentationBinaire(octetsFichier);
+				generateurSon = new GenerateurSon(repr, dureeSonBit.get());
+				byte[][] donnees = generateurSon.getDonneesSon();
+				try {
+					lecteurSon = new LecteurSon(donnees, dureeSonBit.get());
+					threadSon = new Thread(new Runnable() {
+						@Override
+						public void run() {
+							try {
+								lecteurSon.lireSons();
+							} catch (IllegalStateException ex) {
+								afficherErreur("la lecture du son", "Un autre son est déjà en lecture.", ex);
+							} catch (LineUnavailableException ex) {
+								afficherErreur("la lecture du son",
+										"Le son n'a pas pu être lu, car la sortie audio est indisponible. "
+												+ "Tentez de libérer la sortie audio de votre système.",
+										ex);
+							}
 						}
-					}
-				});
-				threadSon.start();
-				animProgressBar = new AnimationProgressBar(progressBar, dureeSonBit.get(), octetsFichier.length * 8);
-				// animEnvoi = new AnimationEnvoi(paneAnimation, dureeSonBit.get(), donnees);
-			} catch (LineUnavailableException ex) {
-				afficherErreur("la lecture du son", "Le son n'a pas pu être lu, car la sortie audio est indisponible. "
-						+ "Tentez de libérer la sortie audio de votre système.", ex);
-			} catch (IllegalStateException ex) {
-				afficherErreur("la lecture du son", "Un autre son est déjà en lecture.", ex);
+					});
+					threadSon.start();
+					animProgressBar = new AnimationProgressBar(progressBar, dureeSonBit.get(),
+							octetsFichier.length * 8);
+					// animEnvoi = new AnimationEnvoi(paneAnimation, dureeSonBit.get(), donnees);
+				} catch (LineUnavailableException ex) {
+					afficherErreur("la lecture du son",
+							"Le son n'a pas pu être lu, car la sortie audio est indisponible. "
+									+ "Tentez de libérer la sortie audio de votre système.",
+							ex);
+				} catch (IllegalStateException ex) {
+					afficherErreur("la lecture du son", "Un autre son est déjà en lecture.", ex);
+				}
+				Label l = new Label("Envoi en cours de " + getEmplacementFichierSelct() + "...");
+				ajoutLabel(l);
+//				Label ll = new Label(getEmplacementFichierSelct() + " a été envoyé!");
+//				ajoutLabel(ll);
 			}
 		}
-		Label l = new Label(getEmplacementFichierSelct() + " a été envoyé!");
+	}
+
+	private void ajoutLabel(Label l) {
 		if (nbrMessage == 14) {
 			vboxMessages.getChildren().remove(vboxMessages.getChildren().get(0));
 			nbrMessage--;
@@ -192,6 +209,8 @@ public class ControleurVueEmetteur {
 		if ((threadSon != null) && threadSon.isAlive()) {
 			threadSon.stop();
 			animProgressBar.stopProgressAnim();
+			Label l = new Label("L'envoi a été annulé");
+			ajoutLabel(l);
 		}
 	}
 
