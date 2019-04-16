@@ -78,14 +78,14 @@
                   <Label prefHeight="17.0" prefWidth="138.0" text="TEMPS D'ENVOI D'UN BIT" />
                   <HBox alignment="CENTER" prefHeight="13.0" prefWidth="154.0" spacing="5.0">
                      <children>
-                        <Label fx:id="sliderLabel" prefHeight="18.0" prefWidth="62.0" text="0,0001" />
+                        <Label fx:id="sliderLabel" prefHeight="18.0" prefWidth="41.0" text="1,0000" />
                         <Label fx:id="sliderLabel1" layoutX="10.0" layoutY="10.0" prefHeight="17.0" prefWidth="35.0" text="s" />
                      </children>
                      <padding>
                         <Insets left="30.0" />
                      </padding>
                   </HBox>
-                  <JFXSlider fx:id="slider" blockIncrement="0.1" majorTickUnit="0.01" max="1.0" min="1.0E-4" minorTickCount="0" orientation="VERTICAL" prefHeight="392.0" prefWidth="24.0" snapToTicks="true" value="1.0E-4" VBox.vgrow="ALWAYS">
+                  <JFXSlider fx:id="slider" blockIncrement="0.1" majorTickUnit="0.01" max="1.0" min="1.0E-4" minorTickCount="0" orientation="VERTICAL" prefHeight="392.0" prefWidth="24.0" snapToTicks="true" value="1.0" VBox.vgrow="ALWAYS">
                      <padding>
                         <Insets bottom="10.0" />
                      </padding></JFXSlider>
