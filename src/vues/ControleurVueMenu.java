@@ -36,6 +36,9 @@ public class ControleurVueMenu {
 
 	private String themeCourant = DARK_N_GREEN;
 	private static final String DARK_N_GREEN = "/styles/DarkNGreen.css";
+	//private static final String DARK_N_GREEN = "/styles/Nowel.css";
+	//private static final String DARK_N_GREEN = "/styles/Halloween.css";
+	//private static final String DARK_N_GREEN = "/styles/Qc.css";
 	private static final String POWDER_BLUE = "/styles/PowderBlue.css";
 	private ApplicationRadio application = null;
 	public static final String ADRESSE_VUE_MENU = "/vues/Vue_Menu.fxml";

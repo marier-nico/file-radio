@@ -9,7 +9,7 @@
 
 <VBox fx:id="vboxRoot" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueMenu">
    <children>
-      <Region prefHeight="0.0" prefWidth="700.0" VBox.vgrow="ALWAYS" />
+      <Region prefHeight="0.0" prefWidth="800.0" VBox.vgrow="ALWAYS" />
       <JFXButton fx:id="btnEmettre" buttonType="RAISED" onAction="#clickedBtnEmettre" prefHeight="68.0" prefWidth="228.0" ripplerFill="#fffbfb" text="ÉMETTRE UN MESSAGE" />
       <Region prefHeight="0.0" prefWidth="900.0" VBox.vgrow="ALWAYS" />
       <JFXButton fx:id="btnReception" buttonType="RAISED" onAction="#clickedBtnReception" prefHeight="68.0" prefWidth="228.0" ripplerFill="#fffbfb" text="RÉCEPTIONNER UN MESSAGE" />
