@@ -42,6 +42,9 @@ public class ControleurVueRecepteur {
     private JFXButton btnEnregistrer;
     
     @FXML
+    private JFXButton btnArreter;
+    
+    @FXML
     private JFXButton btnEcouter;
     
     @FXML
@@ -106,6 +109,11 @@ public class ControleurVueRecepteur {
 	
 	@FXML
     void clickedBtnEcouter(ActionEvent event) {
+		//TODO
+    }
+	
+	@FXML
+    void clickedBtnArreter(ActionEvent event) {
 		//TODO
     }
 	

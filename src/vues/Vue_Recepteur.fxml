@@ -109,7 +109,7 @@
       <HBox id="contours" fx:id="hboxProgressBar" prefHeight="44.0" prefWidth="1255.0" BorderPane.alignment="CENTER">
          <children>
             <JFXButton fx:id="btnSelectionner" buttonType="RAISED" onAction="#clickedBtnSelect" prefHeight="44.0" prefWidth="210.0" text="SÉLECTIONNER" />
-            <StackPane prefHeight="25.0" prefWidth="859.0" HBox.hgrow="ALWAYS">
+            <StackPane prefHeight="44.0" prefWidth="754.0" HBox.hgrow="ALWAYS">
                <children>
                   <ProgressBar fx:id="progressBar" disable="true" prefHeight="44.0" prefWidth="881.0" progress="0.0" styleClass="progressBar" />
                   <Label fx:id="labelProgress" minHeight="25.0" minWidth="737.0" prefHeight="40.0" prefWidth="862.0" text="VEUILLER SÉLECTIONNER UN EMPLACEMENT POUR ENREGISTRER..." StackPane.alignment="TOP_LEFT">
@@ -121,6 +121,7 @@
             </StackPane>
             <JFXButton fx:id="btnEnregistrer" buttonType="RAISED" onAction="#clickedBtnEnregistrer" prefHeight="71.0" prefWidth="132.0" text="ENREGISTRER" />
             <JFXButton fx:id="btnEcouter" buttonType="RAISED" onAction="#clickedBtnEcouter" prefHeight="47.0" prefWidth="123.0" text="ÉCOUTER" />
+            <JFXButton fx:id="btnArreter" buttonType="RAISED" layoutX="1045.0" layoutY="10.0" onAction="#clickedBtnArreter" prefHeight="71.0" prefWidth="132.0" text="ARRÊTER" />
          </children>
          <BorderPane.margin>
             <Insets bottom="-2.0" />
