@@ -13,9 +13,12 @@
 	-fx-text-fill: white;
 }
 
+.jfx-button {
+	-jfx-disable-visual-focus: true; 
+}
+
 .button {
-	-fx-background-color: linear-gradient(from 25.0% 25.0% to 100.0% 100.0%, -fx-couleurFond, #282827);
-	-fx-background-radius: 1.0;
+	-fx-background-color: linear-gradient(from 25.0% 25.0% to 100.0% 100.0%, #282827, -fx-couleurFond);
 	-fx-border-width: 1.0;
 	-fx-border-radius: 1.0;
 	-fx-border-color: -fx-couleurBordures;
@@ -23,7 +26,7 @@
 }
 
 .button:hover {
-	-fx-background-color: linear-gradient(from 25.0% 25.0% to 100.0% 100.0%, #282827, -fx-couleurFond);
+	-fx-background-color: #1f6b0c;
 }
 
 .pane, #contours {
@@ -34,35 +37,13 @@
 	-fx-stroke: -fx-couleurBordures;
 }
 
-.progressBar {
-	-fx-indeterminate-bar-length: 60.0;
-	-fx-indeterminate-bar-escape: true;
-	-fx-indeterminate-bar-flip: true;
-	-fx-indeterminate-bar-animation-time: 2.0;
-}
-
-.progressBar>.bar {
-	-fx-background-color: #2c3d2b;
-	-fx-background-insets: 3.0 3.0 4.0 3.0;
-	-fx-background-radius: 2.0;
-	-fx-padding: 0.75em;
-}
-
-.progressBar:indeterminate>.bar {
-	-fx-background-color: linear-gradient(to left, transparent, -fx-accent);
-}
-
-.progressBar>.track {
-	-fx-background-color: -fx-couleurFond;
-	-fx-background-insets: 0.0, 0.0 0.0 1.0 0.0, 1.0 1.0 2.0 1.0;
-	-fx-background-radius: 4.0, 3.0, 2.0;
-	-fx-border-color: -fx-couleurBordures;
-	-fx-border-width: 1.0;
+.jfx-slider > .colored-track {
+     -fx-background-color: -fx-couleurBordures;
 }
 
 .slider>.track {
 	-fx-background-color: white;
-	-fx-background-size: 1.0;
+	-fx-background-size: 2.0;
 }
 
 .slider:vertical .track {
@@ -70,13 +51,28 @@
 }
 
 .slider .thumb {
-	-fx-pref-height: 7.0;
-	-fx-pref-width: 26.0;
 	-fx-background-color: -fx-couleurBordures;
-	-fx-border-width: 1.0;
-	-fx-border-radius: 0.0;
-	-fx-border-color: white;
 }
+.jfx-slider > .animated-thumb {
+     -fx-background-color: -fx-couleurFond;
+}
+
+.jfx-slider .slider-value {
+     -fx-stroke: -fx-couleurFond;
+}
+
+.progress-bar > .bar {
+    -fx-background-color: -fx-couleurBordures;
+}
+
+.progress-bar > .track {
+    -fx-background-color: -fx-couleurFond;
+    -fx-border-color: -fx-couleurBordures;
+}
+
+.text-input {
+    -fx-text-fill: white;
+    }
 
 .split-menu-button {
 	-fx-background-color: -fx-couleurBordures;

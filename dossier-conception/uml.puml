@@ -1,7 +1,10 @@
 @startuml Silence Radio
 package "controleurs" {
     class ApplicationRadio {
-    	- scene : Scene
+    	- sceneCourante : Scene
+    	- sceneMenu : Scene
+    	- sceneEmetteur : Scene
+    	- sceneRecepteur : Scene
     	- stage : Stage
     	- vueEmetteur : ControleurVueEmetteur
     	- vueRecepteur : ControleurVueRecepteur
@@ -14,7 +17,8 @@ package "controleurs" {
         + void showVueRecepteur()
         - void demarrageStage(String titre, boolean redimension, Scene scene)
         + Stage getStage()
-        + Stage getScene()
+        + Stage getSceneCourante()
+        + void setSceneCourante()
         - void setOptionRetour()
     }
     
@@ -31,10 +35,10 @@ package "controleurs" {
 package "vue" {
     class ControleurVueEmetteur {
     	- borderPaneRoot : BorderPane
-    	- btnSelectionner : Button
-    	- btnEnvoyer : Button
-    	- btnAnnuler : Button
-    	- slider : Slider
+    	- btnSelectionner : JFXButton
+    	- btnEnvoyer : JFXButton
+    	- btnAnnuler : JFXButton
+    	- slider : JFXSlider
     	- sliderLabel : Label
     	- labelProgress : Label
     	- labelVitesseFichier : Label
@@ -42,6 +46,7 @@ package "vue" {
     	- vboxMessages : VBox
     	- paneAnimation : Pane
     	- progressBar : ProgressBar
+    	- hboxProgressBar : HBox
         - application : ApplicationRadio = null
         + {static} final ADRESSE_VUE_EMETTEUR : String = "/vues/Vue_Emetteur.fxml"
         - final fileChooser : FileChooser = new FileChooser()
@@ -49,14 +54,16 @@ package "vue" {
         - nbrMessage : int = 0
         - generateurSon : GenerateurSon
         - lecteurSon : LecteurSon
-        - dureeSonBit : FloatProperty = new SimpleFloatProperty(0.0001f)
+        - dureeSonBit : FloatProperty = new SimpleFloatProperty(1f)
         - threadSon : Thread
         - animProgressBar : AnimationProgressBar
         + void setApplication(ApplicationRadio application)
         + BorderPane getBorderPaneRoot()
         - void clickedBtnEnvoyer(ActionEvent event)
+        - void ajoutLabel(Label l)
         - void clickedBtnSelect(ActionEvent event)
         + void bindSliderEtLabel()
+        + void bindProgressBar()
         - void clickedBtnAnnuler(ActionEvent event)
         + String getEmplacementFichierSelect()
         - void afficherErreur(String emplacement, String detail, Exception ex)
@@ -64,31 +71,46 @@ package "vue" {
 
     class ControleurVueRecepteur {
         - borderPaneRoot : BorderPane
-    	- btnSelectionner : Button
-    	- btnEnregistrer : Button
-    	- labelProgress : Label
+    	- btnSelectionner : JFXButton
+    	- btnEnregistrer : JFXButton
+    	- btnEcouter : JFXButton
     	- vboxMessages : VBox
+    	- labelProgress : Label
+    	- slider : JFXSlider
+    	- labelSlider : Label
+    	- progressBar : ProgressBar
+    	- hboxProgressBar : HBox
+    	- textFieldVolumeUn : JFXTextField
+    	- textFieldVolumeZero : JFXTextField
         - application : ApplicationRadio = null
         + {static} final ADRESSE_VUE_RECEPTEUR : String = "/vues/Vue_Recepteur.fxml"
         - final directoryChooser : DirectoryChooser = new DirectoryChooser()
         - file : File
         - nbrMessage : int = 0
+        - dureeIntervalleRecep : FloatProperty = new SimpleFloatProperty(0.0001f)
+        - volumeUn : DoubleProperty = new SimpleDoubleProperty(0)
+        - volumeZeros : DoubleProperty = new SimpleDoubleProperty(0)
         + void setApplication(ApplicationRadio application)
         + BorderPane getBorderPaneRoot()
         - void clickedBtnEnregistrer(ActionEvent event)
         - void clickedBtnSelect(ActionEvent event)
+        - void clickedBtnEcouter(ActionEvent event)
+        + void bindSliderEtLabel()
+        + void bindProgressBar()
+        + void bindTextView()
         + String getEmplacementFichierSelect()
+        - boolean validerVolume(double valMax)
     }
 
     class ControleurVueMenu {
     	- darkNGreen RadioMenuItem
     	- blueNRed RadioMenuItem
         - vboxRoot : VBox
-        - btnEmettre : Button
-        - btnReception : Button
+        - btnEmettre : JFXButton
+        - btnReception : JFXButton
         - themeCourant : String = DARK_N_GREEN
         + {static} final DARK_N_GREEN : String = "/styles/DarkNGreen.css"
-        + {static} final BLUE_N_RED : String = "/styles/BlueNRed.css"
+        + {static} final POWDER_BLUE : String = "/styles/PowderBlue.css"
         - application : ApplicationRadio = null
         + {static} final ADRESSE_VUE_MENU : String = "/vues/Vue_Menu.fxml"
         + void setApplication(ApplicationRadio application)

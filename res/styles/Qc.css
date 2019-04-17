@@ -1,12 +1,16 @@
 * {
-   -fx-couleurFond: #1c1c1e;
-   -fx-couleurBordures: #1f6b0c;
+   -fx-couleurFond: #003be1;
+   -fx-couleurBordures: white;
 }
 
 .root {
 	-fx-background-color: -fx-couleurFond;
 	-fx-border-color: -fx-couleurBordures;
 	-fx-border-width: 3.0;
+}
+
+#imageView {
+	-fx-image : url("/images/pissenlit_du_qc.png");
 }
 
 .label {
@@ -18,15 +22,16 @@
 }
 
 .button {
-	-fx-background-color: linear-gradient(from 25.0% 25.0% to 100.0% 100.0%, #282827, -fx-couleurFond);
+	-fx-background-color: -fx-couleurBordures;
 	-fx-border-width: 1.0;
 	-fx-border-radius: 1.0;
 	-fx-border-color: -fx-couleurBordures;
-	-fx-text-fill: white;
+	-fx-text-fill: -fx-couleurFond;
 }
 
 .button:hover {
-	-fx-background-color: #1f6b0c;
+	-fx-background-color: -fx-couleurFond;
+	-fx-text-fill: -fx-couleurBordures;
 }
 
 .pane, #contours {

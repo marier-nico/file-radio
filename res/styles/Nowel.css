@@ -1,6 +1,6 @@
 * {
-   -fx-couleurFond: #1c1c1e;
-   -fx-couleurBordures: #1f6b0c;
+   -fx-couleurFond: #043302;
+   -fx-couleurBordures: #bf0909;
 }
 
 .root {
@@ -18,15 +18,15 @@
 }
 
 .button {
-	-fx-background-color: linear-gradient(from 25.0% 25.0% to 100.0% 100.0%, #282827, -fx-couleurFond);
+	-fx-background-color: -fx-couleurBordures;
 	-fx-border-width: 1.0;
 	-fx-border-radius: 1.0;
-	-fx-border-color: -fx-couleurBordures;
+	-fx-border-color: white;
 	-fx-text-fill: white;
 }
 
 .button:hover {
-	-fx-background-color: #1f6b0c;
+	-fx-background-color: white;
 }
 
 .pane, #contours {

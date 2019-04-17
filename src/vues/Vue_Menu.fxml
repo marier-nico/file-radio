@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.layout.Region?>
@@ -9,15 +9,15 @@
 
 <VBox fx:id="vboxRoot" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueMenu">
    <children>
-      <Region prefHeight="0.0" prefWidth="700.0" VBox.vgrow="ALWAYS" />
-      <Button fx:id="btnEmettre" mnemonicParsing="false" onAction="#clickedBtnEmettre" prefHeight="65.0" prefWidth="226.0" text="Émettre un message" />
+      <Region prefHeight="0.0" prefWidth="800.0" VBox.vgrow="ALWAYS" />
+      <JFXButton fx:id="btnEmettre" buttonType="RAISED" onAction="#clickedBtnEmettre" prefHeight="68.0" prefWidth="228.0" ripplerFill="#fffbfb" text="ÉMETTRE UN MESSAGE" />
       <Region prefHeight="0.0" prefWidth="900.0" VBox.vgrow="ALWAYS" />
-      <Button fx:id="btnReception" mnemonicParsing="false" onAction="#clickedBtnReception" prefHeight="65.0" prefWidth="225.0" text="Réceptionner un message" />
+      <JFXButton fx:id="btnReception" buttonType="RAISED" onAction="#clickedBtnReception" prefHeight="68.0" prefWidth="228.0" ripplerFill="#fffbfb" text="RÉCEPTIONNER UN MESSAGE" />
       <Region prefHeight="0.0" prefWidth="700.0" VBox.vgrow="ALWAYS" />
       <SplitMenuButton mnemonicParsing="false" prefHeight="16.0" prefWidth="91.0" styleClass="slpitMenu" text="Thèmes">
         <items>
             <RadioMenuItem fx:id="darkNGreen" disable="true" mnemonicParsing="false" onAction="#selectedDarkNGreen" selected="true" text="DarkNGreen" />
-            <RadioMenuItem fx:id="blueNRed" mnemonicParsing="false" onAction="#selectedBlueNRed" text="BlueNRed" />
+            <RadioMenuItem fx:id="powderBlue" mnemonicParsing="false" onAction="#selectedPowderBlue" text="PowderBlue" />
         </items>
       </SplitMenuButton>
       <Region prefHeight="0.0" prefWidth="700.0" VBox.vgrow="ALWAYS" />

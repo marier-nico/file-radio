@@ -2,7 +2,6 @@ package modeles.passerelle;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -55,4 +54,5 @@ public class PasserelleFichier {
 	public static File obtenirFichier(String chemin) {
 		return new File(chemin);
 	}
+
 }
