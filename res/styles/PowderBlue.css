@@ -10,7 +10,7 @@
 }
 
 .label {
-	-fx-text-fill: -fx-couleurBordures;
+	-fx-text-fill: white;
 }
 
 .jfx-button {

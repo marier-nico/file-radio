@@ -26,6 +26,15 @@ public class ControleurVueMenu {
 	private RadioMenuItem powderBlue;
 
 	@FXML
+	private RadioMenuItem noel;
+
+	@FXML
+	private RadioMenuItem Halloween;
+
+	@FXML
+	private RadioMenuItem quebec;
+
+	@FXML
 	private VBox vboxRoot;
 
 	@FXML
@@ -36,10 +45,10 @@ public class ControleurVueMenu {
 
 	private String themeCourant = DARK_N_GREEN;
 	private static final String DARK_N_GREEN = "/styles/DarkNGreen.css";
-	//private static final String DARK_N_GREEN = "/styles/Nowel.css";
-	//private static final String DARK_N_GREEN = "/styles/Halloween.css";
-	//private static final String DARK_N_GREEN = "/styles/Qc.css";
 	private static final String POWDER_BLUE = "/styles/PowderBlue.css";
+	private static final String NOWEL = "/styles/Nowel.css";
+	private static final String HALLOWEEN = "/styles/Halloween.css";
+	private static final String QUEBEC = "/styles/Qc.css";
 	private ApplicationRadio application = null;
 	public static final String ADRESSE_VUE_MENU = "/vues/Vue_Menu.fxml";
 
@@ -86,8 +95,33 @@ public class ControleurVueMenu {
 			powderBlue.setSelected(false);
 			powderBlue.setDisable(false);
 			darkNGreen.setDisable(true);
-			application.getSceneCourante().getStylesheets().setAll(this.getClass().getResource(DARK_N_GREEN).toString());
+			application.getSceneCourante().getStylesheets()
+					.setAll(this.getClass().getResource(DARK_N_GREEN).toString());
 			themeCourant = DARK_N_GREEN;
+		}
+	}
+
+	@FXML
+	void selectedHalloween(ActionEvent event) {
+		if (((RadioMenuItem) event.getSource()).isSelected()) {
+			application.getSceneCourante().getStylesheets().setAll(this.getClass().getResource(HALLOWEEN).toString());
+			themeCourant = HALLOWEEN;
+		}
+	}
+
+	@FXML
+	void selectedNoel(ActionEvent event) {
+		if (((RadioMenuItem) event.getSource()).isSelected()) {
+			application.getSceneCourante().getStylesheets().setAll(this.getClass().getResource(NOWEL).toString());
+			themeCourant = NOWEL;
+		}
+	}
+
+	@FXML
+	void selectedQuebec(ActionEvent event) {
+		if (((RadioMenuItem) event.getSource()).isSelected()) {
+			application.getSceneCourante().getStylesheets().setAll(this.getClass().getResource(QUEBEC).toString());
+			themeCourant = QUEBEC;
 		}
 	}
 

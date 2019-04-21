@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="1255.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueRecepteur">
    <top>
@@ -48,7 +49,7 @@
                   <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Label text="FRÉQUENCE :" />
-                        <Label fx:id="freqLabel" text="1280 kHz" />
+                        <Label fx:id="freqLabel" text="3300 kHz" />
                      </children>
                   </HBox>
                   <HBox prefHeight="0.0" prefWidth="200.0">
@@ -65,13 +66,22 @@
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Label text="VOLUME 1 :" />
-                        <JFXTextField fx:id="textFieldVolumeUn" focusColor="#36b81f" prefHeight="25.0" prefWidth="90.0" unFocusColor="#567ef8" />
+                        <JFXTextField fx:id="textFieldVolumeUn" focusColor="#36b81f" prefHeight="14.0" prefWidth="90.0" unFocusColor="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="12.0" left="5.0" />
+                           </padding></JFXTextField>
                      </children>
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Label text="VOLUME 0 :" />
-                        <JFXTextField fx:id="textFieldVolumeZero" focusColor="#36b81f" prefHeight="25.0" prefWidth="90.0" unFocusColor="#567ef8" />
+                        <JFXTextField fx:id="textFieldVolumeZero" focusColor="#36b81f" prefHeight="25.0" prefWidth="90.0" unFocusColor="WHITE">
+                           <padding>
+                              <Insets bottom="12.0" left="5.0" />
+                           </padding></JFXTextField>
                      </children>
                   </HBox>
                </children>
@@ -82,7 +92,7 @@
                   <Label alignment="TOP_LEFT" contentDisplay="TOP" text="DURÉE INTERVALLE RECEPTION" />
                   <HBox alignment="CENTER" prefHeight="30.0" prefWidth="192.0" spacing="5.0">
                      <children>
-                        <Label fx:id="labelSlider" text="0.001" />
+                        <Label fx:id="labelSlider" text="0.0001" />
                         <Label text="s" />
                      </children>
                   </HBox>

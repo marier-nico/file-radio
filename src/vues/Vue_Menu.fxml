@@ -18,6 +18,10 @@
         <items>
             <RadioMenuItem fx:id="darkNGreen" disable="true" mnemonicParsing="false" onAction="#selectedDarkNGreen" selected="true" text="DarkNGreen" />
             <RadioMenuItem fx:id="powderBlue" mnemonicParsing="false" onAction="#selectedPowderBlue" text="PowderBlue" />
+            <RadioMenuItem fx:id="noel" mnemonicParsing="false" onAction="#selectedNoel" text="Noël" />
+            <RadioMenuItem fx:id="Halloween" mnemonicParsing="false" onAction="#selectedHalloween" text="Halloween" />
+            <RadioMenuItem fx:id="quebec" mnemonicParsing="false" onAction="#selectedQuebec" text="Québec" />
+            <RadioMenuItem mnemonicParsing="false" text="Autres" />
         </items>
       </SplitMenuButton>
       <Region prefHeight="0.0" prefWidth="700.0" VBox.vgrow="ALWAYS" />
