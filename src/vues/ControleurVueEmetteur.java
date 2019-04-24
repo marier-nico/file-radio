@@ -208,8 +208,7 @@ public class ControleurVueEmetteur {
 		if ((threadSon != null) && threadSon.isAlive()) {
 			threadSon.stop();
 			animProgressBar.stopProgressAnim();
-			Label l = new Label("L'envoi a été annulé");
-			ajoutLabel(l);
+			ajoutLabel(new Label("L'envoi a été annulé"));
 		}
 	}
 
