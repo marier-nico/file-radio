@@ -1,6 +1,12 @@
 package modeles.recepteur;
 
+import java.io.File;
 import java.util.Optional;
+
+import javax.sound.sampled.AudioFileFormat.Type;
+import javax.sound.sampled.LineUnavailableException;
+
+import modeles.recepteur.libson.microphone.MicrophoneAnalyzer;
 
 public class EcouteurDeReception {
 	/**
@@ -52,5 +58,13 @@ public class EcouteurDeReception {
 		 * si il faut décoder un 1 ou un 0.
 		 */
 		return Optional.empty();
+	}
+	
+	public static void main(String[] args) throws LineUnavailableException, InterruptedException {
+		MicrophoneAnalyzer micro = new MicrophoneAnalyzer(Type.WAVE);
+		micro.open();
+		micro.captureAudioToFile(new File("audio.wav"));
+		Thread.sleep(10000);
+		micro.close();
 	}
 }
