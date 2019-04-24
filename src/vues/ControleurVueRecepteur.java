@@ -11,8 +11,10 @@ import com.jfoenix.controls.JFXTextField;
 import controleurs.ApplicationRadio;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.FloatProperty;
+import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -88,7 +90,7 @@ public class ControleurVueRecepteur {
 	private FloatProperty dureeIntervalleRecep = new SimpleFloatProperty(0.0001f);
 	private FloatProperty volumeUn = new SimpleFloatProperty(0);
 	private FloatProperty volumeZeros = new SimpleFloatProperty(0);
-	private FloatProperty tempsReception = new SimpleFloatProperty(0);
+	private LongProperty tempsReception = new SimpleLongProperty(0);
 	private AnimationProgressBar animProgress;
 	private Thread threadEcoute;
 
@@ -140,7 +142,7 @@ public class ControleurVueRecepteur {
 				});
 				threadEcoute.start();
 				ajoutLabel(new Label("Écoute en cours..."));
-				animProgress = new AnimationProgressBar(progressBar, tempsReception.get(), 1);
+				animProgress = new AnimationProgressBar(progressBar, tempsReception.get(), 0.001);
 			}
 		}
 	}
@@ -172,8 +174,18 @@ public class ControleurVueRecepteur {
 	public void bindTextView() {
 		setEventTextField(textFieldVolumeUn, volumeUn);
 		setEventTextField(textFieldVolumeZero, volumeZeros);
-		setEventTextField(textFieldTempsRecep, tempsReception);
-
+		
+		textFieldTempsRecep.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (newValue.matches("-?\\d+(\\.\\d+)?")) {
+					Long valeur = Long.parseLong(newValue);
+					tempsReception.set(valeur);
+				} else {
+					tempsReception.set(0);
+				}
+			}
+		});
 	}
 
 	private void setEventTextField(JFXTextField tf, FloatProperty val) {
