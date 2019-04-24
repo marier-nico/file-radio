@@ -55,7 +55,7 @@ public class GenerateurSon {
 			throw new IllegalArgumentException("La durée doit être plus grande que 0 secondes");
 		float qualit = 44100;
 		int freq = 3300;
-		int volumeMin = 15;
+		int volumeMin = 5;
 		int volumeMax = 100;
 		int nbVals = (int) (qualit * dureeEnSec);
 		donneesSon0 = new byte[nbVals];
