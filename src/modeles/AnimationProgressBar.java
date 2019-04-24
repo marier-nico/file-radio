@@ -1,8 +1,6 @@
 package modeles;
 
 
-import com.jfoenix.controls.JFXProgressBar;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;

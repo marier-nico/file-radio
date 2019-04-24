@@ -150,8 +150,7 @@ public class ControleurVueEmetteur {
 				} catch (IllegalStateException ex) {
 					afficherErreur("la lecture du son", "Un autre son est déjà en lecture.", ex);
 				}
-				Label l = new Label("Envoi en cours de " + getEmplacementFichierSelct() + "...");
-				ajoutLabel(l);
+				ajoutLabel(new Label("Envoi en cours de " + getEmplacementFichierSelct() + "..."));
 //				Label ll = new Label(getEmplacementFichierSelct() + " a été envoyé!");
 //				ajoutLabel(ll);
 			}

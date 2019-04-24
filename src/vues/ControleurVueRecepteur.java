@@ -15,12 +15,15 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
+import modeles.AnimationProgressBar;
 
 /**
  * 
@@ -40,9 +43,6 @@ public class ControleurVueRecepteur {
 
     @FXML
     private JFXButton btnEnregistrer;
-    
-    @FXML
-    private JFXButton btnArreter;
     
     @FXML
     private JFXButton btnEcouter;
@@ -70,6 +70,9 @@ public class ControleurVueRecepteur {
 
     @FXML
     private JFXTextField textFieldVolumeZero;
+    
+    @FXML
+    private JFXTextField textFieldTempsRecep;
 
 
 	private ApplicationRadio application = null;
@@ -78,8 +81,10 @@ public class ControleurVueRecepteur {
 	private File file;
 	private int nbrMessage = 0;
 	private FloatProperty dureeIntervalleRecep = new SimpleFloatProperty(0.0001f);
-	private DoubleProperty volumeUn = new SimpleDoubleProperty(0);
-	private DoubleProperty volumeZeros = new SimpleDoubleProperty(0);
+	private FloatProperty volumeUn = new SimpleFloatProperty(0);
+	private FloatProperty volumeZeros = new SimpleFloatProperty(0);
+	private FloatProperty tempsReception = new SimpleFloatProperty(0);
+	private AnimationProgressBar animProgress;
 
 	public void setApplication(ApplicationRadio application) {
 		this.application = application;
@@ -109,12 +114,13 @@ public class ControleurVueRecepteur {
 	
 	@FXML
     void clickedBtnEcouter(ActionEvent event) {
-		//TODO
-    }
-	
-	@FXML
-    void clickedBtnArreter(ActionEvent event) {
-		//TODO
+		if (tempsReception.get() == 0) {
+			afficherErreur(AlertType.ERROR, "Il faut sélectionner un temps de réception avant d'enregistrer...");
+		} else {
+			animProgress = new AnimationProgressBar(progressBar, tempsReception.get(), 1);
+			ajoutLabel(new Label("Écoute en cours..."));
+			//TODO
+		}
     }
 	
 	public void bindSliderEtLabel() {
@@ -132,21 +138,19 @@ public class ControleurVueRecepteur {
 	}
 	
 	public void bindTextView() {
-		textFieldVolumeUn.textProperty().addListener(new ChangeListener<String>() {
+		setEventTextField(textFieldVolumeUn, volumeUn);
+		setEventTextField(textFieldVolumeZero, volumeZeros);
+		setEventTextField(textFieldTempsRecep, tempsReception);
+		
+	}
+	
+	private void setEventTextField(JFXTextField tf, FloatProperty val) {
+		tf.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 if (newValue.matches("-?\\d+(\\.\\d+)?")) {
-                	double val = Double.parseDouble(newValue);
-                	volumeUn.set(val);
-                }
-            }
-        });
-		textFieldVolumeZero.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (newValue.matches("-?\\d+(\\.\\d+)?")) {
-                	double val = Double.parseDouble(newValue);
-                	volumeZeros.set(val);
+                	float valeur = Float.parseFloat(newValue);
+                	val.set(valeur);
                 }
             }
         });
@@ -166,5 +170,22 @@ public class ControleurVueRecepteur {
 			retour = true;
 		}
 		return retour;
+	}
+	
+	private void ajoutLabel(Label l) {
+		if (nbrMessage == 14) {
+			vboxMessages.getChildren().remove(vboxMessages.getChildren().get(0));
+			nbrMessage--;
+		}
+		vboxMessages.getChildren().add(l);
+		nbrMessage++;
+	}
+	
+	private void afficherErreur(AlertType ap, String message) {
+		Alert erreur = new Alert(AlertType.ERROR);
+		erreur.setHeaderText("Erreur");
+		erreur.setContentText(message);
+		erreur.setTitle("Erreur");
+		erreur.showAndWait();
 	}
 }
