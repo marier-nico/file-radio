@@ -7,12 +7,15 @@ import javax.sound.sampled.LineUnavailableException;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.JFXTextField;
 
 import controleurs.ApplicationRadio;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -51,11 +54,8 @@ public class ControleurVueEmetteur {
 	@FXML
 	private JFXButton btnAnnuler;
 
-	@FXML
-	private JFXSlider slider;
-
-	@FXML
-	private Label sliderLabel;
+    @FXML
+    private JFXTextField textFieldTempsUnBit;
 
 	@FXML
 	private Label labelProgress;
@@ -178,19 +178,26 @@ public class ControleurVueEmetteur {
 	 * en lien avec celui-ci.
 	 */
 	public void bindSliderEtLabel() {
-		slider.valueProperty().addListener((ov, old_val, new_val) -> {
-			dureeSonBit.bind(slider.valueProperty());
-			sliderLabel.textProperty().bind(slider.valueProperty().asString());
-			DoubleProperty vitFich = new SimpleDoubleProperty(slider.getValue() * 8);
-			labelVitesseFichier.textProperty().bind(vitFich.asString());
-			if (file != null) {
-				DoubleProperty tempsEstim;
-				try {
-					tempsEstim = new SimpleDoubleProperty(
-							dureeSonBit.get() * (PasserelleFichier.lireOctets(file).length) * 8);
-					labelTempsEstim.textProperty().bind(tempsEstim.asString());
-				} catch (IOException e) {
-					e.printStackTrace();
+		textFieldTempsUnBit.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (newValue.matches("-?\\d+(\\.\\d+)?")) {
+					float valeur = Float.parseFloat(newValue);
+					dureeSonBit.set(valeur);
+					DoubleProperty vitFich = new SimpleDoubleProperty(valeur * 8);
+					labelVitesseFichier.textProperty().bind(vitFich.asString());
+					if (file != null) {
+						DoubleProperty tempsEstim;
+						try {
+							tempsEstim = new SimpleDoubleProperty(
+									dureeSonBit.get() * (PasserelleFichier.lireOctets(file).length) * 8);
+							labelTempsEstim.textProperty().bind(tempsEstim.asString());
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				} else {
+					dureeSonBit.set(0);
 				}
 			}
 		});
