@@ -17,35 +17,63 @@ import modeles.recepteur.libson.microphone.MicrophoneAnalyzer;
 
 public class EcouteurDeReception {
 	/**
-	 * Le reconstitueur de messages sera utilisé
-	 * pour refaire le message reçu.
+	 * Le reconstitueur de messages sera utilisé pour refaire le message reçu.
 	 */
 	private ReconstitueurDeMessages rdm;
-	
-	private int indiceFreqVoulue;
-	private double volumeMinUn = -1;
-	private double volumeMinZero = -1;
-	public static final int WINDOW_SIZE = 1024;
-	public static final int OVERLAP = 0;
-	public static final double FREQUENCE_RECEPTION = 3300.0;
-	
+
 	/**
-	 * Ce constructeur permet d'initialiser le
-	 * reconstitueur de messages.
-	 * @throws Exception 
+	 * L'indice dans les bins où se trouve celui représentant la
+	 * FREQUENCE_RECEPTION.
 	 */
-	public EcouteurDeReception() throws Exception {
-		rdm = new ReconstitueurDeMessages();
-		indiceFreqVoulue = getIndiceBin(WINDOW_SIZE, OVERLAP, FREQUENCE_RECEPTION);
-		
-	}
-	
+	private int indiceFreqVoulue;
 	/**
-	 * Cette méthode permet de voir les données entrantes
-	 * et d'utiliser le reconstitueur de messages pour refaire
-	 * le message initial.
-	 * @throws LineUnavailableException 
-	 * @throws InterruptedException 
+	 * On stoque le dernier bit que l'on voit.
+	 */
+	Optional<Byte> dernierBitVu = Optional.empty();
+	// TODO: Remettre -1
+	/**
+	 * Le volume minimal pour un un, après la calibration.
+	 */
+	private double volumeMinUn = -13;
+	// TODO: Remettre -1
+	/**
+	 * Le volume minimal pour un zéro, après la calibration.
+	 */
+	private double volumeMinZero = -25;
+	/**
+	 * La taille de la fenêtre pour calculer les FFT.
+	 */
+	public static final int WINDOW_SIZE = 512;
+	/**
+	 * Le pourcentage des fenêtres du FFT qui sont superposées.
+	 */
+	public static final int OVERLAP = 0;
+	/**
+	 * La fréquence à laquelle on envoie (c'est la même que celle que l'on reçoit)
+	 */
+	public static final double FREQUENCE_RECEPTION = 3300.0;
+
+	private double tempsParBit = 0;
+
+	// TODO: nom du fichier constante
+	/**
+	 * Ce constructeur permet d'initialiser le reconstitueur de messages.
+	 * 
+	 * @throws Exception
+	 */
+	public EcouteurDeReception(double tempsParBit) throws Exception {
+		rdm = new ReconstitueurDeMessages();
+		indiceFreqVoulue = getIndiceBin(FREQUENCE_RECEPTION);
+		this.tempsParBit = tempsParBit;
+
+	}
+
+	/**
+	 * Cette méthode permet de voir les données entrantes et d'utiliser le
+	 * reconstitueur de messages pour refaire le message initial.
+	 * 
+	 * @throws LineUnavailableException
+	 * @throws InterruptedException
 	 */
 	public void ecouter(long millisecondes) throws LineUnavailableException, InterruptedException {
 		MicrophoneAnalyzer micro = new MicrophoneAnalyzer(Type.WAVE);
@@ -54,91 +82,143 @@ public class EcouteurDeReception {
 		Thread.sleep(millisecondes);
 		micro.close();
 	}
-	
-	public void reconstruire(double volMinZero, double volMinUn) throws IOException, UnsupportedAudioFileException {
-		FFTResult fft = null;
-		QuiFFT quiFFT = new QuiFFT(new File("audio.wav"));
-		quiFFT.windowSize(1024);
-		quiFFT.windowOverlap(0);
-		fft = quiFFT.fullFFT();
+
+	/**
+	 * Cette méthode permet de reconstruire le signal reçu du son vers une
+	 * représentation binaire.
+	 * 
+	 * @throws IOException
+	 * @throws UnsupportedAudioFileException
+	 */
+	long nbBitsVu = 0;
+
+	public void reconstruire() throws IOException, UnsupportedAudioFileException {
+		FFTResult fft = getResultatFFT(WINDOW_SIZE, OVERLAP);
 		System.out.println("Duration: " + fft.windowDurationMs);
 		FFTFrame[] frames = fft.fftFrames;
 		System.out.println("Il y a " + frames.length + " frames.");
-		for(FFTFrame frame : frames) {
-			analyserSignal(frame);
+
+		for (FFTFrame frame : frames) {
+			Optional<Byte> resultat = analyserSignal(frame);
+			if (resultat.isPresent()) {
+				byte b = resultat.get();
+
+				if (dernierBitVu.isPresent()) {
+					if (b == dernierBitVu.get()) {
+						nbBitsVu++;
+					} else {
+						System.out.println("On a vu un " + dernierBitVu.get() + " pendant "
+								+ (double) nbBitsVu * fft.windowDurationMs + " ms. Donc, "
+								+ Math.round(((double) nbBitsVu * fft.windowDurationMs / tempsParBit)) + " "
+								+ dernierBitVu.get());
+						dernierBitVu = Optional.of(b);
+						nbBitsVu = 1;
+					}
+				} else {
+					dernierBitVu = Optional.of(b);
+					nbBitsVu++;
+				}
+			} else {
+				// TODO: quand on a pas de bit, on continue?
+			}
 		}
 	}
-	
-	int compteurBitPareil = 0;
-	int dernierBitVu = -1;
+
 	/**
-	 * Cette méthode permet d'analyser une partie du signal pour
-	 * savoir si un 1 ou un 0 a été reçu. Elle retourne ensuite
-	 * ce bit reçu de façon optionnelle. Si rien n'a été reçu, un
-	 * Optional vide est retourné.
+	 * Cette méthode permet d'analyser une partie du signal pour savoir si un 1 ou
+	 * un 0 a été reçu. Elle retourne ensuite ce bit reçu de façon optionnelle. Si
+	 * rien n'a été reçu, un Optional vide est retourné.
 	 * 
 	 * @return un Optional qui contient le bit reçu ou rien, si rien n'a été reçu
 	 */
 	private Optional<Byte> analyserSignal(FFTFrame frame) {
-		if(validerVolumeMin(volumeMinUn) || validerVolumeMin(volumeMinZero)) {
+		if (!validerVolumeMin(volumeMinUn) || !validerVolumeMin(volumeMinZero)) {
 			throw new IllegalStateException("Il faut calibrer le programme.");
 		}
+
 		FrequencyBin bin = frame.bins[indiceFreqVoulue];
-		int bit = -1;
-		if(bin.amplitude >= volumeMinUn) {
+		byte bit = -1;
+		if (bin.amplitude >= volumeMinUn) {
 			bit = 1;
-		} else if(bin.amplitude >= volumeMinZero) {
+			System.out.println("Amplitude 1 : " + bin.amplitude);
+		} else if (bin.amplitude >= volumeMinZero) {
+			System.out.println("Amplitude 0 : " + bin.amplitude);
 			bit = 0;
 		}
-		
-		if(bit == dernierBitVu)
-			compteurBitPareil++;
-		else
-			compteurBitPareil = 0;
-		dernierBitVu = bit;
-		
-		if(compteurBitPareil == 7) {
-			System.out.print(dernierBitVu);
-		}
-		try {
-			Thread.sleep(104);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		if (bit != -1)
+			return Optional.of(bit);
 		return Optional.empty();
 	}
-	
+
 	// TODO: à faire
+	/**
+	 * Cette méthode permet la calibration du programme pour connaître la valeur
+	 * minimal pour interpréter un un.
+	 * 
+	 * @return le volume minimal pour un un
+	 * @throws LineUnavailableException
+	 * @throws InterruptedException
+	 */
 	private double getVolumeMinUn() throws LineUnavailableException, InterruptedException {
 		ecouter(500);
+
 		return 0;
 	}
-	
+
+	/**
+	 * Cette méthode permet la calibration du programme pour connaître la valeur
+	 * minimal pour interpréter un un.
+	 * 
+	 * @return le volume minimal pour un zéro
+	 * @throws LineUnavailableException
+	 * @throws InterruptedException
+	 */
 	private double getVolumeMinZero() throws LineUnavailableException, InterruptedException {
 		ecouter(500);
 		return 0;
 	}
-	
-	public void calibrer() {
-		
+
+	// TODO: Calibrer les volumes et l'indice des bins
+	/**
+	 * Cette méthode permet de calibrer le programme en trouvant les volumes
+	 * minimaux dans le contexte physique courant.
+	 * 
+	 * @throws Exception
+	 */
+	public void calibrer() throws Exception {
+		int indice = getIndiceBin(3300);
+		ecouter(1000);
+		FFTFrame[] frames = getResultatFFT(WINDOW_SIZE, OVERLAP).fftFrames;
+		for (FFTFrame frame : frames) {
+			System.out.println(frame.bins[indice].amplitude);
+		}
+
 	}
-	
-	private int getIndiceBin(int windowSize, double overlap, double frequence) throws Exception {
+
+	/**
+	 * Cette méthode permet de trouver l'indice du bin représentant la fréquence que
+	 * l'on cherche
+	 * 
+	 * @param frequence fréquence cherchée
+	 * @return indice du bin
+	 * @throws Exception
+	 */
+	private int getIndiceBin(double frequence) throws Exception {
 		ecouter(150);
-		FFTResult fft = null;
-		QuiFFT quiFFT = new QuiFFT(new File("audio.wav"));
-		quiFFT.windowSize(windowSize);
-		quiFFT.windowOverlap(overlap);
-		fft = quiFFT.fullFFT();
-		if(fft.fftFrames[0].bins.length < 2)
+
+		FFTFrame[] frames = getResultatFFT(WINDOW_SIZE, OVERLAP).fftFrames;
+		FFTFrame premiereFrame = frames[0];
+		if (premiereFrame.bins.length < 2)
 			throw new IllegalStateException("Pas assez de bins.");
-		FrequencyBin premierBin = fft.fftFrames[0].bins[0];
-		FrequencyBin deuxiemeBin = fft.fftFrames[0].bins[1];
+
+		FrequencyBin premierBin = premiereFrame.bins[0];
+		FrequencyBin deuxiemeBin = premiereFrame.bins[1];
 		double incertitude = deuxiemeBin.frequency - premierBin.frequency;
+
 		int indice = 0;
-		for(FrequencyBin bin : fft.fftFrames[0].bins) {
-			if(bin.frequency >= (frequence - incertitude) && bin.frequency <= (frequence + incertitude)) {
+		for (FrequencyBin bin : premiereFrame.bins) {
+			if (bin.frequency >= (frequence - incertitude) && bin.frequency <= (frequence + incertitude)) {
 				return indice;
 			} else {
 				indice++;
@@ -146,19 +226,44 @@ public class EcouteurDeReception {
 		}
 		throw new Exception("Fréquence introuvable.");
 	}
-	
+
+	/**
+	 * Cette méthode calcule la FFT et retourne le résultat
+	 * 
+	 * @param windowSize taille fenêtre FFT
+	 * @param overlap    pourcentage de la fenêtre qui est par dessus la précédente
+	 * @return le résultat de la FFT
+	 * @throws IOException
+	 * @throws UnsupportedAudioFileException
+	 */
+	private FFTResult getResultatFFT(int windowSize, double overlap) throws IOException, UnsupportedAudioFileException {
+		FFTResult fft = null;
+		QuiFFT quiFFT = new QuiFFT(new File("audio.wav"));
+		quiFFT.windowSize(windowSize);
+		quiFFT.windowOverlap(overlap);
+		fft = quiFFT.fullFFT();
+		return fft;
+	}
+
+	/**
+	 * Cette méthode permet de valider un volume (pour un un ou un zéro). Le volume
+	 * doit être inférieur à 0 (en dB).
+	 * 
+	 * @param volumeMin le volume à valider
+	 * @return si le volume est valide
+	 */
 	private static boolean validerVolumeMin(double volumeMin) {
 		return volumeMin < 0;
 	}
-	
+
 	public static void main(String[] args) throws Exception {
 //		MicrophoneAnalyzer micro = new MicrophoneAnalyzer(Type.WAVE);
 //		micro.open();
 //		micro.captureAudioToFile(new File("audio.wav"));
 //		Thread.sleep(10000);
 //		micro.close();
-		EcouteurDeReception edr = new EcouteurDeReception();
+		EcouteurDeReception edr = new EcouteurDeReception(1000);
 		edr.ecouter(5000);
-		edr.reconstruire(-18, -9);
+		edr.reconstruire();
 	}
 }
