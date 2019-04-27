@@ -13,6 +13,7 @@ import org.quifft.output.FFTFrame;
 import org.quifft.output.FFTResult;
 import org.quifft.output.FrequencyBin;
 
+import modeles.passerelle.PasserelleFichier;
 import modeles.recepteur.libson.microphone.MicrophoneAnalyzer;
 
 public class EcouteurDeReception {
@@ -43,7 +44,7 @@ public class EcouteurDeReception {
 	/**
 	 * La taille de la fenêtre pour calculer les FFT.
 	 */
-	public static final int WINDOW_SIZE = 512;
+	public static final int WINDOW_SIZE = 8;
 	/**
 	 * Le pourcentage des fenêtres du FFT qui sont superposées.
 	 */
@@ -83,6 +84,10 @@ public class EcouteurDeReception {
 		micro.close();
 	}
 
+	public ReconstitueurDeMessages getReconstitueur() {
+		return rdm;
+	}
+
 	/**
 	 * Cette méthode permet de reconstruire le signal reçu du son vers une
 	 * représentation binaire.
@@ -101,21 +106,25 @@ public class EcouteurDeReception {
 		for (FFTFrame frame : frames) {
 			Optional<Byte> resultat = analyserSignal(frame);
 			if (resultat.isPresent()) {
-				byte b = resultat.get();
+				byte bitObserve = resultat.get();
 
 				if (dernierBitVu.isPresent()) {
-					if (b == dernierBitVu.get()) {
+					if (bitObserve == dernierBitVu.get()) {
 						nbBitsVu++;
 					} else {
+						long repetitionsBitPareil = Math
+								.round(((double) nbBitsVu * fft.windowDurationMs / tempsParBit));
+						for (int i = 0; i < repetitionsBitPareil; i++) {
+							rdm.ajouterBit(dernierBitVu.get());
+						}
 						System.out.println("On a vu un " + dernierBitVu.get() + " pendant "
-								+ (double) nbBitsVu * fft.windowDurationMs + " ms. Donc, "
-								+ Math.round(((double) nbBitsVu * fft.windowDurationMs / tempsParBit)) + " "
-								+ dernierBitVu.get());
-						dernierBitVu = Optional.of(b);
+								+ (double) nbBitsVu * fft.windowDurationMs + " ms. Donc, " + repetitionsBitPareil
+								+ " fois \"" + dernierBitVu.get() + "\"");
+						dernierBitVu = Optional.of(bitObserve);
 						nbBitsVu = 1;
 					}
 				} else {
-					dernierBitVu = Optional.of(b);
+					dernierBitVu = Optional.of(bitObserve);
 					nbBitsVu++;
 				}
 			} else {
@@ -140,9 +149,9 @@ public class EcouteurDeReception {
 		byte bit = -1;
 		if (bin.amplitude >= volumeMinUn) {
 			bit = 1;
-			System.out.println("Amplitude 1 : " + bin.amplitude);
+			// System.out.println("Amplitude 1 : " + bin.amplitude);
 		} else if (bin.amplitude >= volumeMinZero) {
-			System.out.println("Amplitude 0 : " + bin.amplitude);
+			// System.out.println("Amplitude 0 : " + bin.amplitude);
 			bit = 0;
 		}
 
@@ -262,8 +271,11 @@ public class EcouteurDeReception {
 //		micro.captureAudioToFile(new File("audio.wav"));
 //		Thread.sleep(10000);
 //		micro.close();
-		EcouteurDeReception edr = new EcouteurDeReception(1000);
-		edr.ecouter(5000);
+		EcouteurDeReception edr = new EcouteurDeReception(25);
+		edr.ecouter(9000);
 		edr.reconstruire();
+		System.out.println(edr.getReconstitueur().getRepresentationBinaire().toString());
+		PasserelleFichier.ecrireOctets(edr.getReconstitueur().getRepresentationBinaire(), new File("recu.txt"));
+
 	}
 }
