@@ -43,7 +43,7 @@ public class ReconstitueurDeMessages {
 		if(OctetBinaire.validerBit(b)) {
 			octetEnConstruction[indiceConstructionCourant++] = b;
 			if(indiceConstructionCourant >= OctetBinaire.BITS_DANS_OCTET) {
-				octetsComplets.add(new OctetBinaire(octetEnConstruction));
+				octetsComplets.add(new OctetBinaire(octetEnConstruction.clone()));
 				indiceConstructionCourant = 0;
 			}
 		} else {
