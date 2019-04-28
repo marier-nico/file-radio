@@ -30,7 +30,7 @@
       </StackPane>
    </top>
    <left>
-      <VBox id="contours" prefHeight="704.0" prefWidth="195.0" BorderPane.alignment="CENTER">
+      <VBox id="contours" prefHeight="660.0" prefWidth="198.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="189.0" prefWidth="195.0" spacing="15.0">
                <children>
@@ -71,10 +71,10 @@
                         <Label layoutX="108.0" layoutY="10.0" text="s" />
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="1.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="15.0" prefWidth="195.0" spacing="1.0">
                      <children>
-                        <Label prefHeight="18.0" prefWidth="83.0" text="TEMPS s/bit :" />
-                        <JFXTextField fx:id="textFieldTempsUnBit" focusColor="#36b81f" prefHeight="30.0" prefWidth="82.0" text="1.0" unFocusColor="WHITE">
+                        <Label prefHeight="18.0" prefWidth="57.0" text="TEMPS :" />
+                        <JFXTextField fx:id="textFieldTempsUnBit" alignment="BOTTOM_CENTER" focusColor="#36b81f" prefHeight="30.0" prefWidth="54.0" text="1.0" unFocusColor="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -82,6 +82,7 @@
                               <Insets bottom="12.0" left="5.0" />
                            </padding>
                         </JFXTextField>
+                        <Label text="s/b" />
                      </children>
                   </HBox>
                </children>
@@ -123,7 +124,7 @@
       </HBox>
    </bottom>
    <center>
-      <VBox fx:id="vboxMessages" alignment="BOTTOM_CENTER" prefHeight="681.0" prefWidth="1104.0" spacing="30.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="vboxMessages" alignment="BOTTOM_CENTER" prefHeight="660.0" prefWidth="1040.0" spacing="30.0" BorderPane.alignment="CENTER">
          <padding>
             <Insets bottom="30.0" />
          </padding>

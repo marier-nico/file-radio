@@ -37,7 +37,7 @@ import modeles.passerelle.PasserelleFichier;
  * Cette classe permet est le controleur de la vue de l'emetteur. Elle permet de
  * creer une vue et de gérer les évenements.
  * 
- * @author Charles-Antoine Demetriade et Nicolas Marier
+ * @author Charles-Antoine Demetriade
  *
  */
 public class ControleurVueEmetteur {
@@ -54,8 +54,8 @@ public class ControleurVueEmetteur {
 	@FXML
 	private JFXButton btnAnnuler;
 
-    @FXML
-    private JFXTextField textFieldTempsUnBit;
+	@FXML
+	private JFXTextField textFieldTempsUnBit;
 
 	@FXML
 	private Label labelProgress;
@@ -85,10 +85,9 @@ public class ControleurVueEmetteur {
 	private int nbrMessage = 0;
 	private GenerateurSon generateurSon;
 	private LecteurSon lecteurSon;
-	private FloatProperty dureeSonBit = new SimpleFloatProperty(1f);
+	private FloatProperty dureeSonBit = new SimpleFloatProperty(1000f);
 	private Thread threadSon;
 	private AnimationProgressBar animProgressBar;
-	// private AnimationEnvoi animEnvoi;
 
 	public void setApplication(ApplicationRadio application) {
 		this.application = application;
@@ -100,7 +99,7 @@ public class ControleurVueEmetteur {
 
 	@FXML
 	private void clickedBtnEnvoyer(ActionEvent event) {
-		if (file != null) {
+		if ((file != null) && (dureeSonBit.get() != 0)) {
 			if ((threadSon != null) && (threadSon.isAlive())) {
 				Alert erreur = new Alert(AlertType.ERROR);
 				erreur.setHeaderText("Erreur");
@@ -141,7 +140,6 @@ public class ControleurVueEmetteur {
 					threadSon.start();
 					animProgressBar = new AnimationProgressBar(progressBar, dureeSonBit.get(),
 							octetsFichier.length * 8);
-					// animEnvoi = new AnimationEnvoi(paneAnimation, dureeSonBit.get(), donnees);
 				} catch (LineUnavailableException ex) {
 					afficherErreur("la lecture du son",
 							"Le son n'a pas pu être lu, car la sortie audio est indisponible. "
@@ -151,8 +149,6 @@ public class ControleurVueEmetteur {
 					afficherErreur("la lecture du son", "Un autre son est déjà en lecture.", ex);
 				}
 				ajoutLabel(new Label("Envoi en cours de " + getEmplacementFichierSelct() + "..."));
-//				Label ll = new Label(getEmplacementFichierSelct() + " a été envoyé!");
-//				ajoutLabel(ll);
 			}
 		}
 	}
@@ -174,23 +170,23 @@ public class ControleurVueEmetteur {
 	}
 
 	/**
-	 * Cette méthode bind le slider avec tous les labels affichant des informations
-	 * en lien avec celui-ci.
+	 * Cette méthode bind le textField avec tous les labels affichant des
+	 * informations en lien avec celui-ci.
 	 */
-	public void bindSliderEtLabel() {
+	public void bindTextField() {
 		textFieldTempsUnBit.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (newValue.matches("-?\\d+(\\.\\d+)?")) {
 					float valeur = Float.parseFloat(newValue);
 					dureeSonBit.set(valeur);
-					DoubleProperty vitFich = new SimpleDoubleProperty(valeur * 8);
+					DoubleProperty vitFich = new SimpleDoubleProperty(Math.round(valeur * 8));
 					labelVitesseFichier.textProperty().bind(vitFich.asString());
 					if (file != null) {
 						DoubleProperty tempsEstim;
 						try {
 							tempsEstim = new SimpleDoubleProperty(
-									dureeSonBit.get() * (PasserelleFichier.lireOctets(file).length) * 8);
+									Math.round(dureeSonBit.get() * (PasserelleFichier.lireOctets(file).length) * 8));
 							labelTempsEstim.textProperty().bind(tempsEstim.asString());
 						} catch (IOException e) {
 							e.printStackTrace();

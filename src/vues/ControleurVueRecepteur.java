@@ -1,6 +1,7 @@
 package vues;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.sound.sampled.LineUnavailableException;
 
@@ -29,6 +30,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import modeles.AnimationProgressBar;
 import modeles.emetteur.LecteurSon;
+import modeles.passerelle.PasserelleFichier;
 
 /**
  * 
@@ -56,16 +58,13 @@ public class ControleurVueRecepteur {
 	private JFXButton btnAnnuler;
 
 	@FXML
+	private JFXButton btnCalibrer;
+
+	@FXML
 	private VBox vboxMessages;
 
 	@FXML
 	private Label labelProgress;
-
-	@FXML
-	private JFXSlider slider;
-
-	@FXML
-	private Label labelSlider;
 
 	@FXML
 	private ProgressBar progressBar;
@@ -82,12 +81,15 @@ public class ControleurVueRecepteur {
 	@FXML
 	private JFXTextField textFieldTempsRecep;
 
+	@FXML
+	private JFXTextField textFieldInterv;
+
 	private ApplicationRadio application = null;
 	public static final String ADRESSE_VUE_RECEPTEUR = "/vues/Vue_Recepteur.fxml";
 	final DirectoryChooser directoryChooser = new DirectoryChooser();
 	private File file;
 	private int nbrMessage = 0;
-	private FloatProperty dureeIntervalleRecep = new SimpleFloatProperty(0.0001f);
+	private FloatProperty dureeIntervalleRecep = new SimpleFloatProperty(1f);
 	private FloatProperty volumeUn = new SimpleFloatProperty(0);
 	private FloatProperty volumeZeros = new SimpleFloatProperty(0);
 	private LongProperty tempsReception = new SimpleLongProperty(0);
@@ -134,7 +136,7 @@ public class ControleurVueRecepteur {
 					@Override
 					public void run() {
 						try {
-							// TODO écouter son
+							// TODO ajouter méthode écouter son
 						} catch (IllegalStateException ex) {
 							ex.printStackTrace();
 						}
@@ -157,11 +159,9 @@ public class ControleurVueRecepteur {
 		}
 	}
 
-	public void bindSliderEtLabel() {
-		slider.valueProperty().addListener((ov, old_val, new_val) -> {
-			dureeIntervalleRecep.bind(slider.valueProperty());
-			labelSlider.textProperty().bind(slider.valueProperty().asString());
-		});
+	@FXML
+	void clickedCalibrer(ActionEvent event) {
+		// TODO
 	}
 
 	/**
@@ -174,15 +174,28 @@ public class ControleurVueRecepteur {
 	public void bindTextView() {
 		setEventTextField(textFieldVolumeUn, volumeUn);
 		setEventTextField(textFieldVolumeZero, volumeZeros);
-		
-		textFieldTempsRecep.textProperty().addListener(new ChangeListener<String>() {
+		setEventTextField(textFieldTempsRecep, tempsReception);
+
+		textFieldInterv.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (newValue.matches("-?\\d+(\\.\\d+)?")) {
-					Long valeur = Long.parseLong(newValue);
-					tempsReception.set(valeur);
+					float valeur = Float.parseFloat(newValue);
+					dureeIntervalleRecep.set(valeur);
+					// DoubleProperty vitFich = new SimpleDoubleProperty(valeur * 8);
+					// labelVitesseFichier.textProperty().bind(vitFich.asString());
+					if (file != null) {
+//						DoubleProperty tempsEstim;
+//						try {
+//							tempsEstim = new SimpleDoubleProperty(
+//									dureeIntervalleRecep.get() * (PasserelleFichier.lireOctets(file).length) * 8);
+//							 labelTempsEstim.textProperty().bind(tempsEstim.asString());
+//						} catch (IOException e) {
+//							e.printStackTrace();
+//						}
+					}
 				} else {
-					tempsReception.set(0);
+					dureeIntervalleRecep.set(0);
 				}
 			}
 		});
@@ -194,6 +207,20 @@ public class ControleurVueRecepteur {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (newValue.matches("-?\\d+(\\.\\d+)?")) {
 					float valeur = Float.parseFloat(newValue);
+					val.set(valeur);
+				} else {
+					val.set(0);
+				}
+			}
+		});
+	}
+
+	private void setEventTextField(JFXTextField tf, LongProperty val) {
+		tf.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (newValue.matches("-?\\d+(\\.\\d+)?")) {
+					long valeur = Long.parseLong(newValue);
 					val.set(valeur);
 				} else {
 					val.set(0);

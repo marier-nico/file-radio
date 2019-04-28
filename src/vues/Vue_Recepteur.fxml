@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -31,7 +30,7 @@
       </StackPane>
    </top>
    <left>
-      <VBox id="contours" prefHeight="704.0" prefWidth="192.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <VBox id="contours" prefHeight="662.0" prefWidth="211.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="172.0" prefWidth="139.0" spacing="15.0">
                <children>
@@ -59,14 +58,14 @@
                   </HBox>
                   <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
                      <children>
-                        <Label text="VITESSE FICHIER:" />
+                        <Label text="VITESSE FICHIER :" />
                         <Label layoutX="10.0" layoutY="10.0" text="0,001 B/s" />
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Label text="VOLUME 1 :" />
-                        <JFXTextField fx:id="textFieldVolumeUn" focusColor="#36b81f" prefHeight="20.0" prefWidth="90.0" unFocusColor="WHITE">
+                        <JFXTextField fx:id="textFieldVolumeUn" alignment="BASELINE_CENTER" focusColor="#36b81f" prefHeight="20.0" prefWidth="90.0" unFocusColor="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -75,10 +74,10 @@
                            </padding></JFXTextField>
                      </children>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Label text="VOLUME 0 :" />
-                        <JFXTextField fx:id="textFieldVolumeZero" focusColor="#36b81f" prefHeight="25.0" prefWidth="90.0" unFocusColor="WHITE">
+                        <JFXTextField fx:id="textFieldVolumeZero" alignment="BASELINE_CENTER" focusColor="#36b81f" prefHeight="25.0" prefWidth="90.0" unFocusColor="WHITE">
                            <padding>
                               <Insets bottom="12.0" left="5.0" />
                            </padding></JFXTextField>
@@ -86,10 +85,10 @@
                   </HBox>
                </children>
             </VBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="1.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="192.0" spacing="1.0">
                <children>
-                  <Label prefHeight="17.0" prefWidth="80.0" text="TEMPS RÉCEP :" />
-                  <JFXTextField fx:id="textFieldTempsRecep" focusColor="#36b81f" prefHeight="32.0" prefWidth="76.0" unFocusColor="WHITE">
+                  <Label prefHeight="17.0" prefWidth="94.0" text="TEMPS RÉCEP :" />
+                  <JFXTextField fx:id="textFieldTempsRecep" alignment="BASELINE_CENTER" focusColor="#36b81f" prefHeight="32.0" prefWidth="76.0" unFocusColor="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -97,25 +96,22 @@
                         <Insets bottom="12.0" left="5.0" />
                      </padding>
                   </JFXTextField>
+                  <Label text="s" />
                </children>
             </HBox>
-            <Region prefHeight="16.0" prefWidth="192.0" VBox.vgrow="ALWAYS" />
-            <VBox alignment="CENTER" prefHeight="506.0" prefWidth="192.0">
+            <HBox alignment="BOTTOM_LEFT" prefHeight="21.0" prefWidth="192.0">
                <children>
-                  <Label alignment="TOP_LEFT" contentDisplay="TOP" text="DURÉE INTERVALLE RECEPTION" />
-                  <HBox alignment="CENTER" prefHeight="30.0" prefWidth="192.0" spacing="5.0">
-                     <children>
-                        <Label fx:id="labelSlider" text="0.0001" />
-                        <Label text="s" />
-                     </children>
-                  </HBox>
-                  <JFXSlider fx:id="slider" blockIncrement="0.1" majorTickUnit="0.1" max="1.0" min="1.0E-4" minorTickCount="1" orientation="VERTICAL" prefHeight="422.0" prefWidth="14.0" snapToTicks="true" value="1.0E-4" VBox.vgrow="ALWAYS">
-                     <padding>
-                        <Insets bottom="10.0" />
-                     </padding>
-                  </JFXSlider>
+                  <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="20.0" prefWidth="98.0" text="DURÉE INTERV. :" />
+                  <JFXTextField fx:id="textFieldInterv" alignment="BASELINE_CENTER" focusColor="#36b81f" prefHeight="25.0" prefWidth="67.0" text="1.0" unFocusColor="WHITE" />
+                  <Label prefHeight="17.0" prefWidth="25.0" text="s/b" />
                </children>
-            </VBox>
+            </HBox>
+            <JFXButton fx:id="btnCalibrer" buttonType="RAISED" onAction="#clickedCalibrer" prefHeight="32.0" prefWidth="213.0" text="CALIBRER">
+               <VBox.margin>
+                  <Insets top="20.0" />
+               </VBox.margin></JFXButton>
+            <JFXButton fx:id="btnEnregistrer" buttonType="RAISED" onAction="#clickedBtnEnregistrer" prefHeight="41.0" prefWidth="250.0" text="ENREGISTRER" />
+            <Region prefHeight="16.0" prefWidth="192.0" VBox.vgrow="ALWAYS" />
          </children>
          <padding>
             <Insets top="10.0" />
@@ -142,7 +138,6 @@
                   </Label>
                </children>
             </StackPane>
-            <JFXButton fx:id="btnEnregistrer" buttonType="RAISED" onAction="#clickedBtnEnregistrer" prefHeight="71.0" prefWidth="132.0" text="ENREGISTRER" />
             <JFXButton fx:id="btnEcouter" buttonType="RAISED" onAction="#clickedBtnEcouter" prefHeight="47.0" prefWidth="123.0" text="ÉCOUTER" />
             <JFXButton fx:id="btnAnnuler" buttonType="RAISED" layoutX="1142.0" layoutY="10.0" onAction="#clickedBtnAnnuler" prefHeight="47.0" prefWidth="123.0" text="ANNULER" />
          </children>
