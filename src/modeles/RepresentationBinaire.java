@@ -127,4 +127,16 @@ public class RepresentationBinaire implements Iterable<OctetBinaire>, Iterator<O
 	private static boolean validerOctets(OctetBinaire[] octets) {
 		return octets != null && octets.length >= 1;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("[");
+		for(OctetBinaire octet : octets) {
+			sb.append(octet.toString() + ", ");
+		}
+		sb.delete(sb.length()-1, sb.length());
+		sb.append("]");
+		return sb.toString();
+	}
 }
