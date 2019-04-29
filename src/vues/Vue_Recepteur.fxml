@@ -62,27 +62,6 @@
                         <Label layoutX="10.0" layoutY="10.0" text="0,001 B/s" />
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                     <children>
-                        <Label text="VOLUME 1 :" />
-                        <JFXTextField fx:id="textFieldVolumeUn" alignment="BASELINE_CENTER" focusColor="#36b81f" prefHeight="20.0" prefWidth="90.0" unFocusColor="WHITE">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding></JFXTextField>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
-                     <children>
-                        <Label text="VOLUME 0 :" />
-                        <JFXTextField fx:id="textFieldVolumeZero" alignment="BASELINE_CENTER" focusColor="#36b81f" prefHeight="25.0" prefWidth="90.0" unFocusColor="WHITE">
-                           <padding>
-                              <Insets left="5.0" />
-                           </padding></JFXTextField>
-                     </children>
-                  </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="192.0" spacing="1.0">
                      <children>
                         <Label prefHeight="17.0" prefWidth="94.0" text="TEMPS RÉCEP :" />
@@ -100,7 +79,11 @@
                   <HBox alignment="BOTTOM_LEFT" prefHeight="21.0" prefWidth="192.0">
                      <children>
                         <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="20.0" prefWidth="98.0" text="DURÉE INTERV. :" />
-                        <JFXTextField fx:id="textFieldInterv" alignment="BASELINE_CENTER" focusColor="#36b81f" prefHeight="25.0" prefWidth="67.0" text="1.0" unFocusColor="WHITE" />
+                        <JFXTextField fx:id="textFieldInterv" alignment="BASELINE_CENTER" focusColor="#36b81f" prefHeight="25.0" prefWidth="67.0" text="1.0" unFocusColor="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXTextField>
                         <Label prefHeight="17.0" prefWidth="25.0" text="s/b" />
                      </children>
                   </HBox>

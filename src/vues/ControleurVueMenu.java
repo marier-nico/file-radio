@@ -26,15 +26,6 @@ public class ControleurVueMenu {
 	private RadioMenuItem powderBlue;
 
 	@FXML
-	private RadioMenuItem noel;
-
-	@FXML
-	private RadioMenuItem Halloween;
-
-	@FXML
-	private RadioMenuItem quebec;
-
-	@FXML
 	private VBox vboxRoot;
 
 	@FXML
@@ -98,30 +89,6 @@ public class ControleurVueMenu {
 			application.getSceneCourante().getStylesheets()
 					.setAll(this.getClass().getResource(DARK_N_GREEN).toString());
 			themeCourant = DARK_N_GREEN;
-		}
-	}
-
-	@FXML
-	void selectedHalloween(ActionEvent event) {
-		if (((RadioMenuItem) event.getSource()).isSelected()) {
-			application.getSceneCourante().getStylesheets().setAll(this.getClass().getResource(HALLOWEEN).toString());
-			themeCourant = HALLOWEEN;
-		}
-	}
-
-	@FXML
-	void selectedNoel(ActionEvent event) {
-		if (((RadioMenuItem) event.getSource()).isSelected()) {
-			application.getSceneCourante().getStylesheets().setAll(this.getClass().getResource(NOWEL).toString());
-			themeCourant = NOWEL;
-		}
-	}
-
-	@FXML
-	void selectedQuebec(ActionEvent event) {
-		if (((RadioMenuItem) event.getSource()).isSelected()) {
-			application.getSceneCourante().getStylesheets().setAll(this.getClass().getResource(QUEBEC).toString());
-			themeCourant = QUEBEC;
 		}
 	}
 

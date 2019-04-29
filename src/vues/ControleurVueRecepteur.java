@@ -73,12 +73,6 @@ public class ControleurVueRecepteur {
 	private HBox hboxProgressBar;
 
 	@FXML
-	private JFXTextField textFieldVolumeUn;
-
-	@FXML
-	private JFXTextField textFieldVolumeZero;
-
-	@FXML
 	private JFXTextField textFieldTempsRecep;
 
 	@FXML
@@ -90,9 +84,7 @@ public class ControleurVueRecepteur {
 	private File file;
 	private int nbrMessage = 0;
 	private FloatProperty dureeIntervalleRecep = new SimpleFloatProperty(1f);
-	private FloatProperty volumeUn = new SimpleFloatProperty(0);
-	private FloatProperty volumeZeros = new SimpleFloatProperty(0);
-	private LongProperty tempsReception = new SimpleLongProperty(0);
+	private LongProperty tempsReception = new SimpleLongProperty(1);
 	private AnimationProgressBar animProgress;
 	private Thread threadEcoute;
 
@@ -172,8 +164,6 @@ public class ControleurVueRecepteur {
 	}
 
 	public void bindTextView() {
-		setEventTextField(textFieldVolumeUn, volumeUn);
-		setEventTextField(textFieldVolumeZero, volumeZeros);
 		setEventTextField(textFieldTempsRecep, tempsReception);
 
 		textFieldInterv.textProperty().addListener(new ChangeListener<String>() {
@@ -182,34 +172,12 @@ public class ControleurVueRecepteur {
 				if (newValue.matches("-?\\d+(\\.\\d+)?")) {
 					float valeur = Float.parseFloat(newValue);
 					dureeIntervalleRecep.set(valeur);
-					// DoubleProperty vitFich = new SimpleDoubleProperty(valeur * 8);
-					// labelVitesseFichier.textProperty().bind(vitFich.asString());
 					if (file != null) {
-//						DoubleProperty tempsEstim;
-//						try {
-//							tempsEstim = new SimpleDoubleProperty(
-//									dureeIntervalleRecep.get() * (PasserelleFichier.lireOctets(file).length) * 8);
-//							 labelTempsEstim.textProperty().bind(tempsEstim.asString());
-//						} catch (IOException e) {
-//							e.printStackTrace();
-//						}
+						// TODO
+						// Des choses...?
 					}
 				} else {
 					dureeIntervalleRecep.set(0);
-				}
-			}
-		});
-	}
-
-	private void setEventTextField(JFXTextField tf, FloatProperty val) {
-		tf.textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if (newValue.matches("-?\\d+(\\.\\d+)?")) {
-					float valeur = Float.parseFloat(newValue);
-					val.set(valeur);
-				} else {
-					val.set(0);
 				}
 			}
 		});
@@ -233,15 +201,6 @@ public class ControleurVueRecepteur {
 		String retour = "Rien";
 		if (file != null) {
 			retour = file.getAbsolutePath();
-		}
-		return retour;
-	}
-
-	private boolean validerVolume(double valMax) {
-		boolean retour = false;
-		if ((volumeUn.get() > 0) && (volumeZeros.get() > 0) && (volumeUn.get() <= valMax)
-				&& (volumeZeros.get() <= valMax)) {
-			retour = true;
 		}
 		return retour;
 	}

@@ -73,14 +73,11 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="15.0" prefWidth="195.0" spacing="1.0">
                      <children>
-                        <Label prefHeight="18.0" prefWidth="57.0" text="TEMPS :" />
-                        <JFXTextField fx:id="textFieldTempsUnBit" alignment="BOTTOM_CENTER" focusColor="#36b81f" prefHeight="30.0" prefWidth="54.0" text="1.0" unFocusColor="WHITE">
+                        <Label prefHeight="18.0" prefWidth="97.0" text="TEMPS UN BIT :" />
+                        <JFXTextField fx:id="textFieldTempsUnBit" alignment="BASELINE_CENTER" focusColor="#36b81f" prefHeight="30.0" prefWidth="54.0" text="1.0" unFocusColor="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font>
-                           <padding>
-                              <Insets bottom="12.0" left="5.0" />
-                           </padding>
                         </JFXTextField>
                         <Label text="s/b" />
                      </children>
@@ -90,7 +87,10 @@
             <Region prefHeight="6.0" prefWidth="195.0" VBox.vgrow="ALWAYS" />
             <VBox alignment="TOP_CENTER" prefHeight="430.0" prefWidth="156.0" VBox.vgrow="ALWAYS">
                <children>
-                  <JFXButton fx:id="btnCalibrer" buttonType="RAISED" onAction="#clickedCalibrer" prefHeight="41.0" prefWidth="250.0" text="CALIBRER" />
+                  <JFXButton fx:id="btnCalibrer" buttonType="RAISED" onAction="#clickedCalibrer" prefHeight="41.0" prefWidth="250.0" text="CALIBRER">
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin></JFXButton>
                </children></VBox>
          </children>
          <padding>
