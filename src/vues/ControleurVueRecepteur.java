@@ -49,9 +49,6 @@ public class ControleurVueRecepteur {
 	private JFXButton btnSelectionner;
 
 	@FXML
-	private JFXButton btnEnregistrer;
-
-	@FXML
 	private JFXButton btnEcouter;
 
 	@FXML
@@ -96,16 +93,16 @@ public class ControleurVueRecepteur {
 		return borderPaneRoot;
 	}
 
-	@FXML
-	private void clickedBtnEnregistrer(ActionEvent event) {
-		Label l = new Label("Message enregistré dans " + getEmplacementFichierSelct() + " !");
-		if (nbrMessage == 12) {
-			vboxMessages.getChildren().remove(vboxMessages.getChildren().get(0));
-			nbrMessage--;
-		}
-		vboxMessages.getChildren().add(l);
-		nbrMessage++;
-	}
+//	@FXML
+//	private void clickedBtnEnregistrer(ActionEvent event) {
+//		Label l = new Label("Message enregistré dans " + getEmplacementFichierSelct() + " !");
+//		if (nbrMessage == 12) {
+//			vboxMessages.getChildren().remove(vboxMessages.getChildren().get(0));
+//			nbrMessage--;
+//		}
+//		vboxMessages.getChildren().add(l);
+//		nbrMessage++;
+//	}
 
 	@FXML
 	private void clickedBtnSelect(ActionEvent event) {
