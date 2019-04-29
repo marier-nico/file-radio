@@ -53,6 +53,9 @@ public class ControleurVueEmetteur {
 
 	@FXML
 	private JFXButton btnAnnuler;
+	
+	@FXML
+	private JFXButton btnCalibrer;
 
 	@FXML
 	private JFXTextField textFieldTempsUnBit;
@@ -167,6 +170,11 @@ public class ControleurVueEmetteur {
 		fileChooser.setTitle("Veuiller sélectionner un fichier");
 		file = fileChooser.showOpenDialog(application.getStage());
 		labelProgress.setText(getEmplacementFichierSelct());
+	}
+	
+	@FXML
+	void clickedCalibrer(ActionEvent event) {
+		// TODO
 	}
 
 	/**
