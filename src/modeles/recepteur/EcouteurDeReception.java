@@ -214,9 +214,9 @@ public class EcouteurDeReception {
 	 */
 	public void calibrer(double diminutionSup) throws Exception {
 		Thread.sleep(250);
-		calibrerVolumeBit((byte) 1, diminutionSup);
+		System.out.println("Volume un : " + calibrerVolumeBit((byte) 1, diminutionSup));
 		Thread.sleep(400);
-		calibrerVolumeBit((byte) 0, diminutionSup);
+		System.out.println("Volume zéro : " + calibrerVolumeBit((byte) 0, diminutionSup));
 	}
 
 	/**
