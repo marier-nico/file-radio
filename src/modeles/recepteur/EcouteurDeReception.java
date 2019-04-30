@@ -3,6 +3,8 @@ package modeles.recepteur;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.OptionalDouble;
+import java.util.stream.Stream;
 
 import javax.sound.sampled.AudioFileFormat.Type;
 import javax.sound.sampled.LineUnavailableException;
@@ -31,20 +33,18 @@ public class EcouteurDeReception {
 	 * On stoque le dernier bit que l'on voit.
 	 */
 	Optional<Byte> dernierBitVu = Optional.empty();
-	// TODO: Remettre -1
 	/**
 	 * Le volume minimal pour un un, après la calibration.
 	 */
-	private double volumeMinUn = -13;
-	// TODO: Remettre -1
+	private double volumeMinUn = 1;
 	/**
 	 * Le volume minimal pour un zéro, après la calibration.
 	 */
-	private double volumeMinZero = -25;
+	private double volumeMinZero = 1;
 	/**
 	 * La taille de la fenêtre pour calculer les FFT.
 	 */
-	public static final int WINDOW_SIZE = 8;
+	public static final int WINDOW_SIZE = 64;
 	/**
 	 * Le pourcentage des fenêtres du FFT qui sont superposées.
 	 */
@@ -54,9 +54,18 @@ public class EcouteurDeReception {
 	 */
 	public static final double FREQUENCE_RECEPTION = 3300.0;
 
+	/**
+	 * Le nombre de temps par bit est important
+	 * pour décoder l'information.
+	 */
 	private double tempsParBit = 0;
 
-	// TODO: nom du fichier constante
+	/**
+	 * Le nom du fichier temporaire dans lequel on écrit les sons
+	 * que l'on reçoit.
+	 */
+	private static final String NOM_FICH_SON = "audio.wav";
+	
 	/**
 	 * Ce constructeur permet d'initialiser le reconstitueur de messages.
 	 * 
@@ -79,15 +88,28 @@ public class EcouteurDeReception {
 	public void ecouter(long millisecondes) throws LineUnavailableException, InterruptedException {
 		MicrophoneAnalyzer micro = new MicrophoneAnalyzer(Type.WAVE);
 		micro.open();
-		micro.captureAudioToFile(new File("audio.wav"));
+		micro.captureAudioToFile(new File(NOM_FICH_SON));
 		Thread.sleep(millisecondes);
 		micro.close();
 	}
 
+	/**
+	 * Cette méthode permet d'obtenir le reconstitueur de
+	 * messages. Il est nécessaire pour recréer le fichier.
+	 * 
+	 * @return le reconstitudur de messages
+	 */
 	public ReconstitueurDeMessages getReconstitueur() {
 		return rdm;
 	}
 
+	/**
+	 * Cette variable est exclusivement utile à
+	 * la méthode ci-dessous. Elle compte le nombre
+	 * de bits semblables que l'on voit de suite.
+	 */
+	private long nbBitsVu = 0;
+	
 	/**
 	 * Cette méthode permet de reconstruire le signal reçu du son vers une
 	 * représentation binaire.
@@ -95,8 +117,6 @@ public class EcouteurDeReception {
 	 * @throws IOException
 	 * @throws UnsupportedAudioFileException
 	 */
-	long nbBitsVu = 0;
-
 	public void reconstruire() throws IOException, UnsupportedAudioFileException {
 		FFTResult fft = getResultatFFT(WINDOW_SIZE, OVERLAP);
 		System.out.println("Duration: " + fft.windowDurationMs);
@@ -128,7 +148,7 @@ public class EcouteurDeReception {
 					nbBitsVu++;
 				}
 			} else {
-				// TODO: quand on a pas de bit, on continue?
+				// On ignore les valeurs qui ne sont pas un "1" ou un "0".
 			}
 		}
 	}
@@ -149,9 +169,9 @@ public class EcouteurDeReception {
 		byte bit = -1;
 		if (bin.amplitude >= volumeMinUn) {
 			bit = 1;
-			// System.out.println("Amplitude 1 : " + bin.amplitude);
+			System.out.println("Amplitude 1 : " + bin.amplitude);
 		} else if (bin.amplitude >= volumeMinZero) {
-			// System.out.println("Amplitude 0 : " + bin.amplitude);
+			System.out.println("Amplitude 0 : " + bin.amplitude);
 			bit = 0;
 		}
 
@@ -160,49 +180,43 @@ public class EcouteurDeReception {
 		return Optional.empty();
 	}
 
-	// TODO: à faire
 	/**
 	 * Cette méthode permet la calibration du programme pour connaître la valeur
-	 * minimal pour interpréter un un.
+	 * minimal pour interpréter un bit donné.
 	 * 
-	 * @return le volume minimal pour un un
-	 * @throws LineUnavailableException
-	 * @throws InterruptedException
+	 * @return le volume minimal pour un bit
+	 * @throws Exception 
 	 */
-	private double getVolumeMinUn() throws LineUnavailableException, InterruptedException {
+	private double calibrerVolumeBit(byte unOuZero, double diminutionSup) throws Exception {
 		ecouter(500);
-
-		return 0;
+		FFTResult resultat = getResultatFFT(WINDOW_SIZE, OVERLAP);
+		OptionalDouble bitMoyen = Stream.of(resultat.fftFrames)
+			  .mapToDouble(f -> f.bins[indiceFreqVoulue].amplitude)
+			  .average();
+		
+		double volumeBitMoyen = bitMoyen.orElseThrow(() -> new IllegalStateException("Impossible de déterminer le volume d'un \"" + unOuZero + "\".")) - diminutionSup;
+		if(unOuZero == 1) {
+			volumeMinUn = volumeBitMoyen;
+		} else if(unOuZero == 0) {
+			volumeMinZero = volumeBitMoyen;
+		} else {
+			throw new IllegalArgumentException("On peut seulement calibrer pour les uns et les zéros.");
+		}
+		
+		return volumeBitMoyen;
 	}
 
-	/**
-	 * Cette méthode permet la calibration du programme pour connaître la valeur
-	 * minimal pour interpréter un un.
-	 * 
-	 * @return le volume minimal pour un zéro
-	 * @throws LineUnavailableException
-	 * @throws InterruptedException
-	 */
-	private double getVolumeMinZero() throws LineUnavailableException, InterruptedException {
-		ecouter(500);
-		return 0;
-	}
-
-	// TODO: Calibrer les volumes et l'indice des bins
 	/**
 	 * Cette méthode permet de calibrer le programme en trouvant les volumes
 	 * minimaux dans le contexte physique courant.
 	 * 
 	 * @throws Exception
 	 */
-	public void calibrer() throws Exception {
-		int indice = getIndiceBin(3300);
-		ecouter(1000);
-		FFTFrame[] frames = getResultatFFT(WINDOW_SIZE, OVERLAP).fftFrames;
-		for (FFTFrame frame : frames) {
-			System.out.println(frame.bins[indice].amplitude);
-		}
-
+	public void calibrer(double diminutionSup) throws Exception {
+		Thread.sleep(250);
+		calibrerVolumeBit((byte) 1, diminutionSup);
+		Thread.sleep(400);
+		calibrerVolumeBit((byte) 0, diminutionSup);
 	}
 
 	/**
@@ -247,7 +261,7 @@ public class EcouteurDeReception {
 	 */
 	private FFTResult getResultatFFT(int windowSize, double overlap) throws IOException, UnsupportedAudioFileException {
 		FFTResult fft = null;
-		QuiFFT quiFFT = new QuiFFT(new File("audio.wav"));
+		QuiFFT quiFFT = new QuiFFT(new File(NOM_FICH_SON));
 		quiFFT.windowSize(windowSize);
 		quiFFT.windowOverlap(overlap);
 		fft = quiFFT.fullFFT();
@@ -268,11 +282,11 @@ public class EcouteurDeReception {
 	public static void main(String[] args) throws Exception {
 //		MicrophoneAnalyzer micro = new MicrophoneAnalyzer(Type.WAVE);
 //		micro.open();
-//		micro.captureAudioToFile(new File("audio.wav"));
+//		micro.captureAudioToFile(new File(NOM_FICH_SON));
 //		Thread.sleep(10000);
 //		micro.close();
-		EcouteurDeReception edr = new EcouteurDeReception(25);
-		edr.ecouter(9000);
+		EcouteurDeReception edr = new EcouteurDeReception(100);
+		edr.ecouter(8000);
 		edr.reconstruire();
 		System.out.println(edr.getReconstitueur().getRepresentationBinaire().toString());
 		PasserelleFichier.ecrireOctets(edr.getReconstitueur().getRepresentationBinaire(), new File("recu.txt"));
