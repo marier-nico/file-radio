@@ -9,6 +9,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.javafx.tk.FileChooserType;
 
 import controleurs.ApplicationRadio;
 import javafx.beans.property.DoubleProperty;
@@ -29,6 +30,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import modeles.AnimationProgressBar;
 import modeles.emetteur.LecteurSon;
 import modeles.passerelle.PasserelleFichier;
@@ -79,7 +81,7 @@ public class ControleurVueRecepteur {
 
 	private ApplicationRadio application = null;
 	public static final String ADRESSE_VUE_RECEPTEUR = "/vues/Vue_Recepteur.fxml";
-	final DirectoryChooser directoryChooser = new DirectoryChooser();
+	final FileChooser fileChooser = new FileChooser();
 	private File file;
 	private int nbrMessage = 0;
 	private FloatProperty dureeIntervalleRecep = new SimpleFloatProperty(1f);
@@ -117,8 +119,8 @@ public class ControleurVueRecepteur {
 
 	@FXML
 	private void clickedBtnSelect(ActionEvent event) {
-		directoryChooser.setTitle("Veuiller sélectionner un emplacement de destination");
-		file = directoryChooser.showDialog(application.getStage());
+		fileChooser.setTitle("Veuiller sélectionner un emplacement de destination");
+		file = fileChooser.showSaveDialog(application.getStage());
 		labelProgress.setText(getEmplacementFichierSelct());
 	}
 
@@ -145,7 +147,7 @@ public class ControleurVueRecepteur {
 				});
 				threadEcoute.start();
 				ajoutLabel(new Label("Écoute en cours..."));
-				animProgress = new AnimationProgressBar(progressBar, tempsReception.get(), 0.001);
+				animProgress = new AnimationProgressBar(progressBar, tempsReception.get() * 1000, 0.001);
 			}
 		}
 	}
