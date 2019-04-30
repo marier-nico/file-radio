@@ -137,6 +137,7 @@ public class ControleurVueRecepteur {
 					@Override
 					public void run() {
 						try {
+							// plante après reécouter...
 							ecouteur.ecouter(tempsReception.get() * 1000);
 							ecouteur.reconstruire();
 							PasserelleFichier.ecrireOctets(ecouteur.getReconstitueur().getRepresentationBinaire(), file);
@@ -158,7 +159,6 @@ public class ControleurVueRecepteur {
 			threadEcoute.stop();
 			animProgress.stopProgressAnim();
 			ajoutLabel(new Label("Arrêt de l'écoute..."));
-			System.out.println("ok");
 		}
 	}
 
