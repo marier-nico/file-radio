@@ -279,17 +279,17 @@ public class EcouteurDeReception {
 		return volumeMin < 0;
 	}
 
-	public static void main(String[] args) throws Exception {
-//		MicrophoneAnalyzer micro = new MicrophoneAnalyzer(Type.WAVE);
-//		micro.open();
-//		micro.captureAudioToFile(new File(NOM_FICH_SON));
-//		Thread.sleep(10000);
-//		micro.close();
-		EcouteurDeReception edr = new EcouteurDeReception(100);
-		edr.ecouter(8000);
-		edr.reconstruire();
-		System.out.println(edr.getReconstitueur().getRepresentationBinaire().toString());
-		PasserelleFichier.ecrireOctets(edr.getReconstitueur().getRepresentationBinaire(), new File("recu.txt"));
-
-	}
+//	public static void main(String[] args) throws Exception {
+////		MicrophoneAnalyzer micro = new MicrophoneAnalyzer(Type.WAVE);
+////		micro.open();
+////		micro.captureAudioToFile(new File(NOM_FICH_SON));
+////		Thread.sleep(10000);
+////		micro.close();
+//		EcouteurDeReception edr = new EcouteurDeReception(100);
+//		edr.ecouter(8000);
+//		edr.reconstruire();
+//		System.out.println(edr.getReconstitueur().getRepresentationBinaire().toString());
+//		PasserelleFichier.ecrireOctets(edr.getReconstitueur().getRepresentationBinaire(), new File("recu.txt"));
+//
+//	}
 }

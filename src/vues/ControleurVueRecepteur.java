@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSlider;
@@ -134,8 +135,10 @@ public class ControleurVueRecepteur {
 					@Override
 					public void run() {
 						try {
-							// TODO ajouter méthode écouter son
-						} catch (IllegalStateException ex) {
+							ecouteur.ecouter(tempsReception.get() * 1000);
+							ecouteur.reconstruire();
+							PasserelleFichier.ecrireOctets(ecouteur.getReconstitueur().getRepresentationBinaire(), file);
+						} catch (IllegalStateException | LineUnavailableException | InterruptedException | IOException | UnsupportedAudioFileException ex) {
 							ex.printStackTrace();
 						}
 					}
@@ -227,7 +230,8 @@ public class ControleurVueRecepteur {
 	private void afficherErreur(String emplacement, String detail, Exception ex) {
 		Alert erreur = new Alert(AlertType.ERROR);
 		erreur.setHeaderText("Erreur dans " + emplacement);
-		erreur.setContentText(detail + "\n\n" + ex.getStackTrace());
+		erreur.setContentText(detail + "\n\n" + ex.getStackTrace().toString());
+		ex.printStackTrace();
 		erreur.setTitle("Erreur");
 		erreur.showAndWait();
 	}
