@@ -121,8 +121,8 @@
                   </Label>
                </children>
             </StackPane>
-            <JFXButton fx:id="btnEcouter" buttonType="RAISED" onAction="#clickedBtnEcouter" prefHeight="47.0" prefWidth="123.0" text="ÉCOUTER" />
             <JFXButton fx:id="btnAnnuler" buttonType="RAISED" layoutX="1142.0" layoutY="10.0" onAction="#clickedBtnAnnuler" prefHeight="47.0" prefWidth="123.0" text="ANNULER" />
+            <JFXButton fx:id="btnEcouter" buttonType="RAISED" onAction="#clickedBtnEcouter" prefHeight="47.0" prefWidth="123.0" text="ÉCOUTER" />
          </children>
          <BorderPane.margin>
             <Insets bottom="-2.0" />
