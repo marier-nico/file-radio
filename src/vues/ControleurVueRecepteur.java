@@ -92,7 +92,7 @@ public class ControleurVueRecepteur {
 	
 	public ControleurVueRecepteur() {
 		try {
-			ecouteur  = new EcouteurDeReception(dureeIntervalleRecep.get());
+			ecouteur  = new EcouteurDeReception(dureeIntervalleRecep.get() * 1000);
 		} catch (Exception e) {
 		afficherErreur("écoute", "une erreur est survenue lors de l'écoute", e);
 		}
