@@ -29,6 +29,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import modeles.AnimationProgressBar;
 import modeles.RepresentationBinaire;
+import modeles.emetteur.Calibreur;
 import modeles.emetteur.GenerateurSon;
 import modeles.emetteur.LecteurSon;
 import modeles.passerelle.PasserelleFichier;
@@ -174,7 +175,11 @@ public class ControleurVueEmetteur {
 	
 	@FXML
 	void clickedCalibrer(ActionEvent event) {
-		// TODO
+		try {
+			Calibreur.calibrerTout();
+		} catch (IOException | LineUnavailableException e) {
+			afficherErreur("calibration", "fichier introuvable ou micro non disponible", e);
+		}
 	}
 
 	/**

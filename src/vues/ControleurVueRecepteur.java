@@ -31,6 +31,7 @@ import javafx.stage.DirectoryChooser;
 import modeles.AnimationProgressBar;
 import modeles.emetteur.LecteurSon;
 import modeles.passerelle.PasserelleFichier;
+import modeles.recepteur.EcouteurDeReception;
 
 /**
  * 
@@ -84,6 +85,15 @@ public class ControleurVueRecepteur {
 	private LongProperty tempsReception = new SimpleLongProperty(1);
 	private AnimationProgressBar animProgress;
 	private Thread threadEcoute;
+	EcouteurDeReception ecouteur;
+	
+	public ControleurVueRecepteur() {
+		try {
+			ecouteur  = new EcouteurDeReception(dureeIntervalleRecep.get());
+		} catch (Exception e) {
+		afficherErreur("écoute", "une erreur est survenue lors de l'écoute", e);
+		}
+	}
 
 	public void setApplication(ApplicationRadio application) {
 		this.application = application;
@@ -115,11 +125,10 @@ public class ControleurVueRecepteur {
 	void clickedBtnEcouter(ActionEvent event) {
 		if (file != null) {
 			if ((threadEcoute != null) && (threadEcoute.isAlive())) {
-				afficherErreur(AlertType.ERROR,
-						"Un envoi est déjà en cours, veuillez l'anuler pour faire un autre envoi...");
+				afficherErreur("écoute", "un message est déjà en écoute");
 			}
 			if (tempsReception.get() == 0) {
-				afficherErreur(AlertType.ERROR, "Il faut sélectionner un temps de réception avant d'enregistrer...");
+				afficherErreur("manque de données", "il faut sélectionner un tems de reception anvant d'enregistrer");
 			} else {
 				threadEcoute = new Thread(new Runnable() {
 					@Override
@@ -150,7 +159,11 @@ public class ControleurVueRecepteur {
 
 	@FXML
 	void clickedCalibrer(ActionEvent event) {
-		// TODO
+		try {
+			ecouteur.calibrer(3);
+		} catch (Exception e) {
+			afficherErreur("calibration", e.getMessage(), e);
+		}
 	}
 
 	/**
@@ -211,10 +224,18 @@ public class ControleurVueRecepteur {
 		nbrMessage++;
 	}
 
-	private void afficherErreur(AlertType ap, String message) {
+	private void afficherErreur(String emplacement, String detail, Exception ex) {
 		Alert erreur = new Alert(AlertType.ERROR);
-		erreur.setHeaderText("Erreur");
-		erreur.setContentText(message);
+		erreur.setHeaderText("Erreur dans " + emplacement);
+		erreur.setContentText(detail + "\n\n" + ex.getStackTrace());
+		erreur.setTitle("Erreur");
+		erreur.showAndWait();
+	}
+	
+	private void afficherErreur(String emplacement, String detail) {
+		Alert erreur = new Alert(AlertType.ERROR);
+		erreur.setHeaderText("Erreur dans " + emplacement);
+		erreur.setContentText(detail);
 		erreur.setTitle("Erreur");
 		erreur.showAndWait();
 	}
