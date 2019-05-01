@@ -38,8 +38,8 @@ package "vue" {
     	- btnSelectionner : JFXButton
     	- btnEnvoyer : JFXButton
     	- btnAnnuler : JFXButton
-    	- slider : JFXSlider
-    	- sliderLabel : Label
+    	- btnCalibrer : JFXButton
+    	- textFieldTempsUnBit : JFXTextField
     	- labelProgress : Label
     	- labelVitesseFichier : Label
     	- labelTempsEstim : Label
@@ -62,7 +62,8 @@ package "vue" {
         - void clickedBtnEnvoyer(ActionEvent event)
         - void ajoutLabel(Label l)
         - void clickedBtnSelect(ActionEvent event)
-        + void bindSliderEtLabel()
+        - void clickedCalibrer(ActionEvent event)
+        + void bindTextField()
         + void bindProgressBar()
         - void clickedBtnAnnuler(ActionEvent event)
         + String getEmplacementFichierSelect()
@@ -72,34 +73,38 @@ package "vue" {
     class ControleurVueRecepteur {
         - borderPaneRoot : BorderPane
     	- btnSelectionner : JFXButton
-    	- btnEnregistrer : JFXButton
     	- btnEcouter : JFXButton
+    	- btnAnnuler : JFXButton
+    	- btnCalibrer : JFXButton
     	- vboxMessages : VBox
     	- labelProgress : Label
-    	- slider : JFXSlider
-    	- labelSlider : Label
     	- progressBar : ProgressBar
     	- hboxProgressBar : HBox
-    	- textFieldVolumeUn : JFXTextField
-    	- textFieldVolumeZero : JFXTextField
+    	- textFieldTempsRecep : JFXTextField
+    	- textFieldInterv : JFXTextField
         - application : ApplicationRadio = null
         + {static} final ADRESSE_VUE_RECEPTEUR : String = "/vues/Vue_Recepteur.fxml"
-        - final directoryChooser : DirectoryChooser = new DirectoryChooser()
+        - final FileChooser : FileChooser = new FileChooser()
         - file : File
         - nbrMessage : int = 0
-        - dureeIntervalleRecep : FloatProperty = new SimpleFloatProperty(0.0001f)
-        - volumeUn : DoubleProperty = new SimpleDoubleProperty(0)
-        - volumeZeros : DoubleProperty = new SimpleDoubleProperty(0)
+        - dureeIntervalleRecep : FloatProperty = new SimpleFloatProperty(1f)
+        - tempsReception : LongProperty = new SimpleLongProperty(1)
+        - animProgress : AnimationProgressBar
+        - threadEcoute : Thread
+        - ecouteur : EcouteurDeReception
+        + ControleurVueReception()
         + void setApplication(ApplicationRadio application)
         + BorderPane getBorderPaneRoot()
-        - void clickedBtnEnregistrer(ActionEvent event)
         - void clickedBtnSelect(ActionEvent event)
         - void clickedBtnEcouter(ActionEvent event)
-        + void bindSliderEtLabel()
+        - void clickedBtnAnnuler(ActionEvent event)
+        - void clickedBtnCalibrer(ActionEvent event)
         + void bindProgressBar()
         + void bindTextView()
         + String getEmplacementFichierSelect()
-        - boolean validerVolume(double valMax)
+        - void ajoutLabel(Label l)
+        - void afficherErreur(String emplacement, String details, Exception ex)
+        - void afficherErreur(String emplacement, String details)
     }
 
     class ControleurVueMenu {
