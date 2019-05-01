@@ -130,17 +130,18 @@ package "vue" {
 
 package "modeles" {
     class RepresentationBinaire {
-        - octets : OctetBinaire[]
-        - octetCourant : int
-        + RepresentationBinaire(byte[] bytes)
-        + RepresentationBinaire(OctetBinaire[])
-        + OctetBinaire[] getOctets()
-        + boolean hasNext()
-        + OctetBinaire next()
-        + Iterator<OctetBinaire> iterator()
-        - {static} boolean validerOctets(byte[] octets)
-        - {static} boolean validerOctets(OctetBinaire[] octets)
-    }
+		- OctetBinaire[] octets
+		- int octetCourant
+		+ RepresentationBinaire(byte[] bytes)
+		+ RepresentationBinaire(OctetBinaire[] octets)
+		+ OctetBinaire[] getOctets()
+		+ boolean hasNext()
+		+ OctetBinaire next()
+		+ Iterator<OctetBinaire> iterator()
+		- {static} boolean validerOctets(byte[] octets)
+		- {static} boolean validerOctets(OctetBinaire[] octets)
+		+ String toString()
+	}
 
     class OctetBinaire {
         - bits : byte[]
