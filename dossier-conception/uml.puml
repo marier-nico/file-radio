@@ -343,6 +343,8 @@ TestLecteurSon --> LecteurSon
 TestReconstitueurDeMessages --> ReconstitueurDeMessages
 
 EcouteurDeReception --> ReconstitueurDeMessages
+EcouteurDeReception --> OctetBinaire
+EcouteurDeReception --> RepresentationBinaire
 
 TestOctetBinaire --> OctetBinaire
 TestPasserelleFichier --> PasserelleFichier
