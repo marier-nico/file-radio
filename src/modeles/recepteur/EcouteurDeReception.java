@@ -44,7 +44,7 @@ public class EcouteurDeReception {
 	/**
 	 * La taille de la fenêtre pour calculer les FFT.
 	 */
-	public static final int WINDOW_SIZE = 64;
+	public static final int WINDOW_SIZE = 512;
 	/**
 	 * Le pourcentage des fenêtres du FFT qui sont superposées.
 	 */
@@ -134,6 +134,10 @@ public class EcouteurDeReception {
 					} else {
 						long repetitionsBitPareil = Math
 								.round(((double) nbBitsVu * fft.windowDurationMs / tempsParBit));
+						
+						if(repetitionsBitPareil == 0)
+							repetitionsBitPareil++;
+						
 						for (int i = 0; i < repetitionsBitPareil; i++) {
 							rdm.ajouterBit(dernierBitVu.get());
 						}
@@ -190,15 +194,17 @@ public class EcouteurDeReception {
 	private double calibrerVolumeBit(byte unOuZero, double diminutionSup) throws Exception {
 		ecouter(500);
 		FFTResult resultat = getResultatFFT(WINDOW_SIZE, OVERLAP);
-		OptionalDouble bitMoyen = Stream.of(resultat.fftFrames)
+		OptionalDouble bitPetit = Stream.of(resultat.fftFrames)
 			  .mapToDouble(f -> f.bins[indiceFreqVoulue].amplitude)
-			  .average();
+			  .min();
 		
-		double volumeBitMoyen = bitMoyen.orElseThrow(() -> new IllegalStateException("Impossible de déterminer le volume d'un \"" + unOuZero + "\".")) - diminutionSup;
+		double volumeBitMoyen = bitPetit.orElseThrow(() -> new IllegalStateException("Impossible de déterminer le volume d'un \"" + unOuZero + "\".")) - diminutionSup;
 		if(unOuZero == 1) {
-			volumeMinUn = volumeBitMoyen;
+			//volumeMinUn = volumeBitMoyen;
+			volumeMinUn = -12;
 		} else if(unOuZero == 0) {
-			volumeMinZero = volumeBitMoyen;
+			//volumeMinZero = volumeBitMoyen;
+			volumeMinZero = -21;
 		} else {
 			throw new IllegalArgumentException("On peut seulement calibrer pour les uns et les zéros.");
 		}
@@ -213,10 +219,16 @@ public class EcouteurDeReception {
 	 * @throws Exception
 	 */
 	public void calibrer(double diminutionSup) throws Exception {
-		Thread.sleep(250);
-		System.out.println("Volume un : " + calibrerVolumeBit((byte) 1, diminutionSup));
-		Thread.sleep(400);
-		System.out.println("Volume zéro : " + calibrerVolumeBit((byte) 0, diminutionSup));
+//		Thread.sleep(100);
+//		System.out.println("Volume un : " + calibrerVolumeBit((byte) 1, diminutionSup));
+//		Thread.sleep(800);
+//		System.out.println("Volume zéro : " + calibrerVolumeBit((byte) 0, diminutionSup));
+//		ecouter(2250);
+//		FFTResult resultat = getResultatFFT(WINDOW_SIZE, OVERLAP);
+//		Stream.of(resultat.fftFrames)
+//			  .mapToDouble(f -> f.bins[indiceFreqVoulue].amplitude).forEach(d -> System.out.println(d));
+		calibrerVolumeBit((byte)0, 0);
+		calibrerVolumeBit((byte)1, 0);
 	}
 
 	/**
@@ -279,17 +291,17 @@ public class EcouteurDeReception {
 		return volumeMin < 0;
 	}
 
-//	public static void main(String[] args) throws Exception {
-////		MicrophoneAnalyzer micro = new MicrophoneAnalyzer(Type.WAVE);
-////		micro.open();
-////		micro.captureAudioToFile(new File(NOM_FICH_SON));
-////		Thread.sleep(10000);
-////		micro.close();
-//		EcouteurDeReception edr = new EcouteurDeReception(100);
-//		edr.ecouter(8000);
-//		edr.reconstruire();
-//		System.out.println(edr.getReconstitueur().getRepresentationBinaire().toString());
-//		PasserelleFichier.ecrireOctets(edr.getReconstitueur().getRepresentationBinaire(), new File("recu.txt"));
-//
-//	}
+	public static void main(String[] args) throws Exception {
+//		MicrophoneAnalyzer micro = new MicrophoneAnalyzer(Type.WAVE);
+//		micro.open();
+//		micro.captureAudioToFile(new File(NOM_FICH_SON));
+//		Thread.sleep(10000);
+//		micro.close();
+		EcouteurDeReception edr = new EcouteurDeReception(100);
+		edr.ecouter(8000);
+		edr.reconstruire();
+		System.out.println(edr.getReconstitueur().getRepresentationBinaire().toString());
+		PasserelleFichier.ecrireOctets(edr.getReconstitueur().getRepresentationBinaire(), new File("recu.txt"));
+
+	}
 }
