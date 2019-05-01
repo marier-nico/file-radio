@@ -43,24 +43,21 @@ with open("./src/modeles/emetteur/LecteurSon.java") as file:
                         uml_line += line_tokens[-2] + " "
                         uml_line += line_tokens[-1].replace(";", "") + " "
 
-                seen_first_paren = False
+                seen = False
                 for (i, token) in enumerate(line_tokens):
-                    if seen_first_paren:
+                    if "(" in token:
+                        uml_line += line_tokens[i - 1] + " "
+                        uml_line += token + " "
+                        seen = True
+                        if ")" in token:
+                            break
+                    elif seen:
                         if ")" in token:
                             uml_line += token + " "
                             break
                         else:
                             uml_line += token + " "
-                    else:
-                        if "(" in token:
-                            # add return type
-                            uml_line += line_tokens[i - 1] + " "
-                            # add name
-                            uml_line += token + " "
-                            seen_first_paren = True
-                        if ")" in token:
-                            uml_line += token + " "
-                            break
+
 
                 uml_lines.append(uml_line)
         else:
