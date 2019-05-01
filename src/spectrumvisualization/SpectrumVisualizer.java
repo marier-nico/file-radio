@@ -4,10 +4,15 @@ import org.quifft.QuiFFT;
 import org.quifft.output.FFTFrame;
 import org.quifft.output.FFTStream;
 import org.quifft.output.FrequencyBin;
+
+import modeles.recepteur.libson.microphone.MicrophoneAnalyzer;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.sound.sampled.AudioFileFormat.Type;
+import javax.sound.sampled.LineUnavailableException;
+
 import java.io.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -47,10 +52,16 @@ public class SpectrumVisualizer {
      * Initialize audio file here
      */
     private SpectrumVisualizer() {
-        song = new File("audio.wav");
+        song = new File("spectrumanalyzer.wav");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException, LineUnavailableException {
+//    	MicrophoneAnalyzer micro = new MicrophoneAnalyzer(Type.WAVE);
+//		micro.open();
+//		micro.captureAudioToFile(new File("spectrumanalyzer.wav"));
+//		Thread.sleep(5000);
+//		micro.close();
+		
         SpectrumVisualizer visualizer = new SpectrumVisualizer();
         grapher.initializeGraph();
         visualizer.visualizeSpectrum();
