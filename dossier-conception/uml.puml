@@ -204,21 +204,37 @@ package "modeles.emetteur" {
 }
 
 package "modeles.receveur" {
-    class ReconstitueurDeMessages {
-        - octetEnConstruction : byte[]
-        - indiceConstructionCourant : int
-        - octetsComplets : List<OctetBinaire>
-        + ReconstitueurDeMessages()
-        + void ajouterBit(byte bit)
-        + RepresentationBinaire getRepresentationBinaire()
-    }
+	class ReconstitueurDeMessages {
+		- byte[] octetEnConstruction
+		- int indiceConstructionCourant
+		- List<OctetBinaire> octetsComplets
+		+ ReconstitueurDeMessages()
+		+ void ajouterBit(byte b)
+		+ RepresentationBinaire getRepresentationBinaire()
+	}
 
-    class EcouteurDeReception {
-        - rdm : ReconstitueurDeMessages
-        + EcouteurDeReception()
-        + void ecouter()
-        - Optional<Byte> analyserSignal()
-    }
+	class EcouteurDeReception {
+		- ReconstitueurDeMessages rdm
+		- int indiceFreqVoulue
+		- double volumeMinUn = 1
+		- double volumeMinZero = 1
+		+ {static} final int WINDOW_SIZE = 512
+		+ {static} final int OVERLAP = 0
+		+ {static} final double FREQUENCE_RECEPTION = 3300.0
+		- double tempsParBit = 0
+		- {static} final String NOM_FICH_SON = "audio.wav"
+		+ EcouteurDeReception(double tempsParBit)
+		+ void ecouter(long millisecondes)
+		+ ReconstitueurDeMessages getReconstitueur()
+		- long nbBitsVu = 0
+		+ void reconstruire()
+		- Optional<Byte> analyserSignal(FFTFrame frame)
+		- double calibrerVolumeBit(byte unOuZero, double diminutionSup)
+		+ void calibrer(double diminutionSup)
+		- int getIndiceBin(double frequence)
+		- FFTResult getResultatFFT(int windowSize, double overlap)
+		- {static} boolean validerVolumeMin(double volumeMin)
+	}
 }
 
 package "passerelle" {
