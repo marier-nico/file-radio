@@ -192,6 +192,14 @@ package "modeles.emetteur" {
         + {static} boolean validerDonneesSon(byte[][] donnees)
         + {static} boolean validerDuree(float duree)
     }
+    
+    class Calibreur {
+		+ {static} final float TEMPS_PAR_BIT = 0.125f
+		+ {static} void calibrerTout()
+		+ {static} void calibrerUns()
+		+ {static} void calibrerZeros()
+		- {static} void calibrerAvecFichier(File fich)
+	}
 }
 
 package "modeles.receveur" {
