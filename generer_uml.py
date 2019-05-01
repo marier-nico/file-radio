@@ -46,7 +46,8 @@ with open("./src/modeles/emetteur/LecteurSon.java") as file:
                 seen = False
                 for (i, token) in enumerate(line_tokens):
                     if "(" in token:
-                        uml_line += line_tokens[i - 1] + " "
+                        if not line_tokens[i - 1] == "public":
+                            uml_line += line_tokens[i - 1] + " "
                         uml_line += token + " "
                         seen = True
                         if ")" in token:
