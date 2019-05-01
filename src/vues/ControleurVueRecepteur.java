@@ -7,15 +7,11 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
-import com.sun.javafx.tk.FileChooserType;
 
 import controleurs.ApplicationRadio;
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.LongProperty;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.value.ChangeListener;
@@ -29,10 +25,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import modeles.AnimationProgressBar;
-import modeles.emetteur.LecteurSon;
 import modeles.passerelle.PasserelleFichier;
 import modeles.recepteur.EcouteurDeReception;
 
@@ -88,7 +82,7 @@ public class ControleurVueRecepteur {
 	private LongProperty tempsReception = new SimpleLongProperty(1);
 	private AnimationProgressBar animProgress;
 	private Thread threadEcoute;
-	EcouteurDeReception ecouteur;
+	private EcouteurDeReception ecouteur;
 	
 	public ControleurVueRecepteur() {
 		try {
@@ -105,17 +99,6 @@ public class ControleurVueRecepteur {
 	public BorderPane getBorderPaneRoot() {
 		return borderPaneRoot;
 	}
-
-//	@FXML
-//	private void clickedBtnEnregistrer(ActionEvent event) {
-//		Label l = new Label("Message enregistré dans " + getEmplacementFichierSelct() + " !");
-//		if (nbrMessage == 12) {
-//			vboxMessages.getChildren().remove(vboxMessages.getChildren().get(0));
-//			nbrMessage--;
-//		}
-//		vboxMessages.getChildren().add(l);
-//		nbrMessage++;
-//	}
 
 	@FXML
 	private void clickedBtnSelect(ActionEvent event) {
@@ -179,7 +162,17 @@ public class ControleurVueRecepteur {
 	}
 
 	public void bindTextView() {
-		setEventTextField(textFieldTempsRecep, tempsReception);
+		textFieldTempsRecep.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (newValue.matches("-?\\d+(\\.\\d+)?")) {
+					long valeur = Long.parseLong(newValue);
+					tempsReception.set(valeur);
+				} else {
+					tempsReception.set(0);
+				}
+			}
+		});
 
 		textFieldInterv.textProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -193,20 +186,6 @@ public class ControleurVueRecepteur {
 					}
 				} else {
 					dureeIntervalleRecep.set(0);
-				}
-			}
-		});
-	}
-
-	private void setEventTextField(JFXTextField tf, LongProperty val) {
-		tf.textProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if (newValue.matches("-?\\d+(\\.\\d+)?")) {
-					long valeur = Long.parseLong(newValue);
-					val.set(valeur);
-				} else {
-					val.set(0);
 				}
 			}
 		});

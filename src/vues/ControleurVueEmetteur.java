@@ -6,7 +6,6 @@ import java.io.IOException;
 import javax.sound.sampled.LineUnavailableException;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXTextField;
 
 import controleurs.ApplicationRadio;
@@ -174,7 +173,7 @@ public class ControleurVueEmetteur {
 	}
 	
 	@FXML
-	void clickedCalibrer(ActionEvent event) {
+	private void clickedCalibrer(ActionEvent event) {
 		try {
 			Calibreur.calibrerTout();
 		} catch (IOException | LineUnavailableException e) {
