@@ -180,10 +180,6 @@ public class ControleurVueRecepteur {
 				if (newValue.matches("-?\\d+(\\.\\d+)?")) {
 					float valeur = Float.parseFloat(newValue);
 					dureeIntervalleRecep.set(valeur);
-					if (file != null) {
-						// TODO
-						// Des choses...?
-					}
 				} else {
 					dureeIntervalleRecep.set(0);
 				}
