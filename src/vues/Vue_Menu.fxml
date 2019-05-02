@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.layout.Region?>
@@ -21,6 +22,7 @@
         </items>
       </SplitMenuButton>
       <Region prefHeight="0.0" prefWidth="700.0" VBox.vgrow="ALWAYS" />
+      <Label text="Appuyer sur la touche Esc pour revenir à ce menu" />
    </children>
    <padding>
       <Insets bottom="75.0" top="75.0" />
