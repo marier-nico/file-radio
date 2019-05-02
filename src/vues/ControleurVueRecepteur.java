@@ -139,6 +139,7 @@ public class ControleurVueRecepteur {
 	@FXML
 	void clickedBtnAnnuler(ActionEvent event) {
 		if ((threadEcoute != null) && threadEcoute.isAlive()) {
+			ecouteur.arretEcoute();
 			threadEcoute.stop();
 			animProgress.stopProgressAnim();
 			ajoutLabel(new Label("Arrêt de l'écoute..."));
