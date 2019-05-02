@@ -45,7 +45,7 @@ public class EcouteurDeReception {
 	/**
 	 * La taille de la fenêtre pour calculer les FFT.
 	 */
-	public static final int WINDOW_SIZE = 512;
+	public static final int WINDOW_SIZE = 16;
 	/**
 	 * Le pourcentage des fenêtres du FFT qui sont superposées.
 	 */
@@ -70,11 +70,9 @@ public class EcouteurDeReception {
 	 * 
 	 * @throws Exception
 	 */
-	public EcouteurDeReception(double tempsParBit) throws Exception {
+	public EcouteurDeReception() throws Exception {
 		rdm = new ReconstitueurDeMessages();
 		indiceFreqVoulue = getIndiceBin(FREQUENCE_RECEPTION);
-		this.tempsParBit = tempsParBit;
-
 	}
 
 	/**
@@ -101,6 +99,15 @@ public class EcouteurDeReception {
 	public ReconstitueurDeMessages getReconstitueur() {
 		return rdm;
 	}
+	
+	/**
+	 * Modifier la valeur du temps par bit (en millisecondes)
+	 * 
+	 * @param millis le nombre de temps par bit
+	 */
+	public void setTempsParBit(long millis) {
+		tempsParBit = millis;
+	}
 
 	/**
 	 * Cette variable est exclusivement utile à la méthode ci-dessous. Elle compte
@@ -116,8 +123,10 @@ public class EcouteurDeReception {
 	 * @throws UnsupportedAudioFileException
 	 */
 	public void reconstruire() throws IOException, UnsupportedAudioFileException {
+		if(tempsParBit <= 0) {
+			throw new IllegalStateException("Le temps par bit doit être plus grand que 0.");
+		}
 		FFTResult fft = getResultatFFT(WINDOW_SIZE, OVERLAP);
-		System.out.println("Duration: " + fft.windowDurationMs);
 		FFTFrame[] frames = fft.fftFrames;
 		System.out.println("Il y a " + frames.length + " frames.");
 
@@ -144,23 +153,34 @@ public class EcouteurDeReception {
 				break;
 			}
 		}
+		System.out.println("TEMPS DEBUT: " + tempsDebutReception);
+		System.out.println("TEMPS FIN: " + tempsFinReception);
 
 		FFTFrame[] framesImportantes = Arrays.copyOfRange(frames, indiceDebut, indiceFin + 1);
-		long nbBits = (long) Math.ceil((tempsFinReception - tempsDebutReception) / tempsParBit);
+		double nbBits = (tempsFinReception - tempsDebutReception) / tempsParBit;
 		double framesParBit = (double) framesImportantes.length / nbBits;
+		System.out.println("FRAMES PAR BIT: " + framesParBit);
 
 		int bitEnCours = 1;
 		long indiceMin = 0;
 		while (bitEnCours <= nbBits) {
+			System.out.println("Bit en cours: " + bitEnCours);
+			System.out.println("Inice min: " + indiceMin);
 			long indiceMax = Math.round((double) bitEnCours * framesParBit);
+			System.out.println("Indice max: " + indiceMax);
+			System.out.println("Indice max for: " + (indiceMax - 1));
 			
 			double sommeCourante = 0;
-			for (long i = indiceMin; i <= indiceMax; i++) {
+			int nbValeursPourSomme = 0;
+			for (long i = indiceMin; i < indiceMax && i < framesImportantes.length; i++) {
 				sommeCourante += framesImportantes[(int) i].bins[indiceFreqVoulue].amplitude;
+				nbValeursPourSomme++;
 			}
-			double moyenne = sommeCourante / (double) (indiceMax - indiceMin);
+			double moyenne = sommeCourante / (double) nbValeursPourSomme;
 			
 			Optional<Byte> bitRecu = analyserSignal(moyenne);
+			System.out.println("Bit reçu: " + bitRecu.get());
+			System.out.println("---------");
 			if(bitRecu.isPresent())
 				rdm.ajouterBit(bitRecu.get());
 			
@@ -189,9 +209,7 @@ public class EcouteurDeReception {
 		byte bit = -1;
 		if (amplitude >= volumeMinUn) {
 			bit = 1;
-			System.out.println("Amplitude 1 : " + amplitude);
 		} else if (amplitude >= volumeMinZero) {
-			System.out.println("Amplitude 0 : " + amplitude);
 			bit = 0;
 		}
 
@@ -306,19 +324,5 @@ public class EcouteurDeReception {
 	 */
 	private static boolean validerVolumeMin(double volumeMin) {
 		return volumeMin < 0;
-	}
-
-	public static void main(String[] args) throws Exception {
-//		MicrophoneAnalyzer micro = new MicrophoneAnalyzer(Type.WAVE);
-//		micro.open();
-//		micro.captureAudioToFile(new File(NOM_FICH_SON));
-//		Thread.sleep(10000);
-//		micro.close();
-		EcouteurDeReception edr = new EcouteurDeReception(100);
-		edr.ecouter(8000);
-		edr.reconstruire();
-		System.out.println(edr.getReconstitueur().getRepresentationBinaire().toString());
-		PasserelleFichier.ecrireOctets(edr.getReconstitueur().getRepresentationBinaire(), new File("recu.txt"));
-
 	}
 }
