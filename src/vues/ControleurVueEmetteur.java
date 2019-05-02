@@ -89,6 +89,7 @@ public class ControleurVueEmetteur {
 	private GenerateurSon generateurSon;
 	private LecteurSon lecteurSon;
 	private FloatProperty dureeSonBit = new SimpleFloatProperty(1f);
+	DoubleProperty tempsEstim;
 	private Thread threadSon;
 	private AnimationProgressBar animProgressBar;
 
@@ -170,6 +171,9 @@ public class ControleurVueEmetteur {
 		fileChooser.setTitle("Veuiller sélectionner un fichier");
 		file = fileChooser.showOpenDialog(application.getStage());
 		labelProgress.setText(getEmplacementFichierSelct());
+		float uptdate = dureeSonBit.get();
+		textFieldTempsUnBit.setText((dureeSonBit.get() - uptdate) + "");
+		textFieldTempsUnBit.setText((dureeSonBit.get() + uptdate) + "");
 	}
 	
 	@FXML
@@ -195,7 +199,6 @@ public class ControleurVueEmetteur {
 					DoubleProperty vitFich = new SimpleDoubleProperty(Math.round(valeur * 8));
 					labelVitesseFichier.textProperty().bind(vitFich.asString());
 					if (file != null) {
-						DoubleProperty tempsEstim;
 						try {
 							tempsEstim = new SimpleDoubleProperty(
 									Math.round(dureeSonBit.get() * (PasserelleFichier.lireOctets(file).length) * 8));
