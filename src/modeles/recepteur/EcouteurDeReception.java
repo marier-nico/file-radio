@@ -59,6 +59,11 @@ public class EcouteurDeReception {
 	 * Le nom du fichier temporaire dans lequel on écrit les sons que l'on reçoit.
 	 */
 	private static final String NOM_FICH_SON = "audio.wav";
+	
+	/**
+	 * L'objet nous permettant d'écrire les fichiers sonores.
+	 */
+	private MicrophoneAnalyzer micro = null;
 
 	/**
 	 * Ce constructeur permet d'initialiser le reconstitueur de messages.
@@ -78,11 +83,20 @@ public class EcouteurDeReception {
 	 * @throws InterruptedException
 	 */
 	public void ecouter(long millisecondes) throws LineUnavailableException, InterruptedException {
-		MicrophoneAnalyzer micro = new MicrophoneAnalyzer(Type.WAVE);
+		micro = new MicrophoneAnalyzer(Type.WAVE);
 		micro.open();
 		micro.captureAudioToFile(new File(NOM_FICH_SON));
 		Thread.sleep(millisecondes);
 		micro.close();
+	}
+	
+	/**
+	 * Cette méthode permet d'arrêter l'écoute. Si l'écoute n'est pas
+	 * en cours, il ne se passe rien.
+	 */
+	public void arretEcoute() {
+		if(micro != null)
+			micro.close();
 	}
 
 	/**
