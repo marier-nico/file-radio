@@ -2,6 +2,7 @@ package modeles.recepteur;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.stream.Stream;
@@ -44,7 +45,7 @@ public class EcouteurDeReception {
 	/**
 	 * La taille de la fenêtre pour calculer les FFT.
 	 */
-	public static final int WINDOW_SIZE = 64;
+	public static final int WINDOW_SIZE = 512;
 	/**
 	 * Le pourcentage des fenêtres du FFT qui sont superposées.
 	 */
@@ -55,17 +56,15 @@ public class EcouteurDeReception {
 	public static final double FREQUENCE_RECEPTION = 3300.0;
 
 	/**
-	 * Le nombre de temps par bit est important
-	 * pour décoder l'information.
+	 * Le nombre de temps par bit est important pour décoder l'information.
 	 */
 	private double tempsParBit = 0;
 
 	/**
-	 * Le nom du fichier temporaire dans lequel on écrit les sons
-	 * que l'on reçoit.
+	 * Le nom du fichier temporaire dans lequel on écrit les sons que l'on reçoit.
 	 */
 	private static final String NOM_FICH_SON = "audio.wav";
-	
+
 	/**
 	 * Ce constructeur permet d'initialiser le reconstitueur de messages.
 	 * 
@@ -94,8 +93,8 @@ public class EcouteurDeReception {
 	}
 
 	/**
-	 * Cette méthode permet d'obtenir le reconstitueur de
-	 * messages. Il est nécessaire pour recréer le fichier.
+	 * Cette méthode permet d'obtenir le reconstitueur de messages. Il est
+	 * nécessaire pour recréer le fichier.
 	 * 
 	 * @return le reconstitudur de messages
 	 */
@@ -104,12 +103,11 @@ public class EcouteurDeReception {
 	}
 
 	/**
-	 * Cette variable est exclusivement utile à
-	 * la méthode ci-dessous. Elle compte le nombre
-	 * de bits semblables que l'on voit de suite.
+	 * Cette variable est exclusivement utile à la méthode ci-dessous. Elle compte
+	 * le nombre de bits semblables que l'on voit de suite.
 	 */
 	private long nbBitsVu = 0;
-	
+
 	/**
 	 * Cette méthode permet de reconstruire le signal reçu du son vers une
 	 * représentation binaire.
@@ -123,33 +121,51 @@ public class EcouteurDeReception {
 		FFTFrame[] frames = fft.fftFrames;
 		System.out.println("Il y a " + frames.length + " frames.");
 
-		for (FFTFrame frame : frames) {
-			Optional<Byte> resultat = analyserSignal(frame);
-			if (resultat.isPresent()) {
-				byte bitObserve = resultat.get();
+		double tempsDebutReception = 0;
+		int indiceDebut = 0;
 
-				if (dernierBitVu.isPresent()) {
-					if (bitObserve == dernierBitVu.get()) {
-						nbBitsVu++;
-					} else {
-						long repetitionsBitPareil = Math
-								.round(((double) nbBitsVu * fft.windowDurationMs / tempsParBit));
-						for (int i = 0; i < repetitionsBitPareil; i++) {
-							rdm.ajouterBit(dernierBitVu.get());
-						}
-						System.out.println("On a vu un " + dernierBitVu.get() + " pendant "
-								+ (double) nbBitsVu * fft.windowDurationMs + " ms. Donc, " + repetitionsBitPareil
-								+ " fois \"" + dernierBitVu.get() + "\"");
-						dernierBitVu = Optional.of(bitObserve);
-						nbBitsVu = 1;
-					}
-				} else {
-					dernierBitVu = Optional.of(bitObserve);
-					nbBitsVu++;
-				}
-			} else {
-				// On ignore les valeurs qui ne sont pas un "1" ou un "0".
+		for (int i = 0; i < frames.length; i++) {
+			Optional<Byte> bitRecu = analyserSignal(frames[i]);
+			if (bitRecu.isPresent()) {
+				tempsDebutReception = frames[i].frameStartMs;
+				indiceDebut = i;
+				break;
 			}
+		}
+
+		double tempsFinReception = 0;
+		int indiceFin = 0;
+
+		for (int i = frames.length - 1; i >= 0; i--) {
+			Optional<Byte> bitRecu = analyserSignal(frames[i]);
+			if (bitRecu.isPresent()) {
+				tempsFinReception = frames[i].frameEndMs;
+				indiceFin = i;
+				break;
+			}
+		}
+
+		FFTFrame[] framesImportantes = Arrays.copyOfRange(frames, indiceDebut, indiceFin + 1);
+		long nbBits = (long) Math.ceil((tempsFinReception - tempsDebutReception) / tempsParBit);
+		double framesParBit = (double) framesImportantes.length / nbBits;
+
+		int bitEnCours = 1;
+		long indiceMin = 0;
+		while (bitEnCours <= nbBits) {
+			long indiceMax = Math.round((double) bitEnCours * framesParBit);
+			
+			double sommeCourante = 0;
+			for (long i = indiceMin; i <= indiceMax; i++) {
+				sommeCourante += framesImportantes[(int) i].bins[indiceFreqVoulue].amplitude;
+			}
+			double moyenne = sommeCourante / (double) (indiceMax - indiceMin);
+			
+			Optional<Byte> bitRecu = analyserSignal(moyenne);
+			if(bitRecu.isPresent())
+				rdm.ajouterBit(bitRecu.get());
+			
+			bitEnCours++;
+			indiceMin = indiceMax;
 		}
 	}
 
@@ -161,17 +177,21 @@ public class EcouteurDeReception {
 	 * @return un Optional qui contient le bit reçu ou rien, si rien n'a été reçu
 	 */
 	private Optional<Byte> analyserSignal(FFTFrame frame) {
+		FrequencyBin bin = frame.bins[indiceFreqVoulue];
+		return analyserSignal(bin.amplitude);
+	}
+
+	private Optional<Byte> analyserSignal(double amplitude) {
 		if (!validerVolumeMin(volumeMinUn) || !validerVolumeMin(volumeMinZero)) {
 			throw new IllegalStateException("Il faut calibrer le programme.");
 		}
 
-		FrequencyBin bin = frame.bins[indiceFreqVoulue];
 		byte bit = -1;
-		if (bin.amplitude >= volumeMinUn) {
+		if (amplitude >= volumeMinUn) {
 			bit = 1;
-			System.out.println("Amplitude 1 : " + bin.amplitude);
-		} else if (bin.amplitude >= volumeMinZero) {
-			System.out.println("Amplitude 0 : " + bin.amplitude);
+			System.out.println("Amplitude 1 : " + amplitude);
+		} else if (amplitude >= volumeMinZero) {
+			System.out.println("Amplitude 0 : " + amplitude);
 			bit = 0;
 		}
 
@@ -185,24 +205,27 @@ public class EcouteurDeReception {
 	 * minimal pour interpréter un bit donné.
 	 * 
 	 * @return le volume minimal pour un bit
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	private double calibrerVolumeBit(byte unOuZero, double diminutionSup) throws Exception {
 		ecouter(500);
 		FFTResult resultat = getResultatFFT(WINDOW_SIZE, OVERLAP);
-		OptionalDouble bitMoyen = Stream.of(resultat.fftFrames)
-			  .mapToDouble(f -> f.bins[indiceFreqVoulue].amplitude)
-			  .average();
-		
-		double volumeBitMoyen = bitMoyen.orElseThrow(() -> new IllegalStateException("Impossible de déterminer le volume d'un \"" + unOuZero + "\".")) - diminutionSup;
-		if(unOuZero == 1) {
-			volumeMinUn = volumeBitMoyen;
-		} else if(unOuZero == 0) {
-			volumeMinZero = volumeBitMoyen;
+		OptionalDouble bitPetit = Stream.of(resultat.fftFrames).mapToDouble(f -> f.bins[indiceFreqVoulue].amplitude)
+				.min();
+
+		double volumeBitMoyen = bitPetit.orElseThrow(
+				() -> new IllegalStateException("Impossible de déterminer le volume d'un \"" + unOuZero + "\"."))
+				- diminutionSup;
+		if (unOuZero == 1) {
+			// volumeMinUn = volumeBitMoyen;
+			volumeMinUn = -12;
+		} else if (unOuZero == 0) {
+			// volumeMinZero = volumeBitMoyen;
+			volumeMinZero = -21;
 		} else {
 			throw new IllegalArgumentException("On peut seulement calibrer pour les uns et les zéros.");
 		}
-		
+
 		return volumeBitMoyen;
 	}
 
@@ -213,10 +236,16 @@ public class EcouteurDeReception {
 	 * @throws Exception
 	 */
 	public void calibrer(double diminutionSup) throws Exception {
-		Thread.sleep(250);
-		System.out.println("Volume un : " + calibrerVolumeBit((byte) 1, diminutionSup));
-		Thread.sleep(400);
-		System.out.println("Volume zéro : " + calibrerVolumeBit((byte) 0, diminutionSup));
+//		Thread.sleep(100);
+//		System.out.println("Volume un : " + calibrerVolumeBit((byte) 1, diminutionSup));
+//		Thread.sleep(800);
+//		System.out.println("Volume zéro : " + calibrerVolumeBit((byte) 0, diminutionSup));
+//		ecouter(2250);
+//		FFTResult resultat = getResultatFFT(WINDOW_SIZE, OVERLAP);
+//		Stream.of(resultat.fftFrames)
+//			  .mapToDouble(f -> f.bins[indiceFreqVoulue].amplitude).forEach(d -> System.out.println(d));
+		calibrerVolumeBit((byte) 0, 0);
+		calibrerVolumeBit((byte) 1, 0);
 	}
 
 	/**
@@ -279,17 +308,17 @@ public class EcouteurDeReception {
 		return volumeMin < 0;
 	}
 
-//	public static void main(String[] args) throws Exception {
-////		MicrophoneAnalyzer micro = new MicrophoneAnalyzer(Type.WAVE);
-////		micro.open();
-////		micro.captureAudioToFile(new File(NOM_FICH_SON));
-////		Thread.sleep(10000);
-////		micro.close();
-//		EcouteurDeReception edr = new EcouteurDeReception(100);
-//		edr.ecouter(8000);
-//		edr.reconstruire();
-//		System.out.println(edr.getReconstitueur().getRepresentationBinaire().toString());
-//		PasserelleFichier.ecrireOctets(edr.getReconstitueur().getRepresentationBinaire(), new File("recu.txt"));
-//
-//	}
+	public static void main(String[] args) throws Exception {
+//		MicrophoneAnalyzer micro = new MicrophoneAnalyzer(Type.WAVE);
+//		micro.open();
+//		micro.captureAudioToFile(new File(NOM_FICH_SON));
+//		Thread.sleep(10000);
+//		micro.close();
+		EcouteurDeReception edr = new EcouteurDeReception(100);
+		edr.ecouter(8000);
+		edr.reconstruire();
+		System.out.println(edr.getReconstitueur().getRepresentationBinaire().toString());
+		PasserelleFichier.ecrireOctets(edr.getReconstitueur().getRepresentationBinaire(), new File("recu.txt"));
+
+	}
 }
