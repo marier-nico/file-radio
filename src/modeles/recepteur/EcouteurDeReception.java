@@ -56,11 +56,6 @@ public class EcouteurDeReception {
 	public static final double FREQUENCE_RECEPTION = 3300.0;
 
 	/**
-	 * Le nombre de temps par bit est important pour décoder l'information.
-	 */
-	private double tempsParBit = 0;
-
-	/**
 	 * Le nom du fichier temporaire dans lequel on écrit les sons que l'on reçoit.
 	 */
 	private static final String NOM_FICH_SON = "audio.wav";
@@ -99,33 +94,20 @@ public class EcouteurDeReception {
 	public ReconstitueurDeMessages getReconstitueur() {
 		return rdm;
 	}
-	
-	/**
-	 * Modifier la valeur du temps par bit (en millisecondes)
-	 * 
-	 * @param millis le nombre de temps par bit
-	 */
-	public void setTempsParBit(long millis) {
-		tempsParBit = millis;
-	}
-
-	/**
-	 * Cette variable est exclusivement utile à la méthode ci-dessous. Elle compte
-	 * le nombre de bits semblables que l'on voit de suite.
-	 */
-	private long nbBitsVu = 0;
 
 	/**
 	 * Cette méthode permet de reconstruire le signal reçu du son vers une
-	 * représentation binaire.
+	 * représentation.
 	 * 
+	 * @param tempsParBit le temps pour un bit (en millisecondes)
 	 * @throws IOException
 	 * @throws UnsupportedAudioFileException
 	 */
-	public void reconstruire() throws IOException, UnsupportedAudioFileException {
+	public void reconstruire(double tempsParBit) throws IOException, UnsupportedAudioFileException {
 		if(tempsParBit <= 0) {
 			throw new IllegalStateException("Le temps par bit doit être plus grand que 0.");
 		}
+		
 		FFTResult fft = getResultatFFT(WINDOW_SIZE, OVERLAP);
 		FFTFrame[] frames = fft.fftFrames;
 		System.out.println("Il y a " + frames.length + " frames.");
