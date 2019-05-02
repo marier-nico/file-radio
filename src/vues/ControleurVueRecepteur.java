@@ -86,7 +86,7 @@ public class ControleurVueRecepteur {
 	
 	public ControleurVueRecepteur() {
 		try {
-			ecouteur  = new EcouteurDeReception(dureeIntervalleRecep.get() * 1000);
+			ecouteur  = new EcouteurDeReception();
 		} catch (Exception e) {
 		afficherErreur("écoute", "une erreur est survenue lors de l'écoute", e);
 		}
@@ -122,7 +122,7 @@ public class ControleurVueRecepteur {
 						try {
 							// plante après reécouter...
 							ecouteur.ecouter(tempsReception.get() * 1000);
-							ecouteur.reconstruire();
+							ecouteur.reconstruire(dureeIntervalleRecep.get() * 1000);
 							PasserelleFichier.ecrireOctets(ecouteur.getReconstitueur().getRepresentationBinaire(), file);
 						} catch (IllegalStateException | LineUnavailableException | InterruptedException | IOException | UnsupportedAudioFileException ex) {
 							ex.printStackTrace();
