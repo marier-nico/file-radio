@@ -8,27 +8,12 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="1255.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueRecepteur">
-   <top>
-      <StackPane prefHeight="89.0" prefWidth="850.0" BorderPane.alignment="CENTER">
-         <children>
-            <Pane fx:id="paneAnimation" prefHeight="200.0" prefWidth="200.0" styleClass="pane">
-               <children>
-                  <Line id="lines" endX="875.0" layoutX="423.0" layoutY="46.5" startX="-425.0" />
-                  <Line id="lines" endX="-77.0" layoutX="100.0" layoutY="23.25" startX="-100.0" />
-                  <Line id="lines" endX="-77.0" layoutX="100.0" layoutY="69.75" startX="-100.0" />
-               </children>
-            </Pane>
-         </children>
-      </StackPane>
-   </top>
    <left>
       <VBox id="contours" prefHeight="662.0" prefWidth="211.0" BorderPane.alignment="CENTER">
          <children>
@@ -94,6 +79,25 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </JFXButton>
+            <VBox prefHeight="38.0" prefWidth="211.0" spacing="20.0">
+               <children>
+                  <HBox prefHeight="2.0" prefWidth="211.0">
+                     <children>
+                        <Label text="VOLUME 1 : " />
+                        <Label fx:id="volumeUn" prefHeight="17.0" prefWidth="25.0" text="?" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="2.0" prefWidth="211.0">
+                     <children>
+                        <Label text="VOLUME 0 : " />
+                        <Label fx:id="volumeZeros" prefHeight="17.0" prefWidth="25.0" text="?" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+            </VBox>
             <Region prefHeight="16.0" prefWidth="192.0" VBox.vgrow="ALWAYS" />
          </children>
          <padding>
@@ -136,4 +140,11 @@
          </padding>
       </VBox>
    </center>
+   <top>
+      <JFXTextField fx:id="textFieldResultat" alignment="BOTTOM_CENTER" editable="false" focusColor="#63d36a" unFocusColor="WHITE" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+   </top>
 </BorderPane>
