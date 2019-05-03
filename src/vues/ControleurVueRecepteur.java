@@ -73,6 +73,15 @@ public class ControleurVueRecepteur {
 	@FXML
 	private JFXTextField textFieldInterv;
 
+	@FXML
+	private JFXTextField textFieldResultat;
+
+	@FXML
+	private Label volumeUn;
+
+	@FXML
+	private Label volumeZeros;
+
 	private ApplicationRadio application = null;
 	public static final String ADRESSE_VUE_RECEPTEUR = "/vues/Vue_Recepteur.fxml";
 	final FileChooser fileChooser = new FileChooser();
@@ -83,12 +92,13 @@ public class ControleurVueRecepteur {
 	private AnimationProgressBar animProgress;
 	private Thread threadEcoute;
 	private EcouteurDeReception ecouteur;
-	
+
 	public ControleurVueRecepteur() {
 		try {
-			ecouteur  = new EcouteurDeReception();
+			// TODO transférer cette instanciation dans le clicked btn écouter
+			ecouteur = new EcouteurDeReception();
 		} catch (Exception e) {
-		afficherErreur("écoute", "une erreur est survenue lors de l'écoute", e);
+			afficherErreur("écoute", "une erreur est survenue lors de l'écoute", e);
 		}
 	}
 
@@ -123,8 +133,10 @@ public class ControleurVueRecepteur {
 							// plante après reécouter...
 							ecouteur.ecouter(tempsReception.get() * 1000);
 							ecouteur.reconstruire(dureeIntervalleRecep.get() * 1000);
-							PasserelleFichier.ecrireOctets(ecouteur.getReconstitueur().getRepresentationBinaire(), file);
-						} catch (IllegalStateException | LineUnavailableException | InterruptedException | IOException | UnsupportedAudioFileException ex) {
+							PasserelleFichier.ecrireOctets(ecouteur.getReconstitueur().getRepresentationBinaire(),
+									file);
+						} catch (IllegalStateException | LineUnavailableException | InterruptedException | IOException
+								| UnsupportedAudioFileException ex) {
 							ex.printStackTrace();
 						}
 					}
@@ -132,6 +144,7 @@ public class ControleurVueRecepteur {
 				threadEcoute.start();
 				ajoutLabel(new Label("Écoute en cours..."));
 				animProgress = new AnimationProgressBar(progressBar, tempsReception.get() * 1000, 0.001);
+				// TODO Afficher message recue dans textFieldResultat
 			}
 		}
 	}
@@ -150,6 +163,10 @@ public class ControleurVueRecepteur {
 	void clickedCalibrer(ActionEvent event) {
 		try {
 			ecouteur.calibrer(3);
+			ajoutLabel(new Label("Calibration en cours..."));
+			//TODO modifier label volume
+			//volumeUn.setText();
+			//volumeZeros.setText();
 		} catch (Exception e) {
 			afficherErreur("calibration", e.getMessage(), e);
 		}
@@ -213,7 +230,7 @@ public class ControleurVueRecepteur {
 		erreur.setTitle("Erreur");
 		erreur.showAndWait();
 	}
-	
+
 	private void afficherErreur(String emplacement, String detail) {
 		Alert erreur = new Alert(AlertType.ERROR);
 		erreur.setHeaderText("Erreur dans " + emplacement);
