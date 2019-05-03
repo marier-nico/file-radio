@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.OpenOption;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 import modeles.OctetBinaire;
@@ -55,6 +57,17 @@ public class PasserelleFichier {
 	 */
 	public static List<String> lireCaracteres(File fichier) throws IOException {
 		return Files.readAllLines(fichier.toPath());
+	}
+	
+	/**
+	 * Cette méthode permet d'écrire des lignes dans un fichier.
+	 * 
+	 * @param fichier le fichier où écrire les caractères
+	 * @param lignes les lignes à écrire
+	 * @throws IOException
+	 */
+	public static void ecrireCaracteres(File fichier, Iterable<? extends CharSequence> lignes) throws IOException {
+		Files.write(fichier.toPath(), lignes, StandardOpenOption.WRITE);
 	}
 	
 	/**
