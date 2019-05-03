@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.List;
 
 import modeles.OctetBinaire;
 import modeles.RepresentationBinaire;
@@ -43,6 +44,17 @@ public class PasserelleFichier {
 		}
 		bos.flush();
 		bos.close();
+	}
+	
+	/**
+	 * Cette méthode permet de lire les lignes du fichier en paramètre.
+	 * 
+	 * @param fichier le fichier à lire
+	 * @return les lignes du fichier
+	 * @throws IOException
+	 */
+	public static List<String> lireCaracteres(File fichier) throws IOException {
+		return Files.readAllLines(fichier.toPath());
 	}
 	
 	/**
