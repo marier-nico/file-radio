@@ -45,7 +45,7 @@ public class EcouteurDeReception {
 	/**
 	 * La taille de la fenêtre pour calculer les FFT.
 	 */
-	public static final int WINDOW_SIZE = 16;
+	public static final int WINDOW_SIZE = 8;
 	/**
 	 * Le pourcentage des fenêtres du FFT qui sont superposées.
 	 */
@@ -71,7 +71,6 @@ public class EcouteurDeReception {
 	 * @throws Exception
 	 */
 	public EcouteurDeReception() throws Exception {
-		rdm = new ReconstitueurDeMessages();
 		indiceFreqVoulue = getIndiceBin(FREQUENCE_RECEPTION);
 	}
 
@@ -122,6 +121,7 @@ public class EcouteurDeReception {
 			throw new IllegalStateException("Le temps par bit doit être plus grand que 0.");
 		}
 		
+		rdm = new ReconstitueurDeMessages();
 		FFTResult fft = getResultatFFT(WINDOW_SIZE, OVERLAP);
 		FFTFrame[] frames = fft.fftFrames;
 		System.out.println("Il y a " + frames.length + " frames.");
@@ -153,9 +153,11 @@ public class EcouteurDeReception {
 		System.out.println("TEMPS FIN: " + tempsFinReception);
 
 		FFTFrame[] framesImportantes = Arrays.copyOfRange(frames, indiceDebut, indiceFin + 1);
+		System.out.println("FRAMES IMOIRTANTS: " + framesImportantes.length);
 		double nbBits = (tempsFinReception - tempsDebutReception) / tempsParBit;
 		double framesParBit = (double) framesImportantes.length / nbBits;
 		System.out.println("FRAMES PAR BIT: " + framesParBit);
+		System.out.println("TEMPS PAR BIT: " + tempsParBit);
 
 		int bitEnCours = 1;
 		long indiceMin = 0;
@@ -175,14 +177,20 @@ public class EcouteurDeReception {
 			double moyenne = sommeCourante / (double) nbValeursPourSomme;
 			
 			Optional<Byte> bitRecu = analyserSignal(moyenne);
-			System.out.println("Bit reçu: " + bitRecu.get());
-			System.out.println("---------");
-			if(bitRecu.isPresent())
+			
+			if(bitRecu.isPresent()) {
+				System.out.println("Bit reçu: " + bitRecu.get() + "(" + moyenne + ")");
 				rdm.ajouterBit(bitRecu.get());
+			} else {
+				System.out.println("RIEN REÇU: " + moyenne);
+				rdm.ajouterBit((byte) 0);
+			}
+			System.out.println("---------");
 			
 			bitEnCours++;
 			indiceMin = indiceMax;
 		}
+		System.out.println("------------------------------------------------");
 	}
 
 	/**
@@ -232,10 +240,10 @@ public class EcouteurDeReception {
 				- diminutionSup;
 		if (unOuZero == 1) {
 			// volumeMinUn = volumeBitMoyen;
-			volumeMinUn = -12;
+			volumeMinUn = -15;
 		} else if (unOuZero == 0) {
 			// volumeMinZero = volumeBitMoyen;
-			volumeMinZero = -21;
+			volumeMinZero = -20;
 		} else {
 			throw new IllegalArgumentException("On peut seulement calibrer pour les uns et les zéros.");
 		}
@@ -254,7 +262,7 @@ public class EcouteurDeReception {
 //		System.out.println("Volume un : " + calibrerVolumeBit((byte) 1, diminutionSup));
 //		Thread.sleep(800);
 //		System.out.println("Volume zéro : " + calibrerVolumeBit((byte) 0, diminutionSup));
-//		ecouter(2250);
+//		ecouter(1000);
 //		FFTResult resultat = getResultatFFT(WINDOW_SIZE, OVERLAP);
 //		Stream.of(resultat.fftFrames)
 //			  .mapToDouble(f -> f.bins[indiceFreqVoulue].amplitude).forEach(d -> System.out.println(d));
@@ -320,5 +328,10 @@ public class EcouteurDeReception {
 	 */
 	private static boolean validerVolumeMin(double volumeMin) {
 		return volumeMin < 0;
+	}
+	
+	public static void main(String[] args) throws Exception {
+		EcouteurDeReception edr = new EcouteurDeReception();
+		edr.calibrer(12);
 	}
 }
