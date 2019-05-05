@@ -70,7 +70,7 @@ public class ControleurVueMenu {
 	}
 
 	@FXML
-	void selectedPowderBlue(ActionEvent event) {
+	private void selectedPowderBlue(ActionEvent event) {
 		if (((RadioMenuItem) event.getSource()).isSelected()) {
 			darkNGreen.setSelected(false);
 			powderBlue.setDisable(true);
@@ -81,7 +81,7 @@ public class ControleurVueMenu {
 	}
 
 	@FXML
-	void selectedDarkNGreen(ActionEvent event) {
+	private void selectedDarkNGreen(ActionEvent event) {
 		if (((RadioMenuItem) event.getSource()).isSelected()) {
 			powderBlue.setSelected(false);
 			powderBlue.setDisable(false);

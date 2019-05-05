@@ -118,7 +118,7 @@ public class ControleurVueRecepteur {
 	}
 
 	@FXML
-	void clickedBtnEcouter(ActionEvent event) {
+	private void clickedBtnEcouter(ActionEvent event) {
 		if (file != null) {
 			if ((threadEcoute != null) && (threadEcoute.isAlive())) {
 				afficherErreur("écoute", "un message est déjà en écoute");
@@ -150,7 +150,7 @@ public class ControleurVueRecepteur {
 	}
 
 	@FXML
-	void clickedBtnAnnuler(ActionEvent event) {
+	private void clickedBtnAnnuler(ActionEvent event) {
 		if ((threadEcoute != null) && threadEcoute.isAlive()) {
 			ecouteur.arretEcoute();
 			threadEcoute.stop();
@@ -160,7 +160,7 @@ public class ControleurVueRecepteur {
 	}
 
 	@FXML
-	void clickedCalibrer(ActionEvent event) {
+	private void clickedCalibrer(ActionEvent event) {
 		try {
 			ecouteur.calibrer(3);
 			ajoutLabel(new Label("Calibration en cours..."));

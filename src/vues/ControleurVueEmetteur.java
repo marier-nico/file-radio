@@ -89,7 +89,7 @@ public class ControleurVueEmetteur {
 	private GenerateurSon generateurSon;
 	private LecteurSon lecteurSon;
 	private FloatProperty dureeSonBit = new SimpleFloatProperty(1f);
-	DoubleProperty tempsEstim;
+	private DoubleProperty tempsEstim;
 	private Thread threadSon;
 	private AnimationProgressBar animProgressBar;
 
