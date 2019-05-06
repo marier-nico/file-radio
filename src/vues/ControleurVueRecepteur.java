@@ -197,6 +197,11 @@ public class ControleurVueRecepteur extends Vue {
 			threadEcoute.stop();
 			animProgress.stopProgressAnim();
 			ajoutLabel(new Label("Arrêt de l'écoute..."), vboxMessages);
+			try {
+				ecouteur = new EcouteurDeReception();
+			} catch (Exception e) {
+				afficherErreur("écoute", "une erreur est survenue lors de l'écoute", e);
+			}
 		}
 	}
 

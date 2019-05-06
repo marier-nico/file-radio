@@ -94,6 +94,7 @@ public class ControleurVueEmetteur extends Vue {
 	private DoubleProperty tempsEstim;
 	private Thread threadSon;
 	private AnimationProgressBar animProgressBar;
+	//TODO
 	private int nbValidationInfo = 0;
 
 	/**
