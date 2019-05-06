@@ -15,7 +15,7 @@
 
 <BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="1255.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueRecepteur">
    <left>
-      <VBox id="contours" prefHeight="662.0" prefWidth="211.0" BorderPane.alignment="CENTER">
+      <VBox id="contours" prefHeight="721.0" prefWidth="247.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="172.0" prefWidth="139.0" spacing="15.0">
                <children>
@@ -114,7 +114,7 @@
    <bottom>
       <HBox id="contours" fx:id="hboxProgressBar" prefHeight="44.0" prefWidth="1255.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton fx:id="btnSelectionner" buttonType="RAISED" onAction="#clickedBtnSelect" prefHeight="44.0" prefWidth="210.0" text="SÉLECTIONNER" />
+            <JFXButton fx:id="btnSelectionner" buttonType="RAISED" onAction="#clickedBtnSelect" prefHeight="44.0" prefWidth="247.0" text="SÉLECTIONNER" />
             <StackPane prefHeight="44.0" prefWidth="754.0" HBox.hgrow="ALWAYS">
                <children>
                   <ProgressBar fx:id="progressBar" prefHeight="44.0" prefWidth="881.0" progress="0.0" styleClass="progressBar" />
@@ -141,7 +141,7 @@
       </VBox>
    </center>
    <top>
-      <JFXTextField fx:id="textFieldResultat" alignment="BOTTOM_CENTER" editable="false" focusColor="#63d36a" unFocusColor="WHITE" BorderPane.alignment="CENTER">
+      <JFXTextField fx:id="textFieldResultat" alignment="BOTTOM_CENTER" editable="false" focusColor="#63d36a" prefHeight="61.0" prefWidth="1255.0" unFocusColor="WHITE" BorderPane.alignment="CENTER">
          <font>
             <Font size="14.0" />
          </font>

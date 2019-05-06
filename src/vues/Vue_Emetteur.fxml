@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -8,29 +9,14 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="1255.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueEmetteur">
-   <top>
-      <StackPane prefHeight="89.0" prefWidth="850.0" BorderPane.alignment="CENTER">
-         <children>
-            <Pane fx:id="paneAnimation" prefHeight="200.0" prefWidth="200.0" styleClass="pane">
-               <children>
-                  <Line id="lines" endX="888.5" layoutX="423.0" layoutY="46.5" startX="-425.0" />
-                  <Line id="lines" endX="-77.0" layoutX="100.0" layoutY="23.25" startX="-100.0" />
-                  <Line id="lines" endX="-77.0" layoutX="100.0" layoutY="69.75" startX="-100.0" />
-               </children>
-            </Pane>
-         </children>
-      </StackPane>
-   </top>
    <left>
-      <VBox id="contours" prefHeight="660.0" prefWidth="198.0" BorderPane.alignment="CENTER">
+      <VBox id="contours" prefHeight="660.0" prefWidth="247.0" BorderPane.alignment="CENTER">
          <children>
             <VBox prefHeight="189.0" prefWidth="195.0" spacing="15.0">
                <children>
@@ -49,7 +35,7 @@
                   <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Label text="FRÉQUENCE :" />
-                        <Label text="1280 kHz" />
+                        <Label text="3300 kHz" />
                      </children>
                   </HBox>
                   <HBox prefHeight="0.0" prefWidth="200.0">
@@ -104,7 +90,7 @@
    <bottom>
       <HBox fx:id="hboxProgressBar" prefHeight="44.0" prefWidth="1076.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton fx:id="btnSelectionner" buttonType="RAISED" onAction="#clickedBtnSelect" prefHeight="44.0" prefWidth="221.0" text="SÉLECTIONNER" />
+            <JFXButton fx:id="btnSelectionner" buttonType="RAISED" onAction="#clickedBtnSelect" prefHeight="44.0" prefWidth="288.0" text="SÉLECTIONNER" />
             <StackPane prefHeight="44.0" prefWidth="834.0" HBox.hgrow="ALWAYS">
                <children>
                   <ProgressBar fx:id="progressBar" prefHeight="96.0" prefWidth="841.0" progress="0.0" />
@@ -118,7 +104,7 @@
                   <Insets />
                </HBox.margin>
             </StackPane>
-            <JFXButton fx:id="btnAnnuler" buttonType="RAISED" onAction="#clickedBtnAnnuler" prefHeight="44.0" prefWidth="144.0" text="ANNULER" />
+            <JFXButton fx:id="btnAnnuler" buttonType="RAISED" onAction="#clickedBtnAnnuler" prefHeight="44.0" prefWidth="169.0" text="ANNULER" />
             <JFXButton fx:id="btnEnvoyer" buttonType="RAISED" layoutX="10.0" layoutY="10.0" onAction="#clickedBtnEnvoyer" prefHeight="44.0" prefWidth="144.0" text="ENVOYER" />
          </children>
          <BorderPane.margin>
@@ -133,4 +119,7 @@
          </padding>
       </VBox>
    </center>
+   <top>
+      <JFXTextArea focusColor="WHITE" prefHeight="53.0" prefWidth="1255.0" unFocusColor="#0ccd0c" BorderPane.alignment="CENTER" />
+   </top>
 </BorderPane>
