@@ -221,7 +221,6 @@ public class ControleurVueEmetteur extends Vue {
 					labelVitesseFichier.textProperty().bind(vitFich.asString());
 					if (file != null) {
 						validTextField = true;
-						actualiserValidation();
 						try {
 							tempsEstim = new SimpleDoubleProperty(
 									Math.round(dureeSonBit.get() * (PasserelleFichier.lireOctets(file).length) * 8));
@@ -233,8 +232,8 @@ public class ControleurVueEmetteur extends Vue {
 				} else {
 					dureeSonBit.set(0);
 					validTextField = false;
-					actualiserValidation();
 				}
+				actualiserValidation();
 			}
 		});
 	}
@@ -253,6 +252,11 @@ public class ControleurVueEmetteur extends Vue {
 		}
 	}
 	
+	/**
+	 * Vérifi si tout les éléments ont été sélectionné avant l'envoi du fichier. Si
+	 * c'est le cas, elle modifi la couleur de la pastille sur la vue pour indiquer
+	 * que l'application est oppérationnel ou pas pour l'envoi.
+	 */
 	private void actualiserValidation() {
 		if (validSelect && validTextField) {
 			cercleValidation.setFill(javafx.scene.paint.Color.web("#34a853"));

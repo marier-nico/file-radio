@@ -26,6 +26,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import modeles.AnimationProgressBar;
 import modeles.passerelle.PasserelleFichier;
@@ -83,14 +84,21 @@ public class ControleurVueRecepteur extends Vue {
 	@FXML
 	private Label volumeZeros;
 
+	@FXML
+	private Circle cercleValidation;
+
 	public static final String ADRESSE_VUE_RECEPTEUR = "/vues/Vue_Recepteur.fxml";
 	final FileChooser fileChooser = new FileChooser();
 	private File file;
 	private FloatProperty dureeIntervalleRecep = new SimpleFloatProperty(1f);
-	private LongProperty tempsReception = new SimpleLongProperty(1);
+	private FloatProperty tempsReception = new SimpleFloatProperty(1f);
 	private AnimationProgressBar animProgress;
 	private Thread threadEcoute;
 	private EcouteurDeReception ecouteur;
+	private boolean validSelect = false;
+	private boolean validTFInterv = true;
+	private boolean validTFTemps = true;
+	private boolean validCalibrer = false;
 
 	/**
 	 * Construit un controleurVueRecepteur en instanciant un EcouteurDeReception.
@@ -124,6 +132,11 @@ public class ControleurVueRecepteur extends Vue {
 		fileChooser.setTitle("Veuiller sélectionner un emplacement de destination");
 		file = fileChooser.showSaveDialog(getApplication().getStage());
 		labelProgress.setText(getEmplacementFichierSelct(file));
+		validSelect = true;
+		if (file == null) {
+			validSelect = false;
+		}
+		actualiserValidation();
 	}
 
 	/**
@@ -145,7 +158,7 @@ public class ControleurVueRecepteur extends Vue {
 					public void run() {
 						try {
 							// plante après reécouter...
-							ecouteur.ecouter(tempsReception.get() * 1000);
+							ecouteur.ecouter((long) (tempsReception.get() * 1000));
 							ecouteur.reconstruire(dureeIntervalleRecep.get() * 1000);
 							PasserelleFichier.ecrireOctets(ecouteur.getReconstitueur().getRepresentationBinaire(),
 									file);
@@ -158,7 +171,8 @@ public class ControleurVueRecepteur extends Vue {
 				threadEcoute.start();
 				ajoutLabel(new Label("Écoute en cours..."), vboxMessages);
 				animProgress = new AnimationProgressBar(progressBar, tempsReception.get() * 1000, 0.001);
-				//TODO ne fonctionnera pas comme le thread doit avoir fini
+
+				// TODO ne fonctionnera pas comme le thread doit avoir fini
 				if (getExtensionFichier(file) == "txt") {
 					try {
 						textFieldResultat.setText(PasserelleFichier.lireLignes(file).get(0));
@@ -172,7 +186,7 @@ public class ControleurVueRecepteur extends Vue {
 			}
 		}
 	}
-	
+
 	public static String getExtensionFichier(File file) {
 		String retour = "Rien";
 		if (file != null) {
@@ -215,12 +229,15 @@ public class ControleurVueRecepteur extends Vue {
 		try {
 			ecouteur.calibrer(3);
 			ajoutLabel(new Label("Calibration en cours..."), vboxMessages);
+
 			// TODO modifier label volume
 			volumeUn.setText(ecouteur.getVolumeUn() + "");
 			volumeZeros.setText(ecouteur.getVolumeZero() + "");
 		} catch (Exception e) {
 			afficherErreur("calibration", e.getMessage(), e);
 		}
+		validCalibrer = true;
+		actualiserValidation();
 	}
 
 	/**
@@ -234,11 +251,14 @@ public class ControleurVueRecepteur extends Vue {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (newValue.matches("-?\\d+(\\.\\d+)?")) {
-					long valeur = Long.parseLong(newValue);
+					float valeur = Float.parseFloat(newValue);
 					tempsReception.set(valeur);
+					validTFTemps = true;
 				} else {
 					tempsReception.set(0);
+					validTFTemps = false;
 				}
+				actualiserValidation();
 			}
 		});
 
@@ -248,10 +268,26 @@ public class ControleurVueRecepteur extends Vue {
 				if (newValue.matches("-?\\d+(\\.\\d+)?")) {
 					float valeur = Float.parseFloat(newValue);
 					dureeIntervalleRecep.set(valeur);
+					validTFInterv = true;
 				} else {
 					dureeIntervalleRecep.set(0);
+					validTFInterv = false;
 				}
+				actualiserValidation();
 			}
 		});
+	}
+
+	/**
+	 * Vérifi si tout les éléments ont été sélectionné avant l'écoute du fichier. Si
+	 * c'est le cas, elle modifi la couleur de la pastille sur la vue pour indiquer
+	 * que l'application est oppérationnel ou pas pour l'écoute.
+	 */
+	private void actualiserValidation() {
+		if (validSelect && validTFInterv && validTFTemps && validCalibrer) {
+			cercleValidation.setFill(javafx.scene.paint.Color.web("#34a853"));
+		} else {
+			cercleValidation.setFill(javafx.scene.paint.Color.web("#f85959"));
+		}
 	}
 }
