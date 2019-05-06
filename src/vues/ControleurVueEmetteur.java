@@ -7,6 +7,7 @@ import javax.sound.sampled.LineUnavailableException;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import com.sun.prism.paint.Color;
 
 import controleurs.ApplicationRadio;
 import javafx.beans.property.DoubleProperty;
@@ -94,9 +95,9 @@ public class ControleurVueEmetteur extends Vue {
 	private DoubleProperty tempsEstim;
 	private Thread threadSon;
 	private AnimationProgressBar animProgressBar;
-	//TODO
-	private int nbValidationInfo = 0;
-
+	private boolean validSelect = false;
+	private boolean validTextField = true;
+	
 	/**
 	 * Permet d'obtenir le borderPaneRoot de la vue.
 	 * 
@@ -181,6 +182,12 @@ public class ControleurVueEmetteur extends Vue {
 		float uptdate = dureeSonBit.get();
 		textFieldTempsUnBit.setText((dureeSonBit.get() - uptdate) + "");
 		textFieldTempsUnBit.setText((dureeSonBit.get() + uptdate) + "");
+		validSelect = true;
+		if (file == null) {
+			validSelect = false;
+			
+		}
+		actualiserValidation();
 	}
 
 	/**
@@ -213,6 +220,8 @@ public class ControleurVueEmetteur extends Vue {
 					DoubleProperty vitFich = new SimpleDoubleProperty(Math.round(valeur * 8));
 					labelVitesseFichier.textProperty().bind(vitFich.asString());
 					if (file != null) {
+						validTextField = true;
+						actualiserValidation();
 						try {
 							tempsEstim = new SimpleDoubleProperty(
 									Math.round(dureeSonBit.get() * (PasserelleFichier.lireOctets(file).length) * 8));
@@ -223,6 +232,8 @@ public class ControleurVueEmetteur extends Vue {
 					}
 				} else {
 					dureeSonBit.set(0);
+					validTextField = false;
+					actualiserValidation();
 				}
 			}
 		});
@@ -239,6 +250,14 @@ public class ControleurVueEmetteur extends Vue {
 			threadSon.stop();
 			animProgressBar.stopProgressAnim();
 			ajoutLabel(new Label("L'envoi a été annulé"), vboxMessages);
+		}
+	}
+	
+	private void actualiserValidation() {
+		if (validSelect && validTextField) {
+			cercleValidation.setFill(javafx.scene.paint.Color.web("#34a853"));
+		} else {
+			cercleValidation.setFill(javafx.scene.paint.Color.web("#f85959"));
 		}
 	}
 }

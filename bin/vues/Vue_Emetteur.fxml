@@ -72,13 +72,22 @@
                </children>
             </VBox>
             <Region prefHeight="6.0" prefWidth="195.0" VBox.vgrow="ALWAYS" />
-            <VBox alignment="TOP_CENTER" prefHeight="430.0" prefWidth="156.0" VBox.vgrow="ALWAYS">
+            <VBox alignment="TOP_CENTER" prefHeight="430.0" prefWidth="156.0" spacing="20.0" VBox.vgrow="ALWAYS">
                <children>
                   <JFXButton fx:id="btnCalibrer" buttonType="RAISED" onAction="#clickedCalibrer" prefHeight="41.0" prefWidth="250.0" text="CALIBRER">
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin></JFXButton>
-                  <Circle fx:id="cercleValidation" fill="#f85959" radius="15.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                  <HBox prefHeight="51.0" prefWidth="247.0">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="132.0" text="OPPÉRATIONNEL : ">
+                           <HBox.margin>
+                              <Insets top="6.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Circle fx:id="cercleValidation" fill="#f85959" radius="15.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                     </children>
+                  </HBox>
                </children></VBox>
          </children>
          <padding>
