@@ -25,6 +25,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import modeles.AnimationProgressBar;
 import modeles.RepresentationBinaire;
@@ -81,6 +82,9 @@ public class ControleurVueEmetteur extends Vue {
 	@FXML
 	private HBox hboxProgressBar;
 
+	@FXML
+	private Circle cercleValidation;
+
 	public static final String ADRESSE_VUE_EMETTEUR = "/vues/Vue_Emetteur.fxml";
 	private final FileChooser fileChooser = new FileChooser();
 	private File file;
@@ -90,6 +94,7 @@ public class ControleurVueEmetteur extends Vue {
 	private DoubleProperty tempsEstim;
 	private Thread threadSon;
 	private AnimationProgressBar animProgressBar;
+	private int nbValidationInfo = 0;
 
 	/**
 	 * Permet d'obtenir le borderPaneRoot de la vue.

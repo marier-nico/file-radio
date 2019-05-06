@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="1255.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueEmetteur">
@@ -77,6 +78,7 @@
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin></JFXButton>
+                  <Circle fx:id="cercleValidation" fill="#f85959" radius="15.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                </children></VBox>
          </children>
          <padding>
