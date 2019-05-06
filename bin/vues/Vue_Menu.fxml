@@ -15,7 +15,7 @@
       <Region prefHeight="0.0" prefWidth="900.0" VBox.vgrow="ALWAYS" />
       <JFXButton fx:id="btnReception" buttonType="RAISED" onAction="#clickedBtnReception" prefHeight="68.0" prefWidth="228.0" ripplerFill="#fffbfb" text="RÉCEPTIONNER UN MESSAGE" />
       <Region prefHeight="0.0" prefWidth="700.0" VBox.vgrow="ALWAYS" />
-      <SplitMenuButton mnemonicParsing="false" prefHeight="16.0" prefWidth="91.0" styleClass="slpitMenu" text="Thèmes">
+      <SplitMenuButton mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" styleClass="slpitMenu" text="Thèmes">
         <items>
             <RadioMenuItem fx:id="darkNGreen" disable="true" mnemonicParsing="false" onAction="#selectedDarkNGreen" selected="true" text="DarkNGreen" />
             <RadioMenuItem fx:id="powderBlue" mnemonicParsing="false" onAction="#selectedPowderBlue" text="PowderBlue" />
