@@ -2,6 +2,7 @@ package vues;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
@@ -157,9 +158,31 @@ public class ControleurVueRecepteur extends Vue {
 				threadEcoute.start();
 				ajoutLabel(new Label("Écoute en cours..."), vboxMessages);
 				animProgress = new AnimationProgressBar(progressBar, tempsReception.get() * 1000, 0.001);
-				// TODO Afficher message recue dans textFieldResultat
+				//TODO ne fonctionnera pas comme le thread doit avoir fini
+				if (getExtensionFichier(file) == "txt") {
+					try {
+						textFieldResultat.setText(PasserelleFichier.lireLignes(file).get(0));
+					} catch (IOException e) {
+						afficherErreur("Lecture fichier", "Afficher contenu fichier", e);
+					}
+				} else {
+					System.out.println("non");
+					System.out.println(getExtensionFichier(file));
+				}
 			}
 		}
+	}
+	
+	public static String getExtensionFichier(File file) {
+		String retour = "Rien";
+		if (file != null) {
+			try {
+				retour = Files.probeContentType(file.toPath());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return retour;
 	}
 
 	/**
@@ -188,8 +211,8 @@ public class ControleurVueRecepteur extends Vue {
 			ecouteur.calibrer(3);
 			ajoutLabel(new Label("Calibration en cours..."), vboxMessages);
 			// TODO modifier label volume
-			// volumeUn.setText();
-			// volumeZeros.setText();
+			volumeUn.setText(ecouteur.getVolumeUn() + "");
+			volumeZeros.setText(ecouteur.getVolumeZero() + "");
 		} catch (Exception e) {
 			afficherErreur("calibration", e.getMessage(), e);
 		}
