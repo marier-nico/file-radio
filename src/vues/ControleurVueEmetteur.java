@@ -7,9 +7,6 @@ import javax.sound.sampled.LineUnavailableException;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
-import com.sun.prism.paint.Color;
-
-import controleurs.ApplicationRadio;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleDoubleProperty;
