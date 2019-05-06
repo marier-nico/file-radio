@@ -55,7 +55,7 @@ public class PasserelleFichier {
 	 * @return les lignes du fichier
 	 * @throws IOException
 	 */
-	public static List<String> lireCaracteres(File fichier) throws IOException {
+	public static List<String> lireLignes(File fichier) throws IOException {
 		return Files.readAllLines(fichier.toPath());
 	}
 	
