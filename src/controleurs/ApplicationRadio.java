@@ -56,13 +56,13 @@ public class ApplicationRadio extends Application {
 	 */
 	private void showVueMenu(Stage stage) throws Exception {
 		if (sceneMenu == null) {
-		FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/vues/Vue_Menu.fxml"));
-		loader.load();
-		vueMenu = loader.getController();
-		vueMenu.setApplication(this);
-		VBox root = vueMenu.getVboxRoot();
-		sceneMenu = new Scene(root);
-		sceneMenu.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
+			FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/vues/Vue_Menu.fxml"));
+			loader.load();
+			vueMenu = loader.getController();
+			vueMenu.setApplication(this);
+			VBox root = vueMenu.getVboxRoot();
+			sceneMenu = new Scene(root);
+			sceneMenu.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
 		}
 		demarrageStage("Menu", redimensionnable, sceneMenu);
 	}
@@ -74,14 +74,14 @@ public class ApplicationRadio extends Application {
 	 */
 	public void showVueEmetteur() throws Exception {
 		if (sceneEmetteur == null) {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource(ControleurVueEmetteur.ADRESSE_VUE_EMETTEUR));
-		loader.load();
-		vueEmetteur = loader.getController();
-		vueEmetteur.setApplication(this);
-		vueEmetteur.bindTextFieldEtProgress();
-		BorderPane root = vueEmetteur.getBorderPaneRoot();
-		sceneEmetteur = new Scene(root);
-		setOptionRetour(sceneEmetteur);
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(ControleurVueEmetteur.ADRESSE_VUE_EMETTEUR));
+			loader.load();
+			vueEmetteur = loader.getController();
+			vueEmetteur.setApplication(this);
+			vueEmetteur.bindTextFieldEtProgress();
+			BorderPane root = vueEmetteur.getBorderPaneRoot();
+			sceneEmetteur = new Scene(root);
+			setOptionRetour(sceneEmetteur);
 		}
 		sceneEmetteur.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
 		demarrageStage("Émetteur", redimensionnable, sceneEmetteur);
@@ -94,25 +94,25 @@ public class ApplicationRadio extends Application {
 	 */
 	public void showVueRecepteur() throws Exception {
 		if (sceneRecepteur == null) {
-		FXMLLoader loader = new FXMLLoader(getClass().getResource(ControleurVueRecepteur.ADRESSE_VUE_RECEPTEUR));
-		loader.load();
-		vueRecepteur = loader.getController();
-		vueRecepteur.setApplication(this);
-		vueRecepteur.bindTextFieldEtProgress();
-		BorderPane root = vueRecepteur.getBorderPaneRoot();
-		sceneRecepteur = new Scene(root);
-		setOptionRetour(sceneRecepteur);
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(ControleurVueRecepteur.ADRESSE_VUE_RECEPTEUR));
+			loader.load();
+			vueRecepteur = loader.getController();
+			vueRecepteur.setApplication(this);
+			vueRecepteur.bindTextFieldEtProgress();
+			BorderPane root = vueRecepteur.getBorderPaneRoot();
+			sceneRecepteur = new Scene(root);
+			setOptionRetour(sceneRecepteur);
 		}
 		sceneRecepteur.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
 		demarrageStage("Récepteur", redimensionnable, sceneRecepteur);
 	}
-	
+
 	/**
 	 * Configure et démarre le stage.
 	 * 
-	 * @param titre du stage
+	 * @param titre       du stage
 	 * @param redimension vrai ou faux
-	 * @param scene de la vue
+	 * @param scene       de la vue
 	 */
 	private void demarrageStage(String titre, boolean redimension, Scene scene) {
 		stage.setTitle(titre);
@@ -139,7 +139,7 @@ public class ApplicationRadio extends Application {
 	public Scene getSceneCourante() {
 		return sceneCourante;
 	}
-	
+
 	public void setSceneCourante(Scene sceneCour) {
 		sceneCourante = sceneCour;
 	}
