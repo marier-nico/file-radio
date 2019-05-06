@@ -318,6 +318,14 @@ public class EcouteurDeReception {
 		fft = quiFFT.fullFFT();
 		return fft;
 	}
+	
+	public double getVolumeUn() {
+		return volumeMinUn;
+	}
+	
+	public double getVolumeZero() {
+		return volumeMinZero;
+	}
 
 	/**
 	 * Cette méthode permet de valider un volume (pour un un ou un zéro). Le volume
