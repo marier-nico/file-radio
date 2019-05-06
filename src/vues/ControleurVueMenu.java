@@ -17,7 +17,7 @@ import javafx.scene.layout.VBox;
  * @author Charles-Antoine Demetriade
  *
  */
-public class ControleurVueMenu {
+public class ControleurVueMenu extends Vue {
 
 	@FXML
 	private RadioMenuItem darkNGreen;
@@ -40,12 +40,7 @@ public class ControleurVueMenu {
 	private static final String NOWEL = "/styles/Nowel.css";
 	private static final String HALLOWEEN = "/styles/Halloween.css";
 	private static final String QUEBEC = "/styles/Qc.css";
-	private ApplicationRadio application = null;
 	public static final String ADRESSE_VUE_MENU = "/vues/Vue_Menu.fxml";
-
-	public void setApplication(ApplicationRadio application) {
-		this.application = application;
-	}
 
 	public VBox getVboxRoot() {
 		return vboxRoot;
@@ -54,7 +49,7 @@ public class ControleurVueMenu {
 	@FXML
 	private void clickedBtnEmettre(ActionEvent event) {
 		try {
-			application.showVueEmetteur();
+			getApplication().showVueEmetteur();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -63,7 +58,7 @@ public class ControleurVueMenu {
 	@FXML
 	private void clickedBtnReception(ActionEvent event) {
 		try {
-			application.showVueRecepteur();
+			getApplication().showVueRecepteur();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -75,7 +70,7 @@ public class ControleurVueMenu {
 			darkNGreen.setSelected(false);
 			powderBlue.setDisable(true);
 			darkNGreen.setDisable(false);
-			application.getSceneCourante().getStylesheets().setAll(this.getClass().getResource(POWDER_BLUE).toString());
+			getApplication().getSceneCourante().getStylesheets().setAll(this.getClass().getResource(POWDER_BLUE).toString());
 			themeCourant = POWDER_BLUE;
 		}
 	}
@@ -86,7 +81,7 @@ public class ControleurVueMenu {
 			powderBlue.setSelected(false);
 			powderBlue.setDisable(false);
 			darkNGreen.setDisable(true);
-			application.getSceneCourante().getStylesheets()
+			getApplication().getSceneCourante().getStylesheets()
 					.setAll(this.getClass().getResource(DARK_N_GREEN).toString());
 			themeCourant = DARK_N_GREEN;
 		}

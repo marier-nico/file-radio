@@ -78,8 +78,7 @@ public class ApplicationRadio extends Application {
 		loader.load();
 		vueEmetteur = loader.getController();
 		vueEmetteur.setApplication(this);
-		vueEmetteur.bindTextField();
-		vueEmetteur.bindProgressBar();
+		vueEmetteur.bindTextFieldEtProgress();
 		BorderPane root = vueEmetteur.getBorderPaneRoot();
 		sceneEmetteur = new Scene(root);
 		setOptionRetour(sceneEmetteur);
@@ -99,8 +98,7 @@ public class ApplicationRadio extends Application {
 		loader.load();
 		vueRecepteur = loader.getController();
 		vueRecepteur.setApplication(this);
-		vueRecepteur.bindProgressBar();
-		vueRecepteur.bindTextView();
+		vueRecepteur.bindTextFieldEtProgress();
 		BorderPane root = vueRecepteur.getBorderPaneRoot();
 		sceneRecepteur = new Scene(root);
 		setOptionRetour(sceneRecepteur);

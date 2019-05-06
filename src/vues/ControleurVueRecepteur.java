@@ -32,13 +32,13 @@ import modeles.recepteur.EcouteurDeReception;
 
 /**
  * 
- * Cette classe permet est le controleur de la vue du récepteur. Elle permet de
- * creer une vue et de gérer les évenements.
+ * Cette classe est le controleur de la vue du récepteur. Elle permet de creer
+ * une vue et de gérer les évenements.
  * 
  * @author Charles-Antoine Demetriade
  *
  */
-public class ControleurVueRecepteur {
+public class ControleurVueRecepteur extends Vue {
 
 	@FXML
 	private BorderPane borderPaneRoot;
@@ -82,17 +82,18 @@ public class ControleurVueRecepteur {
 	@FXML
 	private Label volumeZeros;
 
-	private ApplicationRadio application = null;
 	public static final String ADRESSE_VUE_RECEPTEUR = "/vues/Vue_Recepteur.fxml";
 	final FileChooser fileChooser = new FileChooser();
 	private File file;
-	private int nbrMessage = 0;
 	private FloatProperty dureeIntervalleRecep = new SimpleFloatProperty(1f);
 	private LongProperty tempsReception = new SimpleLongProperty(1);
 	private AnimationProgressBar animProgress;
 	private Thread threadEcoute;
 	private EcouteurDeReception ecouteur;
 
+	/**
+	 * Construit un controleurVueRecepteur en instanciant un EcouteurDeReception.
+	 */
 	public ControleurVueRecepteur() {
 		try {
 			// TODO transférer cette instanciation dans le clicked btn écouter
@@ -102,21 +103,33 @@ public class ControleurVueRecepteur {
 		}
 	}
 
-	public void setApplication(ApplicationRadio application) {
-		this.application = application;
-	}
-
+	/**
+	 * Permet d'obtenir le borderPaneRoot de la vue.
+	 * 
+	 * @return borderPaneRoot
+	 */
 	public BorderPane getBorderPaneRoot() {
 		return borderPaneRoot;
 	}
 
+	/**
+	 * Gère l'événement du bouton sélectionner. Permet de sélectionner un
+	 * emplacement pour enregistrer le fichier.
+	 * 
+	 * @param event
+	 */
 	@FXML
 	private void clickedBtnSelect(ActionEvent event) {
 		fileChooser.setTitle("Veuiller sélectionner un emplacement de destination");
-		file = fileChooser.showSaveDialog(application.getStage());
-		labelProgress.setText(getEmplacementFichierSelct());
+		file = fileChooser.showSaveDialog(getApplication().getStage());
+		labelProgress.setText(getEmplacementFichierSelct(file));
 	}
 
+	/**
+	 * Gère l'événement du bouton écouter. Permet de lancer l'écoute du fichier.
+	 * 
+	 * @param event
+	 */
 	@FXML
 	private void clickedBtnEcouter(ActionEvent event) {
 		if (file != null) {
@@ -142,44 +155,53 @@ public class ControleurVueRecepteur {
 					}
 				});
 				threadEcoute.start();
-				ajoutLabel(new Label("Écoute en cours..."));
+				ajoutLabel(new Label("Écoute en cours..."), vboxMessages);
 				animProgress = new AnimationProgressBar(progressBar, tempsReception.get() * 1000, 0.001);
 				// TODO Afficher message recue dans textFieldResultat
 			}
 		}
 	}
 
+	/**
+	 * Gère l'événement du bouton annuler. Permet d'annuler l'écoute du fichier.
+	 * 
+	 * @param event
+	 */
 	@FXML
 	private void clickedBtnAnnuler(ActionEvent event) {
 		if ((threadEcoute != null) && threadEcoute.isAlive()) {
 			ecouteur.arretEcoute();
 			threadEcoute.stop();
 			animProgress.stopProgressAnim();
-			ajoutLabel(new Label("Arrêt de l'écoute..."));
+			ajoutLabel(new Label("Arrêt de l'écoute..."), vboxMessages);
 		}
 	}
 
+	/**
+	 * Gère l'événement du bouton calibrer.
+	 * 
+	 * @param event
+	 */
 	@FXML
 	private void clickedCalibrer(ActionEvent event) {
 		try {
 			ecouteur.calibrer(3);
-			ajoutLabel(new Label("Calibration en cours..."));
-			//TODO modifier label volume
-			//volumeUn.setText();
-			//volumeZeros.setText();
+			ajoutLabel(new Label("Calibration en cours..."), vboxMessages);
+			// TODO modifier label volume
+			// volumeUn.setText();
+			// volumeZeros.setText();
 		} catch (Exception e) {
 			afficherErreur("calibration", e.getMessage(), e);
 		}
 	}
 
 	/**
-	 * Cette méthode permet de créer un "hgrow" à la progressBar.
+	 * Permet de bind les TextField en filtrant ce qu'ils recoivent et bind la
+	 * progressBar.
 	 */
-	public void bindProgressBar() {
-		progressBar.prefWidthProperty().bind(hboxProgressBar.widthProperty());
-	}
+	public void bindTextFieldEtProgress() {
+		bindProgressBar(progressBar, hboxProgressBar);
 
-	public void bindTextView() {
 		textFieldTempsRecep.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -203,39 +225,5 @@ public class ControleurVueRecepteur {
 				}
 			}
 		});
-	}
-
-	public String getEmplacementFichierSelct() {
-		String retour = "Rien";
-		if (file != null) {
-			retour = file.getAbsolutePath();
-		}
-		return retour;
-	}
-
-	private void ajoutLabel(Label l) {
-		if (nbrMessage == 14) {
-			vboxMessages.getChildren().remove(vboxMessages.getChildren().get(0));
-			nbrMessage--;
-		}
-		vboxMessages.getChildren().add(l);
-		nbrMessage++;
-	}
-
-	private void afficherErreur(String emplacement, String detail, Exception ex) {
-		Alert erreur = new Alert(AlertType.ERROR);
-		erreur.setHeaderText("Erreur dans " + emplacement);
-		erreur.setContentText(detail + "\n\n" + ex.getStackTrace().toString());
-		ex.printStackTrace();
-		erreur.setTitle("Erreur");
-		erreur.showAndWait();
-	}
-
-	private void afficherErreur(String emplacement, String detail) {
-		Alert erreur = new Alert(AlertType.ERROR);
-		erreur.setHeaderText("Erreur dans " + emplacement);
-		erreur.setContentText(detail);
-		erreur.setTitle("Erreur");
-		erreur.showAndWait();
 	}
 }
