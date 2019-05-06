@@ -86,11 +86,8 @@ public class GenerateurSon {
 	 * @return donnees les données sonores qui commposent le fichier
 	 */
 	public byte[][] getDonneesSon() {
-		byte[][] donnees = new byte[(repr.getOctets().length + 1) * OctetBinaire.BITS_DANS_OCTET][];
-		int i = 8;
-		for(int j = 0; j < 8; j++) {
-			donnees[j] = donneesSon1;
-		}
+		byte[][] donnees = new byte[repr.getOctets().length * OctetBinaire.BITS_DANS_OCTET][];
+		int i = 0;
 		for (OctetBinaire octet : repr) {
 			for (Byte bit : octet) {
 				if (bit == 0)

@@ -59,7 +59,7 @@ public class EcouteurDeReception {
 	 * Le nom du fichier temporaire dans lequel on écrit les sons que l'on reçoit.
 	 */
 	private static final String NOM_FICH_SON = "audio.wav";
-	
+
 	/**
 	 * L'objet nous permettant d'écrire les fichiers sonores.
 	 */
@@ -88,13 +88,13 @@ public class EcouteurDeReception {
 		Thread.sleep(millisecondes);
 		micro.close();
 	}
-	
+
 	/**
-	 * Cette méthode permet d'arrêter l'écoute. Si l'écoute n'est pas
-	 * en cours, il ne se passe rien.
+	 * Cette méthode permet d'arrêter l'écoute. Si l'écoute n'est pas en cours, il
+	 * ne se passe rien.
 	 */
 	public void arretEcoute() {
-		if(micro != null)
+		if (micro != null)
 			micro.close();
 	}
 
@@ -117,10 +117,10 @@ public class EcouteurDeReception {
 	 * @throws UnsupportedAudioFileException
 	 */
 	public void reconstruire(double tempsParBit) throws IOException, UnsupportedAudioFileException {
-		if(tempsParBit <= 0) {
+		if (tempsParBit <= 0) {
 			throw new IllegalStateException("Le temps par bit doit être plus grand que 0.");
 		}
-		
+
 		rdm = new ReconstitueurDeMessages();
 		FFTResult fft = getResultatFFT(WINDOW_SIZE, OVERLAP);
 		FFTFrame[] frames = fft.fftFrames;
@@ -128,9 +128,17 @@ public class EcouteurDeReception {
 
 		double tempsDebutReception = 0;
 		int indiceDebut = 0;
+		double tempsFinReception = 0;
+		int indiceFin = 0;
 
 		for (int i = 0; i < frames.length; i++) {
-			Optional<Byte> bitRecu = analyserSignal(frames[i]);
+			double moyenne = Stream.of(frames)
+				  .skip(i)
+				  .limit(4)
+				  .mapToDouble(f -> f.bins[indiceFreqVoulue].amplitude)
+				  .average().orElseGet(() -> 0);
+
+			Optional<Byte> bitRecu = analyserSignal(moyenne);
 			if (bitRecu.isPresent()) {
 				tempsDebutReception = frames[i].frameStartMs;
 				indiceDebut = i;
@@ -138,10 +146,14 @@ public class EcouteurDeReception {
 			}
 		}
 
-		double tempsFinReception = 0;
-		int indiceFin = 0;
-
 		for (int i = frames.length - 1; i >= 0; i--) {
+			//TODO à essayer
+			double moyenne = Stream.of(frames)
+					  .skip(i)
+					  .limit(4)
+					  .mapToDouble(f -> f.bins[indiceFreqVoulue].amplitude)
+					  .average().orElseGet(() -> 0);
+			
 			Optional<Byte> bitRecu = analyserSignal(frames[i]);
 			if (bitRecu.isPresent()) {
 				tempsFinReception = frames[i].frameEndMs;
@@ -167,7 +179,7 @@ public class EcouteurDeReception {
 			long indiceMax = Math.round((double) bitEnCours * framesParBit);
 			System.out.println("Indice max: " + indiceMax);
 			System.out.println("Indice max for: " + (indiceMax - 1));
-			
+
 			double sommeCourante = 0;
 			int nbValeursPourSomme = 0;
 			for (long i = indiceMin; i < indiceMax && i < framesImportantes.length; i++) {
@@ -175,10 +187,10 @@ public class EcouteurDeReception {
 				nbValeursPourSomme++;
 			}
 			double moyenne = sommeCourante / (double) nbValeursPourSomme;
-			
+
 			Optional<Byte> bitRecu = analyserSignal(moyenne);
-			
-			if(bitRecu.isPresent()) {
+
+			if (bitRecu.isPresent()) {
 				System.out.println("Bit reçu: " + bitRecu.get() + "(" + moyenne + ")");
 				rdm.ajouterBit(bitRecu.get());
 			} else {
@@ -186,7 +198,7 @@ public class EcouteurDeReception {
 				rdm.ajouterBit((byte) 0);
 			}
 			System.out.println("---------");
-			
+
 			bitEnCours++;
 			indiceMin = indiceMax;
 		}
@@ -318,11 +330,11 @@ public class EcouteurDeReception {
 		fft = quiFFT.fullFFT();
 		return fft;
 	}
-	
+
 	public double getVolumeUn() {
 		return volumeMinUn;
 	}
-	
+
 	public double getVolumeZero() {
 		return volumeMinZero;
 	}
@@ -337,7 +349,7 @@ public class EcouteurDeReception {
 	private static boolean validerVolumeMin(double volumeMin) {
 		return volumeMin < 0;
 	}
-	
+
 	public static void main(String[] args) throws Exception {
 		EcouteurDeReception edr = new EcouteurDeReception();
 		edr.calibrer(12);
