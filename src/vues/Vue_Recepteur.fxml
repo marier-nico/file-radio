@@ -22,7 +22,7 @@
                <children>
                   <HBox prefHeight="0.0" prefWidth="200.0">
                      <children>
-                        <Label text="COURANT :" />
+                        <Label prefHeight="17.0" prefWidth="108.0" text="COURANT : 2.5 A" />
                      </children>
                   </HBox>
                   <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
@@ -35,11 +35,6 @@
                      <children>
                         <Label text="FRÉQUENCE :" />
                         <Label fx:id="freqLabel" text="3300 kHz" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="0.0" prefWidth="200.0">
-                     <children>
-                        <Label text="AMPLITUDE :" />
                      </children>
                   </HBox>
                   <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
@@ -84,13 +79,13 @@
                <children>
                   <HBox prefHeight="2.0" prefWidth="211.0">
                      <children>
-                        <Label prefHeight="17.0" prefWidth="126.0" text="VOLUME 1 : " />
+                        <Label prefHeight="17.0" prefWidth="126.0" text="AMPLITUDE 1 : " />
                         <Label fx:id="volumeUn" prefHeight="17.0" prefWidth="139.0" text="?" />
                      </children>
                   </HBox>
                   <HBox layoutX="10.0" layoutY="10.0" prefHeight="2.0" prefWidth="211.0">
                      <children>
-                        <Label prefHeight="17.0" prefWidth="130.0" text="VOLUME 0 : " />
+                        <Label prefHeight="17.0" prefWidth="130.0" text="AMPLITUDE 0 : " />
                         <Label fx:id="volumeZeros" prefHeight="17.0" prefWidth="139.0" text="?" />
                      </children>
                   </HBox>
@@ -98,10 +93,10 @@
                      <children>
                         <Label prefHeight="17.0" prefWidth="132.0" text="OPPÉRATIONNEL : ">
                            <HBox.margin>
-                              <Insets top="6.0" />
+                              <Insets top="3.0" />
                            </HBox.margin>
                         </Label>
-                        <Circle fx:id="cercleValidation" fill="#f85959" radius="15.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle fx:id="cercleValidation" fill="#f85959" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </HBox>
                </children>

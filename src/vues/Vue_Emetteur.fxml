@@ -24,7 +24,7 @@
                   <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Label text="COURANT :" />
-                        <Label layoutX="10.0" layoutY="10.0" text="2,5 A" />
+                        <Label layoutX="10.0" layoutY="10.0" text="2.5 A" />
                      </children>
                   </HBox>
                   <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
@@ -37,11 +37,6 @@
                      <children>
                         <Label text="FRÉQUENCE :" />
                         <Label text="3300 kHz" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="0.0" prefWidth="200.0">
-                     <children>
-                        <Label text="AMPLITUDE :" />
                      </children>
                   </HBox>
                   <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
@@ -82,10 +77,10 @@
                      <children>
                         <Label prefHeight="17.0" prefWidth="132.0" text="OPPÉRATIONNEL : ">
                            <HBox.margin>
-                              <Insets top="6.0" />
+                              <Insets top="3.0" />
                            </HBox.margin>
                         </Label>
-                        <Circle fx:id="cercleValidation" fill="#f85959" radius="15.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+                        <Circle fx:id="cercleValidation" fill="#f85959" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </HBox>
                </children></VBox>
