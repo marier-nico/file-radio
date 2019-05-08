@@ -1,11 +1,15 @@
 package vues;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 
 import javax.sound.sampled.LineUnavailableException;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.FloatProperty;
@@ -59,6 +63,9 @@ public class ControleurVueEmetteur extends Vue {
 	private JFXButton btnAnnuler;
 
 	@FXML
+	private JFXButton btnEnregistrer;
+
+	@FXML
 	private JFXButton btnCalibrerUn;
 
 	@FXML
@@ -89,7 +96,7 @@ public class ControleurVueEmetteur extends Vue {
 	private HBox hboxProgressBar;
 
 	@FXML
-	private Circle cercleValidation;
+	private JFXTextArea textAreaMessage;
 
 	public static final String ADRESSE_VUE_EMETTEUR = "/vues/Vue_Emetteur.fxml";
 	private final FileChooser fileChooser = new FileChooser();
@@ -101,6 +108,7 @@ public class ControleurVueEmetteur extends Vue {
 	private Thread threadSon;
 	private AnimationProgressBar animProgressBar;
 	private boolean validSelect = false;
+	private boolean validEnreg = false;
 	private boolean validTextField = true;
 
 	public void initCouleurEmetteur() {
@@ -124,7 +132,14 @@ public class ControleurVueEmetteur extends Vue {
 	 */
 	@FXML
 	private void clickedBtnEnvoyer(ActionEvent event) {
-		if ((file != null) && (dureeSonBit.get() != 0)) {
+		if ((validEnreg || validSelect) && validTextField) {
+			File fileTemp;
+			if (validEnreg) {
+				fileTemp = f;
+			} else {
+				fileTemp = file;
+			}
+			
 			if ((threadSon != null) && (threadSon.isAlive())) {
 				Alert erreur = new Alert(AlertType.ERROR);
 				erreur.setHeaderText("Erreur");
@@ -134,7 +149,7 @@ public class ControleurVueEmetteur extends Vue {
 			} else {
 				byte[] octetsFichier = null;
 				try {
-					octetsFichier = PasserelleFichier.lireOctets(file);
+					octetsFichier = PasserelleFichier.lireOctets(fileTemp);
 				} catch (IOException ex) {
 					afficherErreur("la lecture du fichier",
 							"Le fichier n'a pas pu être lu. Une erreur s'est produite pendant son ouverture. "
@@ -173,7 +188,7 @@ public class ControleurVueEmetteur extends Vue {
 				} catch (IllegalStateException ex) {
 					afficherErreur("la lecture du son", "Un autre son est déjà en lecture.", ex);
 				}
-				ajoutLabel(new Label("Envoi en cours de " + getEmplacementFichierSelct(file) + "..."), vboxMessages);
+				ajoutLabel(new Label("Envoi en cours de " + getEmplacementFichierSelct(fileTemp) + "..."), vboxMessages);
 			}
 		}
 	}
@@ -193,32 +208,59 @@ public class ControleurVueEmetteur extends Vue {
 		textFieldTempsUnBit.setText((dureeSonBit.get() - uptdate) + "");
 		textFieldTempsUnBit.setText((dureeSonBit.get() + uptdate) + "");
 		validSelect = true;
+		validEnreg = false;
 		if (file == null) {
 			validSelect = false;
-
 		}
 		actualiserValidation();
 	}
-	
+
 	@FXML
-    void clickedCalibrerUns(ActionEvent event) {
+	void clickedCalibrerUns(ActionEvent event) {
 		try {
 			Calibreur.calibrerUns();
 			ajoutLabel(new Label("Volume Un calibré"), vboxMessages);
 		} catch (IOException | LineUnavailableException e) {
 			afficherErreur("calibration", "fichier introuvable ou micro non disponible", e);
 		}
-    }
+	}
 
-    @FXML
-    void clickedCalibrerZeros(ActionEvent event) {
-    	try {
+	@FXML
+	void clickedCalibrerZeros(ActionEvent event) {
+		try {
 			Calibreur.calibrerZeros();
 			ajoutLabel(new Label("Volume Zero calibré"), vboxMessages);
 		} catch (IOException | LineUnavailableException e) {
 			afficherErreur("calibration", "fichier introuvable ou micro non disponible", e);
 		}
-    }
+	}
+
+	private FileChooser fc = new FileChooser();
+	private File f;
+	@FXML
+	void clickedEnregistrer(ActionEvent event) {
+		fc.setTitle("Veuiller sélectionner un emplacement de destination");
+		f = fc.showSaveDialog(getApplication().getStage());
+		labelProgress.setText(getEmplacementFichierSelct(f));
+		
+		PrintWriter writer;
+		try {
+			writer = new PrintWriter(getEmplacementFichierSelct(f), "UTF-8");
+			writer.print(textAreaMessage.getText());
+			writer.close();
+		} catch (FileNotFoundException | UnsupportedEncodingException e) {
+			afficherErreur("enregistrer fichier", "impossible de creer le fichier", e);
+		}
+		float uptdate = dureeSonBit.get();
+		textFieldTempsUnBit.setText((dureeSonBit.get() - uptdate) + "");
+		textFieldTempsUnBit.setText((dureeSonBit.get() + uptdate) + "");
+		validEnreg = true;
+		validSelect = false;
+		if (f == null) {
+			validEnreg = false;
+		}
+		actualiserValidation();
+	}
 
 	/**
 	 * Cette méthode bind le textField avec tous les labels affichant des
@@ -240,6 +282,15 @@ public class ControleurVueEmetteur extends Vue {
 						try {
 							tempsEstim = new SimpleDoubleProperty(
 									Math.round(dureeSonBit.get() * (PasserelleFichier.lireOctets(file).length) * 8));
+							labelTempsEstim.textProperty().bind(tempsEstim.asString());
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					} else if (f != null) {
+						validTextField = true;
+						try {
+							tempsEstim = new SimpleDoubleProperty(
+									Math.round(dureeSonBit.get() * (PasserelleFichier.lireOctets(f).length) * 8));
 							labelTempsEstim.textProperty().bind(tempsEstim.asString());
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -276,7 +327,7 @@ public class ControleurVueEmetteur extends Vue {
 	private void actualiserValidation() {
 		Background b1 = new Background(new BackgroundFill(Color.web("#34a853"), CornerRadii.EMPTY, Insets.EMPTY));
 		Background b2 = new Background(new BackgroundFill(Color.web("#f85959"), CornerRadii.EMPTY, Insets.EMPTY));
-		if (validSelect && validTextField) {
+		if ((validEnreg || validSelect) && validTextField) {
 			btnEnvoyer.setBackground(b1);
 		} else {
 			btnEnvoyer.setBackground(b2);

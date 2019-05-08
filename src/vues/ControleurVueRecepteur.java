@@ -118,7 +118,7 @@ public class ControleurVueRecepteur extends Vue {
 		}
 	}
 
-	public void initCouleurEmetteur() {
+	public void initCouleurRecepteur() {
 		Background b2 = new Background(new BackgroundFill(Color.web("#f85959"), CornerRadii.EMPTY, Insets.EMPTY));
 		btnEcouter.setBackground(b2);
 	}
@@ -168,7 +168,6 @@ public class ControleurVueRecepteur extends Vue {
 					@Override
 					public void run() {
 						try {
-							// plante après reécouter...
 							ecouteur.ecouter((long) (tempsReception.get() * 1000));
 							ecouteur.reconstruire(dureeIntervalleRecep.get() * 1000);
 							PasserelleFichier.ecrireOctets(ecouteur.getReconstitueur().getRepresentationBinaire(),

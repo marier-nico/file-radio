@@ -107,7 +107,7 @@ public class ApplicationRadio extends Application {
 		}
 		sceneRecepteur.getStylesheets().setAll(this.getClass().getResource(vueMenu.getThemeCourant()).toString());
 		demarrageStage("Récepteur", redimensionnable, sceneRecepteur);
-		vueRecepteur.initCouleurEmetteur();
+		vueRecepteur.initCouleurRecepteur();
 	}
 
 	/**

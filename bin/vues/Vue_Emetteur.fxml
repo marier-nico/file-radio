@@ -116,6 +116,15 @@
       </VBox>
    </center>
    <top>
-      <JFXTextArea focusColor="WHITE" prefHeight="53.0" prefWidth="1255.0" unFocusColor="#0ccd0c" BorderPane.alignment="CENTER" />
+      <HBox prefHeight="36.0" prefWidth="1255.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXTextArea fx:id="textAreaMessage" focusColor="WHITE" prefHeight="17.0" prefWidth="1255.0" promptText="Vous pouvez écrire directement un fichier texte ici..." unFocusColor="#0ccd0c">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </JFXTextArea>
+            <JFXButton id="btns" fx:id="btnEnregistrer" buttonType="RAISED" onAction="#clickedEnregistrer" prefHeight="48.0" prefWidth="258.0" text="ENREGISTRER" />
+         </children>
+      </HBox>
    </top>
 </BorderPane>
