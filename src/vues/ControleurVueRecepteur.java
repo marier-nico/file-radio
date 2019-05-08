@@ -184,7 +184,7 @@ public class ControleurVueRecepteur extends Vue {
 				animProgress = new AnimationProgressBar(progressBar, tempsReception.get() * 1000, 0.001);
 
 				// TODO ne fonctionnera pas comme le thread doit avoir fini
-				if (getExtensionFichier(file) == "txt") {
+				if (getExtensionFichier(file) == "text/plain") {
 					try {
 						textFieldResultat.setText(PasserelleFichier.lireLignes(file).get(0));
 					} catch (IOException e) {
