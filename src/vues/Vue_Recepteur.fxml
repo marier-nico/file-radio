@@ -149,7 +149,7 @@
    <top>
       <JFXTextField fx:id="textFieldResultat" alignment="BOTTOM_CENTER" editable="false" focusColor="#63d36a" prefHeight="61.0" prefWidth="1255.0" unFocusColor="WHITE" BorderPane.alignment="CENTER">
          <font>
-            <Font size="14.0" />
+            <Font size="18.0" />
          </font>
       </JFXTextField>
    </top>
