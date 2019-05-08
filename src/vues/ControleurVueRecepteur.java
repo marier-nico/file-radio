@@ -229,12 +229,12 @@ public class ControleurVueRecepteur extends Vue {
     void clickedCalibrerUns(ActionEvent event) {
 		try {
 			ecouteur.calibrerVolumeBit((byte) 1, 3);
-			ajoutLabel(new Label("Calibration en cours..."), vboxMessages);
+			ajoutLabel(new Label("Volume Un calibré"), vboxMessages);
 
 			// TODO modifier label volume
 			volumeUn.setText(ecouteur.getVolumeUn() + "");
 		} catch (Exception e) {
-			afficherErreur("Volume Un calibrer!", e.getMessage(), e);
+			afficherErreur("calibration", e.getMessage(), e);
 		}
 		validCalibrerUn = true;
 		actualiserValidation();
@@ -244,7 +244,7 @@ public class ControleurVueRecepteur extends Vue {
     void clickedCalibrerZeros(ActionEvent event) {
     	try {
 			ecouteur.calibrerVolumeBit((byte) 0, 3);
-			ajoutLabel(new Label("Volume Zeros calibrer!"), vboxMessages);
+			ajoutLabel(new Label("Volume Zeros calibré"), vboxMessages);
 
 			// TODO modifier label volume
 			volumeZeros.setText(ecouteur.getVolumeZero() + "");
