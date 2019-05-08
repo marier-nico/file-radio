@@ -184,16 +184,16 @@ public class ControleurVueRecepteur extends Vue {
 				animProgress = new AnimationProgressBar(progressBar, tempsReception.get() * 1000, 0.001);
 
 				// TODO ne fonctionnera pas comme le thread doit avoir fini
-//				if (getExtensionFichier(file) == "txt") {
-//					try {
-//						textFieldResultat.setText(PasserelleFichier.lireLignes(file).get(0));
-//					} catch (IOException e) {
-//						afficherErreur("Lecture fichier", "Afficher contenu fichier", e);
-//					}
-//				} else {
-//					System.out.println("non");
-//					System.out.println(getExtensionFichier(file));
-//				}
+				if (getExtensionFichier(file) == "txt") {
+					try {
+						textFieldResultat.setText(PasserelleFichier.lireLignes(file).get(0));
+					} catch (IOException e) {
+						afficherErreur("Lecture fichier", "Afficher contenu fichier", e);
+					}
+				} else {
+					System.out.println("non");
+					System.out.println(getExtensionFichier(file));
+				}
 			}
 		}
 	}
