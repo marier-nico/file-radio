@@ -199,25 +199,12 @@ public class ControleurVueEmetteur extends Vue {
 		}
 		actualiserValidation();
 	}
-
-	/**
-	 * Gère l'événement du bouton calibrer.
-	 * 
-	 * @param event
-	 */
-	@FXML
-	private void clickedCalibrer(ActionEvent event) {
-		try {
-			Calibreur.calibrerTout();
-		} catch (IOException | LineUnavailableException e) {
-			afficherErreur("calibration", "fichier introuvable ou micro non disponible", e);
-		}
-	}
 	
 	@FXML
     void clickedCalibrerUns(ActionEvent event) {
 		try {
 			Calibreur.calibrerUns();
+			ajoutLabel(new Label("Volume 1 calibré"), vboxMessages);
 		} catch (IOException | LineUnavailableException e) {
 			afficherErreur("calibration", "fichier introuvable ou micro non disponible", e);
 		}
@@ -227,6 +214,7 @@ public class ControleurVueEmetteur extends Vue {
     void clickedCalibrerZeros(ActionEvent event) {
     	try {
 			Calibreur.calibrerZeros();
+			ajoutLabel(new Label("Volume 0 calibré"), vboxMessages);
 		} catch (IOException | LineUnavailableException e) {
 			afficherErreur("calibration", "fichier introuvable ou micro non disponible", e);
 		}
