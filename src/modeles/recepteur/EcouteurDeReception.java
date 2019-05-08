@@ -16,7 +16,6 @@ import org.quifft.output.FFTFrame;
 import org.quifft.output.FFTResult;
 import org.quifft.output.FrequencyBin;
 
-import modeles.passerelle.PasserelleFichier;
 import modeles.recepteur.libson.microphone.MicrophoneAnalyzer;
 
 public class EcouteurDeReception {
