@@ -15,14 +15,19 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import modeles.AnimationProgressBar;
@@ -94,7 +99,11 @@ public class ControleurVueEmetteur extends Vue {
 	private AnimationProgressBar animProgressBar;
 	private boolean validSelect = false;
 	private boolean validTextField = true;
-	
+
+	public void initCouleurEmetteur() {
+		Background b2 = new Background(new BackgroundFill(Color.web("#f85959"), CornerRadii.EMPTY, Insets.EMPTY));
+		btnEnvoyer.setBackground(b2);
+	}
 	/**
 	 * Permet d'obtenir le borderPaneRoot de la vue.
 	 * 
@@ -255,10 +264,12 @@ public class ControleurVueEmetteur extends Vue {
 	 * que l'application est oppérationnel ou pas pour l'envoi.
 	 */
 	private void actualiserValidation() {
+		Background b1 = new Background(new BackgroundFill(Color.web("#34a853"), CornerRadii.EMPTY, Insets.EMPTY));
+		Background b2 = new Background(new BackgroundFill(Color.web("#f85959"), CornerRadii.EMPTY, Insets.EMPTY));
 		if (validSelect && validTextField) {
-			cercleValidation.setFill(javafx.scene.paint.Color.web("#34a853"));
+			btnEnvoyer.setBackground(b1);
 		} else {
-			cercleValidation.setFill(javafx.scene.paint.Color.web("#f85959"));
+			btnEnvoyer.setBackground(b2);
 		}
 	}
 }

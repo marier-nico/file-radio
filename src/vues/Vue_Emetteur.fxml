@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="1255.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueEmetteur">
@@ -73,16 +72,6 @@
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin></JFXButton>
-                  <HBox prefHeight="51.0" prefWidth="247.0">
-                     <children>
-                        <Label prefHeight="17.0" prefWidth="132.0" text="OPPÉRATIONNEL : ">
-                           <HBox.margin>
-                              <Insets top="3.0" />
-                           </HBox.margin>
-                        </Label>
-                        <Circle fx:id="cercleValidation" fill="#f85959" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" />
-                     </children>
-                  </HBox>
                </children></VBox>
          </children>
          <padding>
@@ -111,7 +100,7 @@
                </HBox.margin>
             </StackPane>
             <JFXButton fx:id="btnAnnuler" buttonType="RAISED" onAction="#clickedBtnAnnuler" prefHeight="44.0" prefWidth="169.0" text="ANNULER" />
-            <JFXButton fx:id="btnEnvoyer" buttonType="RAISED" layoutX="10.0" layoutY="10.0" onAction="#clickedBtnEnvoyer" prefHeight="44.0" prefWidth="144.0" text="ENVOYER" />
+            <JFXButton id="btnAction" fx:id="btnEnvoyer" buttonType="RAISED" layoutX="10.0" layoutY="10.0" onAction="#clickedBtnEnvoyer" prefHeight="44.0" prefWidth="144.0" text="ENVOYER" />
          </children>
          <BorderPane.margin>
             <Insets />

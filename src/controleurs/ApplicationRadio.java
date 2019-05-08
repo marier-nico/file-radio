@@ -79,6 +79,7 @@ public class ApplicationRadio extends Application {
 			vueEmetteur = loader.getController();
 			vueEmetteur.setApplication(this);
 			vueEmetteur.bindTextFieldEtProgress();
+			vueEmetteur.initCouleurEmetteur();
 			BorderPane root = vueEmetteur.getBorderPaneRoot();
 			sceneEmetteur = new Scene(root);
 			setOptionRetour(sceneEmetteur);
