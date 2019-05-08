@@ -80,6 +80,9 @@ public class ControleurVueRecepteur extends Vue {
 
 	@FXML
 	private JFXTextField textFieldResultat;
+	
+	@FXML
+    private JFXTextField textFieldMarge;
 
 	@FXML
 	private Label volumeUn;
@@ -92,12 +95,14 @@ public class ControleurVueRecepteur extends Vue {
 	private File file;
 	private FloatProperty dureeIntervalleRecep = new SimpleFloatProperty(1f);
 	private FloatProperty tempsReception = new SimpleFloatProperty(1f);
+	private FloatProperty margeAmplitude = new SimpleFloatProperty(1f);
 	private AnimationProgressBar animProgress;
 	private Thread threadEcoute;
 	private EcouteurDeReception ecouteur;
 	private boolean validSelect = false;
 	private boolean validTFInterv = true;
 	private boolean validTFTemps = true;
+	private boolean validTFMarge = true;
 	private boolean validCalibrerUn = false;
 	private boolean validCalibrerZeros = false;
 
@@ -228,7 +233,7 @@ public class ControleurVueRecepteur extends Vue {
 	@FXML
     void clickedCalibrerUns(ActionEvent event) {
 		try {
-			ecouteur.calibrerVolumeBit((byte) 1, 3);
+			ecouteur.calibrerVolumeBit((byte) 1, margeAmplitude.get());
 			ajoutLabel(new Label("Volume Un calibré"), vboxMessages);
 
 			// TODO modifier label volume
@@ -243,8 +248,8 @@ public class ControleurVueRecepteur extends Vue {
     @FXML
     void clickedCalibrerZeros(ActionEvent event) {
     	try {
-			ecouteur.calibrerVolumeBit((byte) 0, 3);
-			ajoutLabel(new Label("Volume Zeros calibré"), vboxMessages);
+			ecouteur.calibrerVolumeBit((byte) 0, margeAmplitude.get());
+			ajoutLabel(new Label("Volume Zero calibré"), vboxMessages);
 
 			// TODO modifier label volume
 			volumeZeros.setText(ecouteur.getVolumeZero() + "");
@@ -291,6 +296,21 @@ public class ControleurVueRecepteur extends Vue {
 				actualiserValidation();
 			}
 		});
+		
+		textFieldMarge.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				if (newValue.matches("-?\\d+(\\.\\d+)?")) {
+					float valeur = Float.parseFloat(newValue);
+					margeAmplitude.set(valeur);
+					validTFMarge = true;
+				} else {
+					margeAmplitude.set(0);
+					validTFMarge = false;
+				}
+				actualiserValidation();
+			}
+		});
 	}
 
 	/**
@@ -301,7 +321,7 @@ public class ControleurVueRecepteur extends Vue {
 	private void actualiserValidation() {
 		Background b1 = new Background(new BackgroundFill(Color.web("#34a853"), CornerRadii.EMPTY, Insets.EMPTY));
 		Background b2 = new Background(new BackgroundFill(Color.web("#f85959"), CornerRadii.EMPTY, Insets.EMPTY));
-		if (validSelect && validTFInterv && validTFTemps && validCalibrerUn && validCalibrerZeros) {
+		if (validSelect && validTFInterv && validTFTemps && validCalibrerUn && validCalibrerZeros && validTFMarge) {
 			btnEcouter.setBackground(b1);
 		} else {
 			btnEcouter.setBackground(b2);

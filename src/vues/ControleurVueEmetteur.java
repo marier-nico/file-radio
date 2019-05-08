@@ -204,7 +204,7 @@ public class ControleurVueEmetteur extends Vue {
     void clickedCalibrerUns(ActionEvent event) {
 		try {
 			Calibreur.calibrerUns();
-			ajoutLabel(new Label("Volume 1 calibré"), vboxMessages);
+			ajoutLabel(new Label("Volume Un calibré"), vboxMessages);
 		} catch (IOException | LineUnavailableException e) {
 			afficherErreur("calibration", "fichier introuvable ou micro non disponible", e);
 		}
@@ -214,7 +214,7 @@ public class ControleurVueEmetteur extends Vue {
     void clickedCalibrerZeros(ActionEvent event) {
     	try {
 			Calibreur.calibrerZeros();
-			ajoutLabel(new Label("Volume 0 calibré"), vboxMessages);
+			ajoutLabel(new Label("Volume Zero calibré"), vboxMessages);
 		} catch (IOException | LineUnavailableException e) {
 			afficherErreur("calibration", "fichier introuvable ou micro non disponible", e);
 		}

@@ -67,6 +67,16 @@
                         <Label prefHeight="17.0" prefWidth="25.0" text="s/b" />
                      </children>
                   </HBox>
+                  <HBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="173.0" prefHeight="21.0" prefWidth="192.0">
+                     <children>
+                        <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="20.0" prefWidth="124.0" text="MARGE AMPLITUDE :" />
+                        <JFXTextField fx:id="textFieldMarge" alignment="BASELINE_CENTER" focusColor="#36b81f" prefHeight="25.0" prefWidth="67.0" text="1.0" unFocusColor="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </JFXTextField>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
             <JFXButton id="btns" fx:id="btnCalibrerUn" buttonType="RAISED" onAction="#clickedCalibrerUns" prefHeight="41.0" prefWidth="250.0" text="CALIBRER 1">
