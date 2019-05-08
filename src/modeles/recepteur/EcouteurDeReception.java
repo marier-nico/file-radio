@@ -140,6 +140,7 @@ public class EcouteurDeReception {
 
 			Optional<Byte> bitRecu = analyserSignal(moyenne);
 			if (bitRecu.isPresent()) {
+				System.out.println("Moyenne début: " + moyenne);
 				tempsDebutReception = frames[i].frameStartMs;
 				indiceDebut = i;
 				break;
@@ -156,6 +157,7 @@ public class EcouteurDeReception {
 			
 			Optional<Byte> bitRecu = analyserSignal(frames[i]);
 			if (bitRecu.isPresent()) {
+				System.out.println("Moyenne fin: " + moyenne);
 				tempsFinReception = frames[i].frameEndMs;
 				indiceFin = i;
 				break;
@@ -241,7 +243,7 @@ public class EcouteurDeReception {
 	 * @return le volume minimal pour un bit
 	 * @throws Exception
 	 */
-	private double calibrerVolumeBit(byte unOuZero, double diminutionSup) throws Exception {
+	public double calibrerVolumeBit(byte unOuZero, double diminutionSup) throws Exception {
 		ecouter(500);
 		FFTResult resultat = getResultatFFT(WINDOW_SIZE, OVERLAP);
 		OptionalDouble bitPetit = Stream.of(resultat.fftFrames).mapToDouble(f -> f.bins[indiceFreqVoulue].amplitude)
@@ -251,35 +253,14 @@ public class EcouteurDeReception {
 				() -> new IllegalStateException("Impossible de déterminer le volume d'un \"" + unOuZero + "\"."))
 				- diminutionSup;
 		if (unOuZero == 1) {
-			// volumeMinUn = volumeBitMoyen;
-			volumeMinUn = -15;
+			 volumeMinUn = volumeBitMoyen;
 		} else if (unOuZero == 0) {
-			// volumeMinZero = volumeBitMoyen;
-			volumeMinZero = -20;
+			 volumeMinZero = volumeBitMoyen;
 		} else {
 			throw new IllegalArgumentException("On peut seulement calibrer pour les uns et les zéros.");
 		}
 
 		return volumeBitMoyen;
-	}
-
-	/**
-	 * Cette méthode permet de calibrer le programme en trouvant les volumes
-	 * minimaux dans le contexte physique courant.
-	 * 
-	 * @throws Exception
-	 */
-	public void calibrer(double diminutionSup) throws Exception {
-//		Thread.sleep(100);
-//		System.out.println("Volume un : " + calibrerVolumeBit((byte) 1, diminutionSup));
-//		Thread.sleep(800);
-//		System.out.println("Volume zéro : " + calibrerVolumeBit((byte) 0, diminutionSup));
-//		ecouter(1000);
-//		FFTResult resultat = getResultatFFT(WINDOW_SIZE, OVERLAP);
-//		Stream.of(resultat.fftFrames)
-//			  .mapToDouble(f -> f.bins[indiceFreqVoulue].amplitude).forEach(d -> System.out.println(d));
-		calibrerVolumeBit((byte) 0, 0);
-		calibrerVolumeBit((byte) 1, 0);
 	}
 
 	/**
@@ -350,8 +331,4 @@ public class EcouteurDeReception {
 		return volumeMin < 0;
 	}
 
-	public static void main(String[] args) throws Exception {
-		EcouteurDeReception edr = new EcouteurDeReception();
-		edr.calibrer(12);
-	}
 }
