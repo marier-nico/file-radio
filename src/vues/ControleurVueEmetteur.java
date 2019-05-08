@@ -59,7 +59,10 @@ public class ControleurVueEmetteur extends Vue {
 	private JFXButton btnAnnuler;
 
 	@FXML
-	private JFXButton btnCalibrer;
+	private JFXButton btnCalibrerUn;
+
+	@FXML
+	private JFXButton btnCalibrerZeros;
 
 	@FXML
 	private JFXTextField textFieldTempsUnBit;
@@ -104,6 +107,7 @@ public class ControleurVueEmetteur extends Vue {
 		Background b2 = new Background(new BackgroundFill(Color.web("#f85959"), CornerRadii.EMPTY, Insets.EMPTY));
 		btnEnvoyer.setBackground(b2);
 	}
+
 	/**
 	 * Permet d'obtenir le borderPaneRoot de la vue.
 	 * 
@@ -191,7 +195,7 @@ public class ControleurVueEmetteur extends Vue {
 		validSelect = true;
 		if (file == null) {
 			validSelect = false;
-			
+
 		}
 		actualiserValidation();
 	}
@@ -209,6 +213,24 @@ public class ControleurVueEmetteur extends Vue {
 			afficherErreur("calibration", "fichier introuvable ou micro non disponible", e);
 		}
 	}
+	
+	@FXML
+    void clickedCalibrerUns(ActionEvent event) {
+		try {
+			Calibreur.calibrerUns();
+		} catch (IOException | LineUnavailableException e) {
+			afficherErreur("calibration", "fichier introuvable ou micro non disponible", e);
+		}
+    }
+
+    @FXML
+    void clickedCalibrerZeros(ActionEvent event) {
+    	try {
+			Calibreur.calibrerZeros();
+		} catch (IOException | LineUnavailableException e) {
+			afficherErreur("calibration", "fichier introuvable ou micro non disponible", e);
+		}
+    }
 
 	/**
 	 * Cette méthode bind le textField avec tous les labels affichant des
@@ -257,7 +279,7 @@ public class ControleurVueEmetteur extends Vue {
 			ajoutLabel(new Label("L'envoi a été annulé"), vboxMessages);
 		}
 	}
-	
+
 	/**
 	 * Vérifi si tout les éléments ont été sélectionné avant l'envoi du fichier. Si
 	 * c'est le cas, elle modifi la couleur de la pastille sur la vue pour indiquer

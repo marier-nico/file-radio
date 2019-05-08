@@ -55,7 +55,10 @@ public class ControleurVueRecepteur extends Vue {
 	private JFXButton btnAnnuler;
 
 	@FXML
-	private JFXButton btnCalibrer;
+    private JFXButton btnCalibrerUn;
+
+    @FXML
+    private JFXButton btnCalibrerZeros;
 
 	@FXML
 	private VBox vboxMessages;
@@ -84,9 +87,6 @@ public class ControleurVueRecepteur extends Vue {
 	@FXML
 	private Label volumeZeros;
 
-	@FXML
-	private Circle cercleValidation;
-
 	public static final String ADRESSE_VUE_RECEPTEUR = "/vues/Vue_Recepteur.fxml";
 	final FileChooser fileChooser = new FileChooser();
 	private File file;
@@ -98,7 +98,8 @@ public class ControleurVueRecepteur extends Vue {
 	private boolean validSelect = false;
 	private boolean validTFInterv = true;
 	private boolean validTFTemps = true;
-	private boolean validCalibrer = false;
+	private boolean validCalibrerUn = false;
+	private boolean validCalibrerZeros = false;
 
 	/**
 	 * Construit un controleurVueRecepteur en instanciant un EcouteurDeReception.
@@ -223,27 +224,36 @@ public class ControleurVueRecepteur extends Vue {
 			}
 		}
 	}
-
-	/**
-	 * Gère l'événement du bouton calibrer.
-	 * 
-	 * @param event
-	 */
+	
 	@FXML
-	private void clickedCalibrer(ActionEvent event) {
+    void clickedCalibrerUns(ActionEvent event) {
 		try {
-			ecouteur.calibrer(3);
+			ecouteur.calibrerVolumeBit((byte) 1, 3);
 			ajoutLabel(new Label("Calibration en cours..."), vboxMessages);
 
 			// TODO modifier label volume
 			volumeUn.setText(ecouteur.getVolumeUn() + "");
+		} catch (Exception e) {
+			afficherErreur("Volume Un calibrer!", e.getMessage(), e);
+		}
+		validCalibrerUn = true;
+		actualiserValidation();
+    }
+
+    @FXML
+    void clickedCalibrerZeros(ActionEvent event) {
+    	try {
+			ecouteur.calibrerVolumeBit((byte) 0, 3);
+			ajoutLabel(new Label("Volume Zeros calibrer!"), vboxMessages);
+
+			// TODO modifier label volume
 			volumeZeros.setText(ecouteur.getVolumeZero() + "");
 		} catch (Exception e) {
 			afficherErreur("calibration", e.getMessage(), e);
 		}
-		validCalibrer = true;
+		validCalibrerZeros = true;
 		actualiserValidation();
-	}
+    }
 
 	/**
 	 * Permet de bind les TextField en filtrant ce qu'ils recoivent et bind la
@@ -291,7 +301,7 @@ public class ControleurVueRecepteur extends Vue {
 	private void actualiserValidation() {
 		Background b1 = new Background(new BackgroundFill(Color.web("#34a853"), CornerRadii.EMPTY, Insets.EMPTY));
 		Background b2 = new Background(new BackgroundFill(Color.web("#f85959"), CornerRadii.EMPTY, Insets.EMPTY));
-		if (validSelect && validTFInterv && validTFTemps && validCalibrer) {
+		if (validSelect && validTFInterv && validTFTemps && validCalibrerUn && validCalibrerZeros) {
 			btnEcouter.setBackground(b1);
 		} else {
 			btnEcouter.setBackground(b2);
