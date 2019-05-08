@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="borderPaneRoot" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="793.0" prefWidth="1255.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueRecepteur">
@@ -70,7 +69,7 @@
                   </HBox>
                </children>
             </VBox>
-            <JFXButton fx:id="btnCalibrer" buttonType="RAISED" onAction="#clickedCalibrer" prefHeight="41.0" prefWidth="250.0" text="CALIBRER">
+            <JFXButton id="btns" fx:id="btnCalibrer" buttonType="RAISED" onAction="#clickedCalibrer" prefHeight="41.0" prefWidth="250.0" text="CALIBRER">
                <VBox.margin>
                   <Insets top="20.0" />
                </VBox.margin>
@@ -87,16 +86,6 @@
                      <children>
                         <Label prefHeight="17.0" prefWidth="130.0" text="AMPLITUDE 0 : " />
                         <Label fx:id="volumeZeros" prefHeight="17.0" prefWidth="139.0" text="?" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="51.0" prefWidth="247.0">
-                     <children>
-                        <Label prefHeight="17.0" prefWidth="132.0" text="OPPÉRATIONNEL : ">
-                           <HBox.margin>
-                              <Insets top="3.0" />
-                           </HBox.margin>
-                        </Label>
-                        <Circle fx:id="cercleValidation" fill="#f85959" radius="10.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                      </children>
                   </HBox>
                </children>
@@ -120,7 +109,7 @@
    <bottom>
       <HBox id="contours" fx:id="hboxProgressBar" prefHeight="44.0" prefWidth="1255.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton fx:id="btnSelectionner" buttonType="RAISED" onAction="#clickedBtnSelect" prefHeight="44.0" prefWidth="247.0" text="SÉLECTIONNER" />
+            <JFXButton id="btns" fx:id="btnSelectionner" buttonType="RAISED" onAction="#clickedBtnSelect" prefHeight="44.0" prefWidth="247.0" text="SÉLECTIONNER" />
             <StackPane prefHeight="44.0" prefWidth="754.0" HBox.hgrow="ALWAYS">
                <children>
                   <ProgressBar fx:id="progressBar" prefHeight="44.0" prefWidth="881.0" progress="0.0" styleClass="progressBar" />
@@ -131,8 +120,8 @@
                   </Label>
                </children>
             </StackPane>
-            <JFXButton fx:id="btnAnnuler" buttonType="RAISED" layoutX="1142.0" layoutY="10.0" onAction="#clickedBtnAnnuler" prefHeight="47.0" prefWidth="123.0" text="ANNULER" />
-            <JFXButton fx:id="btnEcouter" buttonType="RAISED" onAction="#clickedBtnEcouter" prefHeight="47.0" prefWidth="123.0" text="ÉCOUTER" />
+            <JFXButton id="btns" fx:id="btnAnnuler" buttonType="RAISED" layoutX="1142.0" layoutY="10.0" onAction="#clickedBtnAnnuler" prefHeight="47.0" prefWidth="123.0" text="ANNULER" />
+            <JFXButton id="btnAction" fx:id="btnEcouter" buttonType="RAISED" onAction="#clickedBtnEcouter" prefHeight="47.0" prefWidth="123.0" text="ÉCOUTER" />
          </children>
          <BorderPane.margin>
             <Insets bottom="-2.0" />

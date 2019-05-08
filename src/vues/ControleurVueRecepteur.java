@@ -16,11 +16,16 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import modeles.AnimationProgressBar;
@@ -105,6 +110,11 @@ public class ControleurVueRecepteur extends Vue {
 		} catch (Exception e) {
 			afficherErreur("écoute", "une erreur est survenue lors de l'écoute", e);
 		}
+	}
+
+	public void initCouleurEmetteur() {
+		Background b2 = new Background(new BackgroundFill(Color.web("#f85959"), CornerRadii.EMPTY, Insets.EMPTY));
+		btnEcouter.setBackground(b2);
 	}
 
 	/**
@@ -279,10 +289,12 @@ public class ControleurVueRecepteur extends Vue {
 	 * que l'application est oppérationnel ou pas pour l'écoute.
 	 */
 	private void actualiserValidation() {
+		Background b1 = new Background(new BackgroundFill(Color.web("#34a853"), CornerRadii.EMPTY, Insets.EMPTY));
+		Background b2 = new Background(new BackgroundFill(Color.web("#f85959"), CornerRadii.EMPTY, Insets.EMPTY));
 		if (validSelect && validTFInterv && validTFTemps && validCalibrer) {
-			cercleValidation.setFill(javafx.scene.paint.Color.web("#34a853"));
+			btnEcouter.setBackground(b1);
 		} else {
-			cercleValidation.setFill(javafx.scene.paint.Color.web("#f85959"));
+			btnEcouter.setBackground(b2);
 		}
 	}
 }
