@@ -173,6 +173,17 @@ public class ControleurVueRecepteur extends Vue {
 							ecouteur.reconstruire(dureeIntervalleRecep.get() * 1000);
 							PasserelleFichier.ecrireOctets(ecouteur.getReconstitueur().getRepresentationBinaire(),
 									file);
+							
+							if (getExtensionFichier(file).contentEquals("text/plain")) {
+								try {
+									textFieldResultat.setText(PasserelleFichier.lireLignes(file).get(0));
+								} catch (IOException e) {
+									afficherErreur("Lecture fichier", "Afficher contenu fichier", e);
+								}
+							} else {
+								System.out.println("non");
+								System.out.println(getExtensionFichier(file));
+							}
 						} catch (IllegalStateException | LineUnavailableException | InterruptedException | IOException
 								| UnsupportedAudioFileException ex) {
 							ex.printStackTrace();
@@ -182,18 +193,6 @@ public class ControleurVueRecepteur extends Vue {
 				threadEcoute.start();
 				ajoutLabel(new Label("Écoute en cours..."), vboxMessages);
 				animProgress = new AnimationProgressBar(progressBar, tempsReception.get() * 1000, 0.001);
-
-				// TODO ne fonctionnera pas comme le thread doit avoir fini
-				if (getExtensionFichier(file) == "text/plain") {
-					try {
-						textFieldResultat.setText(PasserelleFichier.lireLignes(file).get(0));
-					} catch (IOException e) {
-						afficherErreur("Lecture fichier", "Afficher contenu fichier", e);
-					}
-				} else {
-					System.out.println("non");
-					System.out.println(getExtensionFichier(file));
-				}
 			}
 		}
 	}
