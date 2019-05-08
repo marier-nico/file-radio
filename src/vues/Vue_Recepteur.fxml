@@ -44,8 +44,8 @@
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="192.0" spacing="1.0">
                      <children>
-                        <Label prefHeight="17.0" prefWidth="94.0" text="TEMPS RÉCEP :" />
-                        <JFXTextField fx:id="textFieldTempsRecep" alignment="BASELINE_CENTER" focusColor="#36b81f" prefHeight="32.0" prefWidth="76.0" text="1.0" unFocusColor="WHITE">
+                        <Label prefHeight="17.0" prefWidth="132.0" text="TEMPS RÉCEP :" />
+                        <JFXTextField fx:id="textFieldTempsRecep" alignment="BASELINE_CENTER" focusColor="#36b81f" prefHeight="25.0" prefWidth="67.0" text="1.0" unFocusColor="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -58,7 +58,7 @@
                   </HBox>
                   <HBox alignment="BOTTOM_LEFT" prefHeight="21.0" prefWidth="192.0">
                      <children>
-                        <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="20.0" prefWidth="98.0" text="DURÉE INTERV. :" />
+                        <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="20.0" prefWidth="132.0" text="DURÉE INTERV. :" />
                         <JFXTextField fx:id="textFieldInterv" alignment="BASELINE_CENTER" focusColor="#36b81f" prefHeight="25.0" prefWidth="67.0" text="1.0" unFocusColor="WHITE">
                            <font>
                               <Font size="14.0" />
@@ -69,7 +69,7 @@
                   </HBox>
                   <HBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="173.0" prefHeight="21.0" prefWidth="192.0">
                      <children>
-                        <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="20.0" prefWidth="124.0" text="MARGE AMPLITUDE :" />
+                        <Label alignment="TOP_LEFT" contentDisplay="TOP" prefHeight="20.0" prefWidth="132.0" text="MARGE AMPLITUDE :" />
                         <JFXTextField fx:id="textFieldMarge" alignment="BASELINE_CENTER" focusColor="#36b81f" prefHeight="25.0" prefWidth="67.0" text="1.0" unFocusColor="WHITE">
                            <font>
                               <Font size="14.0" />
