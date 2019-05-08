@@ -21,7 +21,7 @@ public class Calibreur {
 	 * 0.125 secondes pour un bit, l'envoi d'un
 	 * octet durera une seconde.
 	 */
-	public static final float TEMPS_PAR_BIT = 0.125f;
+	public static final float TEMPS_PAR_BIT = 0.25f;
 	
 	/**
 	 * Cette méthode permet de calibrer les volumes

@@ -37,11 +37,11 @@ public class EcouteurDeReception {
 	/**
 	 * Le volume minimal pour un un, après la calibration.
 	 */
-	private double volumeMinUn = 1;
+	private double volumeMinUn = -15;
 	/**
 	 * Le volume minimal pour un zéro, après la calibration.
 	 */
-	private double volumeMinZero = 1;
+	private double volumeMinZero = -20;
 	/**
 	 * La taille de la fenêtre pour calculer les FFT.
 	 */
@@ -148,7 +148,6 @@ public class EcouteurDeReception {
 		}
 
 		for (int i = frames.length - 1; i >= 0; i--) {
-			//TODO à essayer
 			double moyenne = Stream.of(frames)
 					  .skip(i)
 					  .limit(4)
@@ -244,7 +243,7 @@ public class EcouteurDeReception {
 	 * @throws Exception
 	 */
 	public double calibrerVolumeBit(byte unOuZero, double diminutionSup) throws Exception {
-		ecouter(500);
+		ecouter(1000);
 		FFTResult resultat = getResultatFFT(WINDOW_SIZE, OVERLAP);
 		OptionalDouble bitPetit = Stream.of(resultat.fftFrames).mapToDouble(f -> f.bins[indiceFreqVoulue].amplitude)
 				.min();
