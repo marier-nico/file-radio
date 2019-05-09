@@ -55,10 +55,10 @@ public class ControleurVueRecepteur extends Vue {
 	private JFXButton btnAnnuler;
 
 	@FXML
-    private JFXButton btnCalibrerUn;
+	private JFXButton btnCalibrerUn;
 
-    @FXML
-    private JFXButton btnCalibrerZeros;
+	@FXML
+	private JFXButton btnCalibrerZeros;
 
 	@FXML
 	private VBox vboxMessages;
@@ -80,9 +80,9 @@ public class ControleurVueRecepteur extends Vue {
 
 	@FXML
 	private JFXTextField textFieldResultat;
-	
+
 	@FXML
-    private JFXTextField textFieldMarge;
+	private JFXTextField textFieldMarge;
 
 	@FXML
 	private Label volumeUn;
@@ -111,13 +111,15 @@ public class ControleurVueRecepteur extends Vue {
 	 */
 	public ControleurVueRecepteur() {
 		try {
-			// TODO transférer cette instanciation dans le clicked btn écouter
 			ecouteur = new EcouteurDeReception();
 		} catch (Exception e) {
 			afficherErreur("écoute", "une erreur est survenue lors de l'écoute", e);
 		}
 	}
 
+	/**
+	 * Initialise la couleur du bouton Envoyer.
+	 */
 	public void initCouleurRecepteur() {
 		Background b2 = new Background(new BackgroundFill(Color.web("#f85959"), CornerRadii.EMPTY, Insets.EMPTY));
 		btnEcouter.setBackground(b2);
@@ -172,7 +174,7 @@ public class ControleurVueRecepteur extends Vue {
 							ecouteur.reconstruire(dureeIntervalleRecep.get() * 1000);
 							PasserelleFichier.ecrireOctets(ecouteur.getReconstitueur().getRepresentationBinaire(),
 									file);
-							
+
 							if (getExtensionFichier(file).contentEquals("text/plain")) {
 								try {
 									textFieldResultat.setText(PasserelleFichier.lireLignes(file).get(0));
@@ -196,7 +198,13 @@ public class ControleurVueRecepteur extends Vue {
 		}
 	}
 
-	public static String getExtensionFichier(File file) {
+	/**
+	 * Permet d'obtenir l'extension d'un fichier.
+	 * 
+	 * @param file
+	 * @return
+	 */
+	private static String getExtensionFichier(File file) {
 		String retour = "Rien";
 		if (file != null) {
 			try {
@@ -227,36 +235,44 @@ public class ControleurVueRecepteur extends Vue {
 			}
 		}
 	}
-	
+
+	/**
+	 * Écoute des "uns" en son pendant 0.5 secondes pour calibrer l'amplitude des
+	 * "uns".
+	 * 
+	 * @param event
+	 */
 	@FXML
-    void clickedCalibrerUns(ActionEvent event) {
+	void clickedCalibrerUns(ActionEvent event) {
 		try {
 			ecouteur.calibrerVolumeBit((byte) 1, margeAmplitude.get());
 			ajoutLabel(new Label("Volume Un calibré"), vboxMessages);
-
-			// TODO modifier label volume
 			volumeUn.setText(ecouteur.getVolumeUn() + "");
 		} catch (Exception e) {
 			afficherErreur("calibration", e.getMessage(), e);
 		}
 		validCalibrerUn = true;
 		actualiserValidation();
-    }
+	}
 
-    @FXML
-    void clickedCalibrerZeros(ActionEvent event) {
-    	try {
+	/**
+	 * Écoute des "zéros" en son pendant 0.5 secondes pour calibrer l'amplitude des
+	 * "Zéros".
+	 * 
+	 * @param event
+	 */
+	@FXML
+	void clickedCalibrerZeros(ActionEvent event) {
+		try {
 			ecouteur.calibrerVolumeBit((byte) 0, margeAmplitude.get());
 			ajoutLabel(new Label("Volume Zero calibré"), vboxMessages);
-
-			// TODO modifier label volume
 			volumeZeros.setText(ecouteur.getVolumeZero() + "");
 		} catch (Exception e) {
 			afficherErreur("calibration", e.getMessage(), e);
 		}
 		validCalibrerZeros = true;
 		actualiserValidation();
-    }
+	}
 
 	/**
 	 * Permet de bind les TextField en filtrant ce qu'ils recoivent et bind la
@@ -294,7 +310,7 @@ public class ControleurVueRecepteur extends Vue {
 				actualiserValidation();
 			}
 		});
-		
+
 		textFieldMarge.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
