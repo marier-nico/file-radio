@@ -17,7 +17,7 @@
 	-jfx-disable-visual-focus: true; 
 }
 
-.button {
+#btns {
 	-fx-background-color: -fx-couleurBordures;
 	-fx-border-width: 1.0;
 	-fx-border-radius: 1.0;
@@ -25,10 +25,19 @@
 	-fx-text-fill: -fx-couleurFond;
 }
 
-.button:hover {
+#btns:hover {
 	-fx-background-color: -fx-couleurFond;
 	-fx-text-fill: -fx-couleurBordures;
 }
+
+#btnAction {
+    -fx-text-fill: white;
+}
+
+    #btnAction:hover {
+        -fx-border-radius: 2.0;
+        -fx-border-color: white;
+    }
 
 .pane, #contours {
 	-fx-border-color: -fx-couleurBordures;
@@ -36,30 +45,6 @@
 
 #lines {
 	-fx-stroke: -fx-couleurBordures;
-}
-
-.jfx-slider > .colored-track {
-     -fx-background-color: -fx-couleurBordures;
-}
-
-.slider>.track {
-	-fx-background-color: white;
-	-fx-background-size: 2.0;
-}
-
-.slider:vertical .track {
-	-fx-pref-width: 2.0;
-}
-
-.slider .thumb {
-	-fx-background-color: -fx-couleurBordures;
-}
-.jfx-slider > .animated-thumb {
-     -fx-background-color: -fx-couleurFond;
-}
-
-.jfx-slider .slider-value {
-     -fx-stroke: -fx-couleurFond;
 }
 
 .progress-bar > .bar {
@@ -101,3 +86,29 @@
 	{
 	-fx-opacity: 1.0;
 }
+
+.jfx-text-area {
+    -jfx-focus-color: white;
+}
+
+.text-area {
+    -fx-prompt-text-fill: #9a8e8e;
+    -fx-text-fill: white;
+}
+
+    .text-area .input-line {
+        -fx-background-color: -fx-couleurBordures;
+    }
+
+.jfx-text-field {
+    -jfx-focus-color: white;
+}
+
+.text-field {
+    -fx-prompt-text-fill: #9a8e8e;
+    -fx-text-fill: white;
+}
+
+    .text-field .input-line {
+        -fx-background-color: -fx-couleurBordures;
+    }
