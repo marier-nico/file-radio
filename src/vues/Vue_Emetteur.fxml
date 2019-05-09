@@ -66,7 +66,7 @@
                </children>
             </VBox>
             <Region prefHeight="6.0" prefWidth="195.0" VBox.vgrow="ALWAYS" />
-            <VBox alignment="TOP_CENTER" prefHeight="430.0" prefWidth="156.0" spacing="20.0" VBox.vgrow="ALWAYS">
+            <VBox alignment="TOP_CENTER" prefHeight="430.0" prefWidth="156.0" VBox.vgrow="ALWAYS">
                <children>
                   <JFXButton id="btns" fx:id="btnCalibrerUn" buttonType="RAISED" onAction="#clickedCalibrerUns" prefHeight="41.0" prefWidth="250.0" text="CALIBRER 1">
                      <VBox.margin>
@@ -78,6 +78,9 @@
          <padding>
             <Insets top="10.0" />
          </padding>
+         <BorderPane.margin>
+            <Insets top="1.0" />
+         </BorderPane.margin>
       </VBox>
    </left>
    <cursor>
@@ -86,8 +89,8 @@
    <bottom>
       <HBox fx:id="hboxProgressBar" prefHeight="44.0" prefWidth="1076.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXButton id="btns" fx:id="btnSelectionner" buttonType="RAISED" onAction="#clickedBtnSelect" prefHeight="44.0" prefWidth="288.0" text="SÉLECTIONNER" />
-            <StackPane prefHeight="44.0" prefWidth="834.0" HBox.hgrow="ALWAYS">
+            <JFXButton id="btns" fx:id="btnSelectionner" buttonType="RAISED" onAction="#clickedBtnSelect" prefHeight="44.0" prefWidth="246.0" text="SÉLECTIONNER" HBox.hgrow="ALWAYS" />
+            <StackPane prefHeight="44.0" prefWidth="754.0" HBox.hgrow="ALWAYS">
                <children>
                   <ProgressBar fx:id="progressBar" prefHeight="96.0" prefWidth="841.0" progress="0.0" />
                   <Label fx:id="labelProgress" prefHeight="44.0" prefWidth="857.0" text="VEUILLER SÉLECTIONNER UN FICHIER À ENVOYER..." StackPane.alignment="TOP_LEFT">
@@ -100,8 +103,8 @@
                   <Insets />
                </HBox.margin>
             </StackPane>
-            <JFXButton id="btns" fx:id="btnAnnuler" buttonType="RAISED" onAction="#clickedBtnAnnuler" prefHeight="44.0" prefWidth="169.0" text="ANNULER" />
-            <JFXButton id="btnAction" fx:id="btnEnvoyer" buttonType="RAISED" layoutX="10.0" layoutY="10.0" onAction="#clickedBtnEnvoyer" prefHeight="44.0" prefWidth="144.0" text="ENVOYER" />
+            <JFXButton id="btns" fx:id="btnAnnuler" buttonType="RAISED" onAction="#clickedBtnAnnuler" prefHeight="44.0" prefWidth="123.0" text="ANNULER" />
+            <JFXButton id="btnAction" fx:id="btnEnvoyer" buttonType="RAISED" layoutX="10.0" layoutY="10.0" onAction="#clickedBtnEnvoyer" prefHeight="44.0" prefWidth="123.0" text="ENVOYER" />
          </children>
          <BorderPane.margin>
             <Insets />
@@ -118,12 +121,15 @@
    <top>
       <HBox prefHeight="36.0" prefWidth="1255.0" BorderPane.alignment="CENTER">
          <children>
-            <JFXTextArea fx:id="textAreaMessage" focusColor="WHITE" prefHeight="17.0" prefWidth="1255.0" promptText="Vous pouvez écrire directement un fichier texte ici..." unFocusColor="#0ccd0c">
+            <JFXTextArea fx:id="textAreaMessage" focusColor="WHITE" prefHeight="17.0" prefWidth="1255.0" promptText="Vous pouvez écrire directement un fichier texte ici..." unFocusColor="#0ccd0c" HBox.hgrow="ALWAYS">
                <font>
                   <Font size="16.0" />
                </font>
             </JFXTextArea>
-            <JFXButton id="btns" fx:id="btnEnregistrer" buttonType="RAISED" onAction="#clickedEnregistrer" prefHeight="48.0" prefWidth="258.0" text="ENREGISTRER" />
+            <JFXButton id="btns" fx:id="btnEnregistrer" buttonType="RAISED" onAction="#clickedEnregistrer" prefHeight="48.0" prefWidth="250.0" text="ENREGISTRER">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></JFXButton>
          </children>
       </HBox>
    </top>
