@@ -99,8 +99,10 @@ public class ControleurVueEmetteur extends Vue {
 	private JFXTextArea textAreaMessage;
 
 	public static final String ADRESSE_VUE_EMETTEUR = "/vues/Vue_Emetteur.fxml";
-	private final FileChooser fileChooser = new FileChooser();
-	private File file;
+	private final FileChooser fileChooserSelect = new FileChooser();
+	private File fileSelect;
+	private FileChooser fileChooserEnreg = new FileChooser();
+	private File fileEnreg;
 	private GenerateurSon generateurSon;
 	private LecteurSon lecteurSon;
 	private FloatProperty dureeSonBit = new SimpleFloatProperty(1f);
@@ -111,6 +113,9 @@ public class ControleurVueEmetteur extends Vue {
 	private boolean validEnreg = false;
 	private boolean validTextField = true;
 
+	/**
+	 * Initialise la couleur du bouton Envoyer.
+	 */
 	public void initCouleurEmetteur() {
 		Background b2 = new Background(new BackgroundFill(Color.web("#f85959"), CornerRadii.EMPTY, Insets.EMPTY));
 		btnEnvoyer.setBackground(b2);
@@ -135,11 +140,11 @@ public class ControleurVueEmetteur extends Vue {
 		if ((validEnreg || validSelect) && validTextField) {
 			File fileTemp;
 			if (validEnreg) {
-				fileTemp = f;
+				fileTemp = fileEnreg;
 			} else {
-				fileTemp = file;
+				fileTemp = fileSelect;
 			}
-			
+
 			if ((threadSon != null) && (threadSon.isAlive())) {
 				Alert erreur = new Alert(AlertType.ERROR);
 				erreur.setHeaderText("Erreur");
@@ -188,7 +193,8 @@ public class ControleurVueEmetteur extends Vue {
 				} catch (IllegalStateException ex) {
 					afficherErreur("la lecture du son", "Un autre son est déjà en lecture.", ex);
 				}
-				ajoutLabel(new Label("Envoi en cours de " + getEmplacementFichierSelct(fileTemp) + "..."), vboxMessages);
+				ajoutLabel(new Label("Envoi en cours de " + getEmplacementFichierSelct(fileTemp) + "..."),
+						vboxMessages);
 			}
 		}
 	}
@@ -201,20 +207,22 @@ public class ControleurVueEmetteur extends Vue {
 	 */
 	@FXML
 	private void clickedBtnSelect(ActionEvent event) {
-		fileChooser.setTitle("Veuiller sélectionner un fichier");
-		file = fileChooser.showOpenDialog(getApplication().getStage());
-		labelProgress.setText(getEmplacementFichierSelct(file));
-		float uptdate = dureeSonBit.get();
-		textFieldTempsUnBit.setText((dureeSonBit.get() - uptdate) + "");
-		textFieldTempsUnBit.setText((dureeSonBit.get() + uptdate) + "");
+		fileChooserSelect.setTitle("Veuiller sélectionner un fichier");
+		fileSelect = fileChooserSelect.showOpenDialog(getApplication().getStage());
+		labelProgress.setText(getEmplacementFichierSelct(fileSelect));
+		updateTextField();
 		validSelect = true;
 		validEnreg = false;
-		if (file == null) {
+		if (fileSelect == null) {
 			validSelect = false;
 		}
 		actualiserValidation();
 	}
 
+	/**
+	 * Envoi des "uns" en son pendant 2 secondes pour synchroniser les vues.
+	 * @param event
+	 */
 	@FXML
 	void clickedCalibrerUns(ActionEvent event) {
 		try {
@@ -225,6 +233,11 @@ public class ControleurVueEmetteur extends Vue {
 		}
 	}
 
+	/**
+	 * Envoi des "zéros" en son pendant 2 secondes pour synchroniser les vues.
+	 * 
+	 * @param event
+	 */
 	@FXML
 	void clickedCalibrerZeros(ActionEvent event) {
 		try {
@@ -235,31 +248,40 @@ public class ControleurVueEmetteur extends Vue {
 		}
 	}
 
-	private FileChooser fc = new FileChooser();
-	private File f;
+	/**
+	 * Permeet d'enregistrer un fichier texte depuis directement la vue emetteur.
+	 * @param event
+	 */
 	@FXML
 	void clickedEnregistrer(ActionEvent event) {
-		fc.setTitle("Veuiller sélectionner un emplacement de destination");
-		f = fc.showSaveDialog(getApplication().getStage());
-		labelProgress.setText(getEmplacementFichierSelct(f));
-		
+		fileChooserEnreg.setTitle("Veuiller sélectionner un emplacement de destination");
+		fileEnreg = fileChooserEnreg.showSaveDialog(getApplication().getStage());
+		labelProgress.setText(getEmplacementFichierSelct(fileEnreg));
+
 		PrintWriter writer;
 		try {
-			writer = new PrintWriter(getEmplacementFichierSelct(f), "UTF-8");
+			writer = new PrintWriter(getEmplacementFichierSelct(fileEnreg), "UTF-8");
 			writer.print(textAreaMessage.getText());
 			writer.close();
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			afficherErreur("enregistrer fichier", "impossible de creer le fichier", e);
 		}
-		float uptdate = dureeSonBit.get();
-		textFieldTempsUnBit.setText((dureeSonBit.get() - uptdate) + "");
-		textFieldTempsUnBit.setText((dureeSonBit.get() + uptdate) + "");
+		updateTextField();
 		validEnreg = true;
 		validSelect = false;
-		if (f == null) {
+		if (fileEnreg == null) {
 			validEnreg = false;
 		}
 		actualiserValidation();
+	}
+	
+	/**
+	 * Permet d'actualiser le temps d'envoi.
+	 */
+	private void updateTextField() {
+		float uptdate = dureeSonBit.get();
+		textFieldTempsUnBit.setText((dureeSonBit.get() - uptdate) + "");
+		textFieldTempsUnBit.setText((dureeSonBit.get() + uptdate) + "");
 	}
 
 	/**
@@ -277,20 +299,20 @@ public class ControleurVueEmetteur extends Vue {
 					dureeSonBit.set(valeur);
 					DoubleProperty vitFich = new SimpleDoubleProperty(Math.round(valeur * 8));
 					labelVitesseFichier.textProperty().bind(vitFich.asString());
-					if (file != null) {
+					if (fileSelect != null) {
 						validTextField = true;
 						try {
 							tempsEstim = new SimpleDoubleProperty(
-									Math.round(dureeSonBit.get() * (PasserelleFichier.lireOctets(file).length) * 8));
+									Math.round(dureeSonBit.get() * (PasserelleFichier.lireOctets(fileSelect).length) * 8));
 							labelTempsEstim.textProperty().bind(tempsEstim.asString());
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
-					} else if (f != null) {
+					} else if (fileEnreg != null) {
 						validTextField = true;
 						try {
 							tempsEstim = new SimpleDoubleProperty(
-									Math.round(dureeSonBit.get() * (PasserelleFichier.lireOctets(f).length) * 8));
+									Math.round(dureeSonBit.get() * (PasserelleFichier.lireOctets(fileEnreg).length) * 8));
 							labelTempsEstim.textProperty().bind(tempsEstim.asString());
 						} catch (IOException e) {
 							e.printStackTrace();
