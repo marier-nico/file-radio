@@ -18,11 +18,11 @@
 }
 
 #btns {
-	-fx-background-color: linear-gradient(from 25.0% 25.0% to 100.0% 100.0%, #282827, -fx-couleurFond);
-	-fx-border-width: 1.0;
-	-fx-border-radius: 1.0;
-	-fx-border-color: -fx-couleurBordures;
-	-fx-text-fill: white;
+    -fx-background-color: #282827;
+    -fx-border-width: 1.0;
+    -fx-border-radius: 1.0;
+    -fx-border-color: -fx-couleurBordures;
+    -fx-text-fill: white;
 }
 
 #btns:hover {

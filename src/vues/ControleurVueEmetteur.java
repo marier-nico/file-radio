@@ -273,6 +273,7 @@ public class ControleurVueEmetteur extends Vue {
 			validEnreg = false;
 		}
 		actualiserValidation();
+		ajoutLabel(new Label(getEmplacementFichierSelct(fileEnreg) + " est prêt pour l'envoi"), vboxMessages);
 	}
 	
 	/**
