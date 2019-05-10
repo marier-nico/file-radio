@@ -2,6 +2,8 @@ package vues;
 
 import java.io.File;
 
+import com.sun.media.jfxmediaimpl.platform.Platform;
+
 import controleurs.ApplicationRadio;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -88,6 +90,14 @@ public class Vue {
 		erreur.setContentText(detail + "\n\n" + ex.getStackTrace());
 		erreur.setTitle("Erreur");
 		erreur.showAndWait();
+	}
+	
+	public Alert getAlert(String emplacement, String detail, Exception ex) {
+		Alert erreur = new Alert(AlertType.ERROR);
+		erreur.setHeaderText("Erreur dans " + emplacement);
+		erreur.setContentText(detail + "\n\n" + ex.getStackTrace());
+		erreur.setTitle("Erreur");
+		return erreur;
 	}
 
 	/**

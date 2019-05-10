@@ -17,6 +17,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Background;
@@ -179,7 +180,8 @@ public class ControleurVueRecepteur extends Vue {
 								try {
 									textFieldResultat.setText(PasserelleFichier.lireLignes(file).get(0));
 								} catch (IOException e) {
-									afficherErreur("Lecture fichier", "Afficher contenu fichier", e);
+									Alert alert = getAlert("Lecture fichier", "Afficher contenu fichier", e);
+									alert.showAndWait();
 								}
 							} else {
 								System.out.println("non");
