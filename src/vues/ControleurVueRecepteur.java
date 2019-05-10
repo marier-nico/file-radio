@@ -20,6 +20,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -180,8 +181,7 @@ public class ControleurVueRecepteur extends Vue {
 								try {
 									textFieldResultat.setText(PasserelleFichier.lireLignes(file).get(0));
 								} catch (IOException e) {
-									Alert alert = getAlert("Lecture fichier", "Afficher contenu fichier", e);
-									alert.showAndWait();
+									afficherErreurr("Lecture fichier", "Afficher contenu fichier", e);
 								}
 							} else {
 								System.out.println("non");
@@ -198,6 +198,14 @@ public class ControleurVueRecepteur extends Vue {
 				animProgress = new AnimationProgressBar(progressBar, tempsReception.get() * 1000, 0.001);
 			}
 		}
+	}
+	
+	public void afficherErreurr(String emplacement, String detail, Exception ex) {
+		Alert erreur = new Alert(AlertType.ERROR);
+		erreur.setHeaderText("Erreur dans " + emplacement);
+		erreur.setContentText(detail + "\n\n" + ex.getStackTrace());
+		erreur.setTitle("Erreur");
+		erreur.showAndWait();
 	}
 
 	/**
