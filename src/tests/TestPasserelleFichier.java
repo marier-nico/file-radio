@@ -15,7 +15,7 @@ public class TestPasserelleFichier {
 	@Test
 	public void testLireFichier() {
 		try {
-			File fich = PasserelleFichier.obtenirFichier(getClass().getResource("/tests/FichierLireTest.txt").getPath());
+			File fich = PasserelleFichier.obtenirFichier("src/tests/FichierLireTest.txt");
 			byte[] octets = PasserelleFichier.lireOctets(fich);
 			byte[] octetsAttendus = {97, 115, 100, 102};
 			assertArrayEquals(octetsAttendus, octets);
