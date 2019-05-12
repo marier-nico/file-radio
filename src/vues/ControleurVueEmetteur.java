@@ -107,7 +107,7 @@ public class ControleurVueEmetteur extends Vue {
 	private File fileEnreg;
 	private GenerateurSon generateurSon;
 	private LecteurSon lecteurSon;
-	private FloatProperty dureeSonBit = new SimpleFloatProperty(1f);
+	private FloatProperty dureeIntervalleBit = new SimpleFloatProperty(1f);
 	private DoubleProperty tempsEstim;
 	private Thread threadSon;
 	private AnimationProgressBar animProgressBar;
@@ -165,10 +165,10 @@ public class ControleurVueEmetteur extends Vue {
 					return;
 				}
 				RepresentationBinaire repr = new RepresentationBinaire(octetsFichier);
-				generateurSon = new GenerateurSon(repr, dureeSonBit.get());
+				generateurSon = new GenerateurSon(repr, dureeIntervalleBit.get());
 				byte[][] donnees = generateurSon.getDonneesSon();
 				try {
-					lecteurSon = new LecteurSon(donnees, dureeSonBit.get());
+					lecteurSon = new LecteurSon(donnees, dureeIntervalleBit.get());
 					threadSon = new Thread(new Runnable() {
 						@Override
 						public void run() {
@@ -185,7 +185,7 @@ public class ControleurVueEmetteur extends Vue {
 						}
 					});
 					threadSon.start();
-					animProgressBar = new AnimationProgressBar(progressBar, dureeSonBit.get(),
+					animProgressBar = new AnimationProgressBar(progressBar, dureeIntervalleBit.get(),
 							octetsFichier.length * 8);
 				} catch (LineUnavailableException ex) {
 					afficherErreur("la lecture du son",
@@ -212,21 +212,23 @@ public class ControleurVueEmetteur extends Vue {
 		fileChooserSelect.setTitle("Veuiller sélectionner un fichier");
 		fileSelect = fileChooserSelect.showOpenDialog(getApplication().getStage());
 		labelProgress.setText(getEmplacementFichierSelct(fileSelect));
-		updateTextField();
 		validSelect = true;
 		validEnreg = false;
 		if (fileSelect == null) {
 			validSelect = false;
 		}
 		actualiserValidation();
+		bindTextFieldEtProgress();
+		updateTextField();
 	}
 
 	/**
 	 * Envoi des "uns" en son pendant 2 secondes pour synchroniser les vues.
+	 * 
 	 * @param event
 	 */
 	@FXML
-	void clickedCalibrerUns(ActionEvent event) {
+	private void clickedCalibrerUns(ActionEvent event) {
 		try {
 			Calibreur.calibrerUns();
 			ajoutLabel(new Label("Volume Un calibré"), vboxMessages);
@@ -241,7 +243,7 @@ public class ControleurVueEmetteur extends Vue {
 	 * @param event
 	 */
 	@FXML
-	void clickedCalibrerZeros(ActionEvent event) {
+	private void clickedCalibrerZeros(ActionEvent event) {
 		try {
 			Calibreur.calibrerZeros();
 			ajoutLabel(new Label("Volume Zero calibré"), vboxMessages);
@@ -252,10 +254,11 @@ public class ControleurVueEmetteur extends Vue {
 
 	/**
 	 * Permeet d'enregistrer un fichier texte depuis directement la vue emetteur.
+	 * 
 	 * @param event
 	 */
 	@FXML
-	void clickedEnregistrer(ActionEvent event) {
+	private void clickedEnregistrer(ActionEvent event) {
 		fileChooserEnreg.setTitle("Veuiller sélectionner un emplacement de destination");
 		fileEnreg = fileChooserEnreg.showSaveDialog(getApplication().getStage());
 		labelProgress.setText(getEmplacementFichierSelct(fileEnreg));
@@ -268,7 +271,6 @@ public class ControleurVueEmetteur extends Vue {
 		} catch (FileNotFoundException | UnsupportedEncodingException e) {
 			afficherErreur("enregistrer fichier", "impossible de creer le fichier", e);
 		}
-		updateTextField();
 		validEnreg = true;
 		validSelect = false;
 		if (fileEnreg == null) {
@@ -276,22 +278,24 @@ public class ControleurVueEmetteur extends Vue {
 		}
 		actualiserValidation();
 		ajoutLabel(new Label(getEmplacementFichierSelct(fileEnreg) + " est prêt pour l'envoi"), vboxMessages);
+		bindTextFieldEtProgress();
+		updateTextField();
 	}
-	
+
 	/**
 	 * Permet d'actualiser le temps d'envoi.
 	 */
 	private void updateTextField() {
-		float uptdate = dureeSonBit.get();
-		textFieldTempsUnBit.setText((dureeSonBit.get() - uptdate) + "");
-		textFieldTempsUnBit.setText((dureeSonBit.get() + uptdate) + "");
+		float uptdate = dureeIntervalleBit.get();
+		textFieldTempsUnBit.setText((dureeIntervalleBit.get() - uptdate) + "");
+		textFieldTempsUnBit.setText((dureeIntervalleBit.get() + uptdate) + "");
 	}
 
 	/**
 	 * Cette méthode bind le textField avec tous les labels affichant des
 	 * informations en lien avec celui-ci et la progressbar.
 	 */
-	public void bindTextFieldEtProgress() {
+	private void bindTextFieldEtProgress() {
 		bindProgressBar(progressBar, hboxProgressBar);
 
 		textFieldTempsUnBit.textProperty().addListener(new ChangeListener<String>() {
@@ -299,30 +303,31 @@ public class ControleurVueEmetteur extends Vue {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (newValue.matches("-?\\d+(\\.\\d+)?")) {
 					float valeur = Float.parseFloat(newValue);
-					dureeSonBit.set(valeur);
+					dureeIntervalleBit.set(valeur);
 					DoubleProperty vitFich = new SimpleDoubleProperty(Math.round(valeur * 8));
+					// TODO lui faire afficher la bonne chose
 					labelVitesseFichier.textProperty().bind(vitFich.asString());
-					if (fileSelect != null) {
+					if (validSelect) {
 						validTextField = true;
 						try {
-							tempsEstim = new SimpleDoubleProperty(
-									Math.round(dureeSonBit.get() * (PasserelleFichier.lireOctets(fileSelect).length) * 8));
+							tempsEstim = new SimpleDoubleProperty(Math.round(
+									dureeIntervalleBit.get() * (PasserelleFichier.lireOctets(fileSelect).length) * 8));
 							labelTempsEstim.textProperty().bind(tempsEstim.asString());
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
-					} else if (fileEnreg != null) {
+					} else if (validEnreg) {
 						validTextField = true;
 						try {
-							tempsEstim = new SimpleDoubleProperty(
-									Math.round(dureeSonBit.get() * (PasserelleFichier.lireOctets(fileEnreg).length) * 8));
+							tempsEstim = new SimpleDoubleProperty(Math.round(
+									dureeIntervalleBit.get() * (PasserelleFichier.lireOctets(fileEnreg).length) * 8));
 							labelTempsEstim.textProperty().bind(tempsEstim.asString());
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
 					}
 				} else {
-					dureeSonBit.set(0);
+					dureeIntervalleBit.set(0);
 					validTextField = false;
 				}
 				actualiserValidation();

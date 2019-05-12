@@ -95,7 +95,7 @@ public class ControleurVueRecepteur extends Vue {
 	public static final String ADRESSE_VUE_RECEPTEUR = "/vues/Vue_Recepteur.fxml";
 	final FileChooser fileChooser = new FileChooser();
 	private File file;
-	private FloatProperty dureeIntervalleRecep = new SimpleFloatProperty(1f);
+	private FloatProperty dureeIntervalleBit = new SimpleFloatProperty(1f);
 	private FloatProperty tempsReception = new SimpleFloatProperty(1f);
 	private FloatProperty margeAmplitude = new SimpleFloatProperty(1f);
 	private AnimationProgressBar animProgress;
@@ -173,7 +173,7 @@ public class ControleurVueRecepteur extends Vue {
 					public void run() {
 						try {
 							ecouteur.ecouter((long) (tempsReception.get() * 1000));
-							ecouteur.reconstruire(dureeIntervalleRecep.get() * 1000);
+							ecouteur.reconstruire(dureeIntervalleBit.get() * 1000);
 							PasserelleFichier.ecrireOctets(ecouteur.getReconstitueur().getRepresentationBinaire(),
 									file);
 
@@ -304,10 +304,10 @@ public class ControleurVueRecepteur extends Vue {
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				if (newValue.matches("-?\\d+(\\.\\d+)?")) {
 					float valeur = Float.parseFloat(newValue);
-					dureeIntervalleRecep.set(valeur);
+					dureeIntervalleBit.set(valeur);
 					validTFInterv = true;
 				} else {
-					dureeIntervalleRecep.set(0);
+					dureeIntervalleBit.set(0);
 					validTFInterv = false;
 				}
 				actualiserValidation();
