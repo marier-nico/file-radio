@@ -181,7 +181,8 @@ public class ControleurVueRecepteur extends Vue {
 								try {
 									textFieldResultat.setText(PasserelleFichier.lireLignes(file).get(0));
 								} catch (IOException e) {
-									afficherErreurr("Lecture fichier", "Afficher contenu fichier", e);
+									System.out.println("Erreur lors de la lecture d'un fichier et l'afficahge du contenu...");
+									e.printStackTrace();
 								}
 							} else {
 								System.out.println("non");
@@ -198,14 +199,6 @@ public class ControleurVueRecepteur extends Vue {
 				animProgress = new AnimationProgressBar(progressBar, tempsReception.get() * 1000, 0.001);
 			}
 		}
-	}
-	
-	public void afficherErreurr(String emplacement, String detail, Exception ex) {
-		Alert erreur = new Alert(AlertType.ERROR);
-		erreur.setHeaderText("Erreur dans " + emplacement);
-		erreur.setContentText(detail + "\n\n" + ex.getStackTrace());
-		erreur.setTitle("Erreur");
-		erreur.showAndWait();
 	}
 
 	/**
