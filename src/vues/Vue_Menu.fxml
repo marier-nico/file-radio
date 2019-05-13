@@ -7,9 +7,15 @@
 <?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <VBox fx:id="vboxRoot" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="vues.ControleurVueMenu">
    <children>
+      <Label alignment="CENTER" prefHeight="53.0" prefWidth="406.0" text="SILENCE RADIO">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
       <Region prefHeight="0.0" prefWidth="800.0" VBox.vgrow="ALWAYS" />
       <JFXButton id="btns" fx:id="btnEmettre" buttonType="RAISED" onAction="#clickedBtnEmettre" prefHeight="68.0" prefWidth="228.0" ripplerFill="#fffbfb" text="ÉMETTRE UN MESSAGE" />
       <Region prefHeight="0.0" prefWidth="900.0" VBox.vgrow="ALWAYS" />
