@@ -17,7 +17,7 @@
    <left>
       <VBox id="contours" prefHeight="721.0" prefWidth="247.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="172.0" prefWidth="139.0" spacing="15.0">
+            <VBox prefHeight="172.0" prefWidth="139.0" spacing="20.0">
                <children>
                   <HBox prefHeight="0.0" prefWidth="200.0">
                      <children>
@@ -78,6 +78,9 @@
                      </children>
                   </HBox>
                </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </VBox>
             <JFXButton id="btns" fx:id="btnCalibrerUn" buttonType="RAISED" onAction="#clickedCalibrerUns" prefHeight="41.0" prefWidth="250.0" text="CALIBRER 1">
                <VBox.margin>

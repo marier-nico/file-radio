@@ -18,13 +18,16 @@
    <left>
       <VBox id="contours" prefHeight="660.0" prefWidth="247.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox prefHeight="189.0" prefWidth="195.0" spacing="15.0">
+            <VBox prefHeight="225.0" prefWidth="247.0" spacing="20.0">
                <children>
                   <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
                      <children>
                         <Label text="COURANT :" />
                         <Label layoutX="10.0" layoutY="10.0" text="2.5 A" />
                      </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </HBox>
                   <HBox prefHeight="0.0" prefWidth="200.0" spacing="5.0">
                      <children>
@@ -64,6 +67,9 @@
                      </children>
                   </HBox>
                </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </VBox>
             <Region prefHeight="6.0" prefWidth="195.0" VBox.vgrow="ALWAYS" />
             <VBox alignment="TOP_CENTER" prefHeight="430.0" prefWidth="156.0" VBox.vgrow="ALWAYS">
