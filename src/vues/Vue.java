@@ -97,14 +97,6 @@ public class Vue {
 		erreur.setTitle("Erreur");
 		erreur.showAndWait();
 	}
-	
-	public Alert getAlert(String emplacement, String detail, Exception ex) {
-		Alert erreur = new Alert(AlertType.ERROR);
-		erreur.setHeaderText("Erreur dans " + emplacement);
-		erreur.setContentText(detail + "\n\n" + ex.getStackTrace());
-		erreur.setTitle("Erreur");
-		return erreur;
-	}
 
 	/**
 	 * Permet d'afficher une erreur.
