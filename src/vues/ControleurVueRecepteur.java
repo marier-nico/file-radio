@@ -123,8 +123,7 @@ public class ControleurVueRecepteur extends Vue {
 	 * Initialise la couleur du bouton Envoyer.
 	 */
 	public void initCouleurRecepteur() {
-		Background b2 = new Background(new BackgroundFill(Color.web("#f85959"), CornerRadii.EMPTY, Insets.EMPTY));
-		btnEcouter.setBackground(b2);
+		btnEcouter.setBackground(BG_ROUGE);
 	}
 
 	/**
@@ -181,7 +180,8 @@ public class ControleurVueRecepteur extends Vue {
 								try {
 									textFieldResultat.setText(PasserelleFichier.lireLignes(file).get(0));
 								} catch (IOException e) {
-									System.out.println("Erreur lors de la lecture d'un fichier et l'afficahge du contenu...");
+									System.out.println(
+											"Erreur lors de la lecture d'un fichier et l'afficahge du contenu...");
 									e.printStackTrace();
 								}
 							} else {
@@ -284,6 +284,11 @@ public class ControleurVueRecepteur extends Vue {
 	public void bindTextFieldEtProgress() {
 		bindProgressBar(progressBar, hboxProgressBar);
 
+		// Il aurait été mieux de faire une méthode pour faire les tâche répétitives des
+		// binds, sauf que mes variables booléennes ne sont et ne peuvent pas être final -> local
+		// variable defined in an
+		// enclosing scope must be final or effectively final...
+		
 		textFieldTempsRecep.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
@@ -336,12 +341,10 @@ public class ControleurVueRecepteur extends Vue {
 	 * que l'application est oppérationnel ou pas pour l'écoute.
 	 */
 	private void actualiserValidation() {
-		Background b1 = new Background(new BackgroundFill(Color.web("#34a853"), CornerRadii.EMPTY, Insets.EMPTY));
-		Background b2 = new Background(new BackgroundFill(Color.web("#f85959"), CornerRadii.EMPTY, Insets.EMPTY));
 		if (validSelect && validTFInterv && validTFTemps && validCalibrerUn && validCalibrerZeros && validTFMarge) {
-			btnEcouter.setBackground(b1);
+			btnEcouter.setBackground(BG_VERT);
 		} else {
-			btnEcouter.setBackground(b2);
+			btnEcouter.setBackground(BG_ROUGE);
 		}
 	}
 }

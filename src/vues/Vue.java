@@ -2,14 +2,18 @@ package vues;
 
 import java.io.File;
 
-import com.sun.media.jfxmediaimpl.platform.Platform;
 
 import controleurs.ApplicationRadio;
+import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 
 /**
@@ -22,6 +26,8 @@ public class Vue {
 
 	private ApplicationRadio application = null;
 	private int nbrMessage = 0;
+	public static final Background BG_VERT = new Background(new BackgroundFill(Color.web("#34a853"), CornerRadii.EMPTY, Insets.EMPTY));
+	public static final Background BG_ROUGE = new Background(new BackgroundFill(Color.web("#f85959"), CornerRadii.EMPTY, Insets.EMPTY));
 
 	/**
 	 * Permet de sélectionner l'application radio.

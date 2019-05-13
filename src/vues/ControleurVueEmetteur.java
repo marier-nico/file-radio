@@ -12,7 +12,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
-import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -34,7 +33,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import modeles.AnimationProgressBar;
 import modeles.RepresentationBinaire;
@@ -119,8 +117,7 @@ public class ControleurVueEmetteur extends Vue {
 	 * Initialise la couleur du bouton Envoyer.
 	 */
 	public void initCouleurEmetteur() {
-		Background b2 = new Background(new BackgroundFill(Color.web("#f85959"), CornerRadii.EMPTY, Insets.EMPTY));
-		btnEnvoyer.setBackground(b2);
+		btnEnvoyer.setBackground(BG_ROUGE);
 	}
 
 	/**
@@ -355,12 +352,10 @@ public class ControleurVueEmetteur extends Vue {
 	 * que l'application est oppérationnel ou pas pour l'envoi.
 	 */
 	private void actualiserValidation() {
-		Background b1 = new Background(new BackgroundFill(Color.web("#34a853"), CornerRadii.EMPTY, Insets.EMPTY));
-		Background b2 = new Background(new BackgroundFill(Color.web("#f85959"), CornerRadii.EMPTY, Insets.EMPTY));
 		if ((validEnreg || validSelect) && validTextField) {
-			btnEnvoyer.setBackground(b1);
+			btnEnvoyer.setBackground(BG_VERT);
 		} else {
-			btnEnvoyer.setBackground(b2);
+			btnEnvoyer.setBackground(BG_ROUGE);
 		}
 	}
 }
