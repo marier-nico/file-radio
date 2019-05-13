@@ -1,6 +1,6 @@
 * {
-    -fx-couleurFond: #1c1c1e;
-    -fx-couleurBordures: #c9ddfc;
+    -fx-couleurFond: #181a1b;
+    -fx-couleurBordures: #0084ff;
 }
 
 .root {
@@ -22,13 +22,13 @@
 	-fx-border-width: 1.0;
 	-fx-border-radius: 1.0;
 	-fx-border-color: -fx-couleurBordures;
-	-fx-text-fill: -fx-couleurFond;
+	-fx-text-fill: white;
 }
 
-#btns:hover {
-	-fx-background-color: -fx-couleurFond;
-	-fx-text-fill: -fx-couleurBordures;
-}
+    #btns:hover {
+        -fx-background-color: -fx-couleurFond;
+        -fx-border-color: white;
+    }
 
 #btnAction {
     -fx-text-fill: white;
