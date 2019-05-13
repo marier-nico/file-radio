@@ -284,11 +284,17 @@ public class ControleurVueEmetteur extends Vue {
 	}
 
 	/**
+	 * Cette méthode bind la progressbar au bordure pour simuler un hgrow.
+	 */
+	public void bindProgressBar() {
+		bindProgressBar(progressBar, hboxProgressBar);
+	}
+	
+	/**
 	 * Cette méthode bind le textField avec tous les labels affichant des
 	 * informations en lien avec celui-ci et la progressbar.
 	 */
 	private void bindTextFieldEtProgress() {
-		bindProgressBar(progressBar, hboxProgressBar);
 
 		textFieldTempsUnBit.textProperty().addListener(new ChangeListener<String>() {
 			@Override
