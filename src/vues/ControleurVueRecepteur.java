@@ -101,6 +101,17 @@ public class ControleurVueRecepteur extends Vue {
 	private boolean validCalibrerZeros = false;
 
 	/**
+	 * Construit un controleurVueRecepteur en instanciant un EcouteurDeReception.
+	 */
+	public ControleurVueRecepteur() {
+		try {
+			ecouteur = new EcouteurDeReception();
+		} catch (Exception e) {
+			afficherErreur("écoute", "une erreur est survenue lors de l'écoute", e);
+		}
+	}
+
+	/**
 	 * Initialise la couleur du bouton Envoyer.
 	 */
 	public void initCouleurRecepteur() {
@@ -152,11 +163,6 @@ public class ControleurVueRecepteur extends Vue {
 					@Override
 					public void run() {
 						try {
-							try {
-								ecouteur = new EcouteurDeReception();
-							} catch (Exception e1) {
-								e1.printStackTrace();
-							}
 							ecouteur.ecouter((long) (tempsReception.get() * 1000));
 							ecouteur.reconstruire(dureeIntervalleBit.get() * 1000);
 							PasserelleFichier.ecrireOctets(ecouteur.getReconstitueur().getRepresentationBinaire(),
@@ -217,6 +223,11 @@ public class ControleurVueRecepteur extends Vue {
 			threadEcoute.stop();
 			animProgress.stopProgressAnim();
 			ajoutLabel(new Label("Arrêt de l'écoute..."), vboxMessages);
+			try {
+				ecouteur = new EcouteurDeReception();
+			} catch (Exception e) {
+				afficherErreur("écoute", "une erreur est survenue lors de l'écoute", e);
+			}
 		}
 	}
 
