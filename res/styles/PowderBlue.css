@@ -27,7 +27,7 @@
 
     #btns:hover {
         -fx-background-color: -fx-couleurFond;
-        -fx-border-color: white;
+        -fx-border-color: -fx-couleurBordures;
     }
 
 #btnAction {
