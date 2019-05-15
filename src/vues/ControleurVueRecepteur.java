@@ -152,44 +152,51 @@ public class ControleurVueRecepteur extends Vue {
 	 */
 	@FXML
 	private void clickedBtnEcouter(ActionEvent event) {
-		if (file != null) {
-			if ((threadEcoute != null) && (threadEcoute.isAlive())) {
-				afficherErreur("écoute", "un message est déjà en écoute");
-			}
-			if (tempsReception.get() == 0) {
-				afficherErreur("manque de données", "il faut sélectionner un tems de reception anvant d'enregistrer");
-			} else {
-				threadEcoute = new Thread(new Runnable() {
-					@Override
-					public void run() {
-						try {
-							ecouteur.ecouter((long) (tempsReception.get() * 1000));
-							ecouteur.reconstruire(dureeIntervalleBit.get() * 1000);
-							PasserelleFichier.ecrireOctets(ecouteur.getReconstitueur().getRepresentationBinaire(),
-									file);
-
-							if (getExtensionFichier(file).contentEquals("text/plain")) {
+		if (validSelect) {
+			if (validTFInterv && validTFMarge && validTFTemps) {
+				if (validCalibrerUn && validCalibrerZeros) {
+					if ((threadEcoute != null) && (threadEcoute.isAlive())) {
+						afficherErreur("l'écoute", "Un message est déjà en écoute...");
+					} else {
+						threadEcoute = new Thread(new Runnable() {
+							@Override
+							public void run() {
 								try {
-									textFieldResultat.setText(PasserelleFichier.lireLignes(file).get(0));
-								} catch (IOException e) {
-									System.out.println(
-											"Erreur lors de la lecture d'un fichier et l'afficahge du contenu...");
-									e.printStackTrace();
+									ecouteur.ecouter((long) (tempsReception.get() * 1000));
+									ecouteur.reconstruire(dureeIntervalleBit.get() * 1000);
+									PasserelleFichier.ecrireOctets(ecouteur.getReconstitueur().getRepresentationBinaire(),
+											file);
+
+									if (getExtensionFichier(file).contentEquals("text/plain")) {
+										try {
+											textFieldResultat.setText(PasserelleFichier.lireLignes(file).get(0));
+										} catch (IOException e) {
+											System.out.println(
+													"Erreur lors de la lecture d'un fichier et l'afficahge du contenu...");
+											e.printStackTrace();
+										}
+									} else {
+										System.out.println("non");
+										System.out.println(getExtensionFichier(file));
+									}
+								} catch (IllegalStateException | LineUnavailableException | InterruptedException | IOException
+										| UnsupportedAudioFileException ex) {
+									ex.printStackTrace();
 								}
-							} else {
-								System.out.println("non");
-								System.out.println(getExtensionFichier(file));
 							}
-						} catch (IllegalStateException | LineUnavailableException | InterruptedException | IOException
-								| UnsupportedAudioFileException ex) {
-							ex.printStackTrace();
-						}
+						});
+						threadEcoute.start();
+						ajoutLabel(new Label("Écoute en cours..."), vboxMessages);
+						animProgress = new AnimationProgressBar(progressBar, tempsReception.get() * 1000, 0.001);
 					}
-				});
-				threadEcoute.start();
-				ajoutLabel(new Label("Écoute en cours..."), vboxMessages);
-				animProgress = new AnimationProgressBar(progressBar, tempsReception.get() * 1000, 0.001);
+				} else {
+					afficherErreur("l'écoute (Calibration)", "Il faut calibrer les uns et les zéros avant d'écouter...");
+				}
+			} else {
+				afficherErreur("l'écoute (Valeurs entrées)", "Il faut entrer des valeurs valides avant d'écouter...");
 			}
+		} else {
+			afficherErreur("l'écoute (Fichier manquant)", "Il faut d'abord sélectionner un fichier avant d'écouter...");
 		}
 	}
 
@@ -292,6 +299,9 @@ public class ControleurVueRecepteur extends Vue {
 					tempsReception.set(0);
 					validTFTemps = false;
 				}
+				if (tempsReception.get() == 0) {
+					validTFTemps = false;
+				}
 				actualiserValidation();
 			}
 		});
@@ -307,6 +317,9 @@ public class ControleurVueRecepteur extends Vue {
 					dureeIntervalleBit.set(0);
 					validTFInterv = false;
 				}
+				if (dureeIntervalleBit.get() == 0) {
+					validTFInterv = false;
+				}
 				actualiserValidation();
 			}
 		});
@@ -320,6 +333,9 @@ public class ControleurVueRecepteur extends Vue {
 					validTFMarge = true;
 				} else {
 					margeAmplitude.set(0);
+					validTFMarge = false;
+				}
+				if (margeAmplitude.get() == 0) {
 					validTFMarge = false;
 				}
 				actualiserValidation();

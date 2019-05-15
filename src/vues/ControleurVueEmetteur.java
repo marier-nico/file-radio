@@ -190,6 +190,10 @@ public class ControleurVueEmetteur extends Vue {
 				ajoutLabel(new Label("Envoi en cours de " + getEmplacementFichierSelct(fileTemp) + "..."),
 						vboxMessages);
 			}
+		} else if ((validEnreg == false) && (validSelect == false)) {
+			afficherErreur("l'écoute (Fichier manquant)", "Il faut d'abord sélectionner un fichier avant d'envoyer...");
+		} else if (!validTextField) {
+			afficherErreur("l'écoute (Vitesse invalide)", "Il faut d'abord sélectionner une vitesse valide avant d'envoyer...");
 		}
 	}
 
@@ -326,6 +330,9 @@ public class ControleurVueEmetteur extends Vue {
 					}
 				} else {
 					dureeIntervalleBit.set(0);
+					validTextField = false;
+				}
+				if (dureeIntervalleBit.get() == 0) {
 					validTextField = false;
 				}
 				actualiserValidation();
