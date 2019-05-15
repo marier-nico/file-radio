@@ -8,6 +8,7 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 
 import javafx.beans.property.FloatProperty;
@@ -73,7 +74,7 @@ public class ControleurVueRecepteur extends Vue {
 	private JFXTextField textFieldInterv;
 
 	@FXML
-	private JFXTextField textFieldResultat;
+	private JFXTextArea textAreaResultat;
 
 	@FXML
 	private JFXTextField textFieldMarge;
@@ -169,7 +170,7 @@ public class ControleurVueRecepteur extends Vue {
 
 									if (getExtensionFichier(file).contentEquals("text/plain")) {
 										try {
-											textFieldResultat.setText(PasserelleFichier.lireLignes(file).get(0));
+											textAreaResultat.setText(PasserelleFichier.lireLignes(file).get(0));
 										} catch (IOException e) {
 											System.out.println(
 													"Erreur lors de la lecture d'un fichier et l'afficahge du contenu...");

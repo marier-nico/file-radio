@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -153,10 +154,10 @@
       </VBox>
    </center>
    <top>
-      <JFXTextField fx:id="textFieldResultat" alignment="BOTTOM_CENTER" editable="false" focusColor="WHITE" prefHeight="47.0" prefWidth="1255.0" promptText="Le message apparaîra ici..." unFocusColor="#63d36a" BorderPane.alignment="CENTER">
+      <JFXTextArea fx:id="textAreaResultat" editable="false" focusColor="WHITE" prefHeight="20.0" prefWidth="1255.0" promptText="Le message apparaîra ici..." unFocusColor="#63d36a" BorderPane.alignment="CENTER">
          <font>
             <Font size="16.0" />
          </font>
-      </JFXTextField>
+      </JFXTextArea>
    </top>
 </BorderPane>
