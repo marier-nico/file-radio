@@ -76,7 +76,7 @@ public class Vue {
 	 * @return
 	 */
 	public String getEmplacementFichierSelct(File file) {
-		String retour = "Rien";
+		String retour = "Rien...";
 		if (file != null) {
 			retour = file.getAbsolutePath();
 		}
@@ -105,7 +105,7 @@ public class Vue {
 	 * @param detail
 	 */
 	public void afficherErreur(String emplacement, String detail) {
-		Alert erreur = new Alert(AlertType.ERROR);
+		Alert erreur = new Alert(AlertType.WARNING);
 		erreur.setHeaderText("Erreur dans " + emplacement);
 		erreur.setContentText(detail);
 		erreur.setTitle("Erreur");
